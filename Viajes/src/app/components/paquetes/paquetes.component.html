@@ -1,0 +1,144 @@
+<div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
+    <div class="carousel-inner">
+      <div class="carousel-item active" >
+        <a href="https://www.fravega.com/"><img src="https://images.fravega.com/f300/67bf5d4db72878af79d91a59d191d7e2.png.webp" width="70" height="200" class="d-block w-100" alt="..."></a>
+        
+      </div>
+      <div class="carousel-item">
+        <a href="https://www.garbarino.com/"><img src="https://d34zlyc2cp9zm7.cloudfront.net/main_carousel/cd1d7b3b4000ade3b2f1af4209af7cbf.webp" width="70" height="200" class="d-block w-100" alt="..."></a>
+      </div>
+    </div>
+    <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
+      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+      <span class="sr-only">Previous</span>
+    </a>
+    <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
+      <span class="carousel-control-next-icon" aria-hidden="true"></span>
+      <span class="sr-only">Next</span>
+    </a>
+</div>
+<div class="row ">
+    <div class="col-12 "  >
+      <div class="row">
+
+        <div class="col-md-12 col-lg-12" *ngFor="let item of listaPaquetes" >
+            <div class="card"  >
+                <div class="card-header titulocard "  >
+                    <h2 class="card-title ">{{item.destino}}</h2>
+                    
+                </div>
+                <div class="card-body" >
+                    <div class="row no-gutters">
+                        <div class="col-md-4">
+                            <img src="{{item.imagen}}" class="card-img" alt="...">
+                        </div>
+                        
+                        <div class="card-body col-md-8">
+                          <h4>Fecha de Salida: {{item.fechaS}} </h4>
+                          <h4>Fecha de Vuelta:{{item.fechaV}} </h4>
+                          <h4>Cantidad de Personas: {{item.cantPersonas}}</h4>
+                          <h2>Precio: {{item.precio}} $</h2> 
+                          
+                          <div class="card-footer">
+                            <button type="button" class="btn btn-outline-success"  (click)="elegirPaquete(item);modal.open(reserva, { scrollable: true })" >Comprar</button>
+                            <button type="button" class="btn btn-outline-primary" (click)="elegirPaquete(item);modal.open(mostrar,{ size : 'xl' })">Ver Mas</button>
+                          </div>
+                        </div>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>    
+    </div>
+</div>
+<ng-template #mostrar let-modal >
+  <div class="modal-header" >
+      <h4>{{paq.destino}}</h4>
+      <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="modal.close()">
+        <span aria-hidden="true">&times;</span>
+      </button>
+  </div>
+  <div class="modal-body">
+    <div class="card">
+      <div class="card-body" >
+          <div class="row no-gutters">
+              <div class="col-md-6">
+                  <img src="{{paq.imagen}}" class="card-img" alt="...">
+              </div>
+              
+              <div class="card-body col-md-6">
+                <h4>Fecha de Salida: {{paq.fechaS}} </h4>
+                <h4>Fecha de Vuelta:{{paq.fechaV}} </h4>
+                <h4>Cantidad de Personas: {{paq.cantPersonas}}</h4>
+                <h4>Alojamiento: {{paq.alojamiento}}</h4>
+                <h4>Transporte: {{paq.transporte}}</h4>
+                <h4>Estadia: {{paq.estadia}}</h4>
+                <h4>Descripcion: </h4>
+                <h4>{{paq.descripcion}}</h4>
+                <h2>Precio: {{paq.precio}} $</h2>                             
+              </div>
+              
+          </div>
+      </div>
+  </div>
+
+  </div>
+  <div class="modal-footer">
+      <button type="button" class="btn btn-outline-danger" (click)="modal.close()">Cerrar</button>
+  </div>
+  
+</ng-template>
+
+<ng-template #reserva let-modal>
+  <div class="modal-header">
+      <h4>Crear</h4>
+      <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="modal.close()">
+        <span aria-hidden="true">&times;</span>
+      </button>
+  </div>
+  <div class="modal-body">
+    <div class="form-group">
+      <label for="inputDestino1">Nombre</label>
+      <input type="text" class="form-control" id="inputDestinoModel1" placeholder="Ingrese el Destino" name="destinoModel1" [(ngModel)]="resv.nombre">
+    </div>
+    <div class="form-group">
+      <label for="formImagen1">Apellido</label>
+      <input type="text" class="form-control" id="formImagenModel1" placeholder="Url de la imagen" name="imagenModel1" [(ngModel)]="resv.apellido">
+    </div>
+    <div class="form-group">
+      <label for="formPrecio1">Email</label>
+      <input type="text" class="form-control" id="formPrecioModel1" placeholder="Precio" name="precioModel1" [(ngModel)]="resv.email">
+    </div>
+    <div class="form-group">
+      <label for="formDe1">DNI</label>
+      <input type="text" class="form-control" id="formDeModel1" placeholder="Ingrese fecha de ida" name="idaModel1" [(ngModel)]="resv.dni">
+    </div>
+    <div class="form-group">
+      <label for="formHasta1">Domicilio</label>
+      <input type="text" class="form-control" id="formHastaModel1" placeholder="Ingrese fecha de vuelta" name="vueltaModel1" [(ngModel)]="resv.domicilio">
+    </div>
+    <div class="form-group">
+      <label for="formAloj1">Codigo de Area</label>
+      <input type="number" class="form-control" id="formAlojModel1" placeholder="Codigo de Area" name="alojModel1" [(ngModel)]="resv.codArea">
+    </div>
+    <div class="form-group">
+      <label for="formTrans1">Numero de Ticket</label>
+      <input type="number" class="form-control" id="formTransModel1" placeholder="Seleccione el tipo Transporte" name="transModel1" [(ngModel)]="resv.numTicket">
+    </div>
+    <div class="form-group">
+      <label for="formEstadia1">Numero de Telefono</label>
+      <input type="number" class="form-control" id="formEstadiaModel1" placeholder="Estadia" name="estadiaModel1" [(ngModel)]="resv.numTelefono">
+    </div>
+
+  </div>
+  <div class="modal-footer">
+      <button type="button" class="btn btn-outline-success"  (click)="agregarReserva()" (click)="modal.close()">Guardar Cambios</button>
+      <button type="button" class="btn btn-outline-danger" (click)="modal.close()">Cancelar</button>
+  </div>
+</ng-template>
+
+
+<div class="modal-dialog modal-dialog-scrollable">
+
+</div>

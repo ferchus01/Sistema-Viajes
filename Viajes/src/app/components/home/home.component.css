@@ -1,0 +1,117 @@
+offers-row {
+    margin: 0 auto;
+    position: relative;
+    max-width: 1280px;
+}
+.card-carousel[_ngcontent-xfh-c4] {
+    display: flex;
+    padding: 30px 0;
+    width: 100%;
+}
+swiper {
+    width: 100%;
+    display: block;
+    position: relative;
+}
+swiper .swiper-content {
+    overflow: hidden;
+}
+swiper .swiper-scroller {
+    display: flex;
+    transition: margin-left .5s;
+}
+.card-item{
+    margin-left: 0;
+    flex: 0 0 269px;
+}
+.card-carousel[_ngcontent-xfh-c4] .card-item[_ngcontent-xfh-c4] a[_ngcontent-xfh-c4] {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    box-sizing: border-box;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    height: 100%;
+    text-decoration: none;
+    color: inherit;
+}
+line-hover, .-eva-3-shadow-static-hover, .eva-3-shadow {
+    transition: box-shadow .2s ease-out;
+}
+.card-carousel[_ngcontent-xfh-c4] .card-item[_ngcontent-xfh-c4] .div-card-img[_ngcontent-xfh-c4] {
+    border-radius: 8px 8px 0 0;
+    height: 200px;
+    background-size: cover;
+    background-position: center;
+}
+.card-carousel[_ngcontent-xfh-c4] .card-item[_ngcontent-xfh-c4] .div-card-img[_ngcontent-xfh-c4] .card-img[_ngcontent-xfh-c4] {
+    width: 100%;
+    height: 100%;
+    border-radius: 8px 8px 0 0;
+    background-color: #ccc;
+}
+.card-carousel[_ngcontent-xfh-c4] .card-item[_ngcontent-xfh-c4] .card-content[_ngcontent-xfh-c4] .card-title[_ngcontent-xfh-c4] {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: block;
+    width: 100%;
+    box-sizing: border-box;
+    color: #666;
+}
+.card-carousel[_ngcontent-xfh-c4] .card-item[_ngcontent-xfh-c4] .card-content[_ngcontent-xfh-c4] .card-description-txt[_ngcontent-xfh-c4] {
+    font-size: 24px;
+    line-height: 28px;
+    max-height: 58px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    color: #444;
+}
+.card-carousel[_ngcontent-xfh-c4] .card-item[_ngcontent-xfh-c4] .pricebox-content[_ngcontent-xfh-c4] {
+    padding: 16px;
+    height: 75px;
+    position: relative;
+    background-color: #fff;
+    border-top: 1px solid #ccc;
+    box-sizing: border-box;
+    border-radius: 0 0 8px 8px;
+}
+.eva-3-caption {
+    font-size: 12px;
+    line-height: 1.33334;
+}
+.card-carousel[_ngcontent-xfh-c4] .card-item[_ngcontent-xfh-c4] .pricebox-content[_ngcontent-xfh-c4] .price-h6[_ngcontent-xfh-c4] {
+    font-weight: 400!important;
+}
+.eva-3-h3 {
+    font-size: 24px;
+    line-height: 1.33334;
+}
+.eva-3-h6 {
+    font-size: 14px;
+    letter-spacing: .1px;
+    line-height: 1.4286;
+}
+swiper .eva-3-nav-slider.-right {
+    right: -15px;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: #fff;
+    border: 1px solid #ccc;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    color: #666;
+    text-align: center;
+    cursor: pointer;
+    width: 48px;
+    height: 48px;
+}
+.eva-3-nav-slider.-sm .nav-slider-icon.eva-3-icon-arrow-right {
+    margin-right: -2px;
+}

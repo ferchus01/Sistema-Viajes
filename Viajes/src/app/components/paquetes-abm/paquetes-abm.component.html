@@ -1,0 +1,157 @@
+<div class="row ">
+    <button type="button" class="btn btn-outline-success" (click)="modal.open(crear)">Crear Paquete</button>
+  <div class="col-12 "  >
+    <div class="row">
+
+      <div class="col-md-12 col-lg-12" *ngFor="let item of listaPaquetes" >
+          <div class="card"  >
+              <div class="card-header titulocard "  >
+                  <h2 class="card-title ">{{item.destino}}</h2>
+                  
+              </div>
+              <div class="card-body" >
+                  <div class="row no-gutters">
+                      <div class="col-md-4">
+                          <img src="{{item.imagen}}" class="card-img" alt="...">
+                      </div>
+                      
+                      <div class="card-body col-md-8">
+                        
+                        <h4>De: {{item.fechaS}}  Hasta:{{item.fechaV}} </h4>
+                        <h4>Alojamiento: {{item.alojamiento}}</h4>
+                        <h4>Transporte: {{item.transporte}}</h4>
+                        <h4>Descripcion: </h4>
+                        <h4>{{item.descripcion}}</h4>
+                        <h4>Estadia: {{item.estadia}}</h4>
+                        <h4>Cantidad de Personas: {{item.cantPersonas}}</h4>
+                        <h3>Precio: {{item.precio}} </h3> 
+
+                        <div class="card-footer">
+                        <button type="button" class="btn btn-outline-primary" (click)="elegirPaquete(item);modal.open(modificar)">Modificar</button>
+                        <button type="button" class="btn btn-outline-danger" (click)="eliminarPaquete(item)">Eliminar</button>
+                      </div>                               
+                      </div>
+                      
+                  </div>
+              </div>
+          </div>
+      </div>
+  </div>    
+  </div>
+</div>
+<ng-template #modificar let-modal>
+<div class="modal-header">
+    <h4>Modificar</h4>
+    <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="modal.close()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+<div class="modal-body">
+  <div class="form-group">
+    <label for="inputDestino">Destino</label>
+    <input type="text" class="form-control" id="inputDestinoModel" placeholder="Ingrese el Destino" name="destinoModel" [(ngModel)]="paq.destino">
+  </div>
+  <div class="form-group">
+    <label for="formImagen">Imagen</label>
+    <input type="text" class="form-control" id="formImagenModel" placeholder="Url de la imagen" name="imagenModel" [(ngModel)]="paq.imagen">
+  </div>
+  <div class="form-group">
+    <label for="formPrecio">Precio</label>
+    <input type="number" class="form-control" id="formPrecioModel" placeholder="Precio" name="precioModel" [(ngModel)]="paq.precio">
+  </div>
+  <div class="form-group">
+    <label for="formDe">De</label>
+    <input type="date" class="form-control" id="formDeModel" placeholder="Ingrese fecha de ida" name="idaModel" [(ngModel)]="paq.fechaS">
+  </div>
+  <div class="form-group">
+    <label for="formHasta">Hasta</label>
+    <input type="date" class="form-control" id="formHastaModel" placeholder="Ingrese fecha de vuelta" name="vueltaModel" [(ngModel)]="paq.fechaV">
+  </div>
+  <div class="form-group">
+    <label for="formAloj">Alojamiento</label>
+    <input type="text" class="form-control" id="formAlojModel" placeholder="Lugar de Alojamiento" name="alojModel" [(ngModel)]="paq.alojamiento">
+  </div>
+  <div class="form-group">
+    <label for="formTrans">Transporte</label>
+    <input type="text" class="form-control" id="formTransModel" placeholder="Seleccione el tipo Transporte" name="transModel" [(ngModel)]="paq.transporte">
+  </div>
+  <div class="form-group">
+    <label for="formEstadia">Estadia</label>
+    <input type="number" class="form-control" id="formEstadiaModel" placeholder="Estadia" name="estadiaModel" [(ngModel)]="paq.estadia">
+  </div>
+  <div class="form-group">
+    <label for="formCant">Cant Personas</label>
+    <input type="number" class="form-control" id="formCantModel" placeholder="Cantidad de Personas" name="cantModel" [(ngModel)]="paq.cantPersonas">
+  </div>
+  <div class="form-group">
+    <label for="formDes">Descripcion</label>
+    <input type="text" class="form-control" id="formDesModel" placeholder="Descripcion" name="desModel" [(ngModel)]="paq.descripcion">
+  </div>
+
+</div>
+<div class="modal-footer">
+    <button type="button" class="btn btn-outline-success"  (click)="modificarPaquete()" (click)="modal.close()">Guardar Cambios</button>
+    <button type="button" class="btn btn-outline-danger" (click)="modal.close()">Cancelar</button>
+</div>
+</ng-template>
+
+<ng-template #crear let-modal>
+<div class="modal-header">
+    <h4>Crear</h4>
+    <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="modal.close()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+<div class="modal-body">
+  <div class="form-group">
+    <label for="inputDestino1">Destino</label>
+    <input type="text" class="form-control" id="inputDestinoModel1" placeholder="Ingrese el Destino" name="destinoModel1" [(ngModel)]="paq.destino">
+  </div>
+  <div class="form-group">
+    <label for="formImagen1">Imagen</label>
+    <input type="text" class="form-control" id="formImagenModel1" placeholder="Url de la imagen" name="imagenModel1" [(ngModel)]="paq.imagen">
+  </div>
+  <div class="form-group">
+    <label for="formPrecio1">Precio</label>
+    <input type="number" class="form-control" id="formPrecioModel1" placeholder="Precio" name="precioModel1" [(ngModel)]="paq.precio">
+  </div>
+  <div class="form-group">
+    <label for="formDe1">De</label>
+    <input type="date" class="form-control" id="formDeModel1" placeholder="Ingrese fecha de ida" name="idaModel1" [(ngModel)]="paq.fechaS">
+  </div>
+  <div class="form-group">
+    <label for="formHasta1">Hasta</label>
+    <input type="date" class="form-control" id="formHastaModel1" placeholder="Ingrese fecha de vuelta" name="vueltaModel1" [(ngModel)]="paq.fechaV">
+  </div>
+  <div class="form-group">
+    <label for="formAloj1">Alojamiento</label>
+    <input type="text" class="form-control" id="formAlojModel1" placeholder="Lugar de Alojamiento" name="alojModel1" [(ngModel)]="paq.alojamiento">
+  </div>
+  <div class="form-group">
+    <label for="formTrans1">Transporte</label>
+    <input type="text" class="form-control" id="formTransModel1" placeholder="Seleccione el tipo Transporte" name="transModel1" [(ngModel)]="paq.transporte">
+  </div>
+  <div class="form-group">
+    <label for="formEstadia1">Estadia</label>
+    <input type="number" class="form-control" id="formEstadiaModel1" placeholder="Estadia" name="estadiaModel1" [(ngModel)]="paq.estadia">
+  </div>
+  <div class="form-group">
+    <label for="formCant">Cant Personas</label>
+    <input type="number" class="form-control" id="formCantModel1" placeholder="Cantidad de Personas" name="cantModel" [(ngModel)]="paq.cantPersonas">
+  </div>
+  <div class="form-group">
+    <label for="formDes1">Descripcion</label>
+    <input type="text" class="form-control" id="formDesModel1" placeholder="Descripcion" name="desModel1" [(ngModel)]="paq.descripcion">
+  </div>
+
+</div>
+<div class="modal-footer">
+    <button type="button" class="btn btn-outline-success"  (click)="agregarPaquete()" (click)="modal.close()">Guardar Cambios</button>
+    <button type="button" class="btn btn-outline-danger" (click)="modal.close()">Cancelar</button>
+</div>
+</ng-template>
+
+
+<div class="modal-dialog modal-dialog-scrollable">
+
+</div>
