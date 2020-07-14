@@ -3,7 +3,7 @@ const Paquete = require('../models/paquete');
 const PaqueteCtrl={};
 
 PaqueteCtrl.getPaquete = async(req,res)=>{
-    paquet = await Paquete.find();
+    paquet = await Paquete.find().populate("transporte").populate("alojamiento");
     res.json(paquet);
 }
 
