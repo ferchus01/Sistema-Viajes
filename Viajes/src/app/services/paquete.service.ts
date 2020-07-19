@@ -8,7 +8,7 @@ import { Paquete } from '../models/paquete';
 })
 export class PaqueteService {
 
-  urlBase:string ="http://localhost:3000/api/paquete/";
+  urlBase:string ="http://localhost:3000/api/Paquete/";
 
   constructor(private _http:HttpClient) { }
 
@@ -19,7 +19,7 @@ export class PaqueteService {
       })
     };
     var body=JSON.stringify(paq);
-    return this._http.post(this.urlBase,body ,httpOptions);
+    return this._http.post(this.urlBase, body ,httpOptions);
   }
   
   public actualizarT():Observable<any>{
@@ -38,8 +38,7 @@ export class PaqueteService {
         
       })
     };
-    
-    return this._http.delete(this.urlBase+paq._id,httpOptions);
+    return this._http.delete(this.urlBase+paq.id,httpOptions);
   }
   
   public modificar(paq:Paquete):Observable<any>{
@@ -49,6 +48,6 @@ export class PaqueteService {
       })
     };
     var body=JSON.stringify(paq);
-    return this._http.put(this.urlBase+paq._id, body ,httpOptions); 
+    return this._http.put(this.urlBase+paq.id, body ,httpOptions); 
   }
 }

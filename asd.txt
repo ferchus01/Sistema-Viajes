@@ -1,0 +1,10 @@
+npm install @angular/animations --save
+npm install --save @fortawesome/fontawesome-free
+npm install popper.js --save
+ng add @ng-bootstrap/ng-bootstrap
+npm install ngx-ckeditor --save
+npm install ngx-pagination --save
+npm install jquery --save
+npm install ngx-toastr --save
+npm install bootstrap --save
+npm install --save  angular-9-datatable

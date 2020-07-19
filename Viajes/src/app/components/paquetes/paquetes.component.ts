@@ -32,32 +32,27 @@ export class PaquetesComponent implements OnInit {
       (result)=>{
         Object.assign(this.listaPaquetes,result);
       }
-    )
-    this.toastr.success('paquetes Cargados','Confirmado')
-    console.log(this.listaPaquetes);
+    );
   }
   
   public elegirPaquete(paquete:Paquete){
-    this.paq = paquete;
+    Object.assign(this.paq , paquete);
   }
   public agregarReserva(){
     var f=new Date();
-    this.resv.fecha=f.toDateString();
+    this.resv.fecha=f;
     this.resv.paquete=this.paq;
-     
     this.rs.agregarResv(this.resv).subscribe(
       (result)=>{
         this.toastr.success('Reservado Correctamente','Confirmado')
+        this.paq=new Paquete();
+        this.resv=new Reserva();
+        this.actualizarTabla();
       },
       (error)=>{
         this.toastr.error('no se pudo Reservar el Paquete','Error')
-        console.log(error);
       }
       );
-      console.log(this.paq);
-      this.paq=new Paquete();
-      this.resv=new Reserva();
-      this.actualizarTabla();
   }
 
   public agregarPaquete(){
@@ -65,6 +60,8 @@ export class PaquetesComponent implements OnInit {
     this.ps.agregarAsis(this.paq).subscribe(
       (result)=>{
         this.toastr.success('Paquete Creado Correctamente','Confirmado')
+        this.paq=new Paquete();
+        this.actualizarTabla();
       },
       (error)=>{
         this.toastr.error('no se pudo crear un paquete','Error')
@@ -72,35 +69,36 @@ export class PaquetesComponent implements OnInit {
       }
       );
       console.log(this.paq);
-      this.paq=new Paquete();
-      this.actualizarTabla();
+
   }
 
   public eliminarPaquete(paquete:Paquete){
     this.ps.EliminarA(paquete).subscribe(
       (result)=>{
         this.toastr.success('Paquete Eliminado Correctamente','Confirmado')
+        this.actualizarTabla();
       },
       (error)=>{
         this.toastr.error('no se pudo eliminar el paquete','Error')
         console.log(error);
       }
     )
-    this.actualizarTabla();
+
   }
 
   public modificarPaquete(){
     this.ps.modificar(this.paq).subscribe(
       (result)=>{
         this.toastr.info('Paquete Modificado Correctamente','Confirmado')
+        this.paq=new Paquete();
+        this.actualizarTabla();
       },
       (error)=>{
         this.toastr.error('no se pudo modificar el paquete','Error')
         console.log(error);
       }
     )
-    this.paq=new Paquete();
-    this.actualizarTabla();
+
   }
 
 }

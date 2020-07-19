@@ -11,13 +11,13 @@ UsuarioCtrl.crearUsuario =async(req,res)=>{
     const usua = new Usuario (req.body);
     await usua.save();
     res.json({
-        'status':'Paquete Agregado'
+        'status':'Usuario Agregado'
     })
 }
 UsuarioCtrl.deleteUsuario = async (req, res)=>{
     await Usuario.findByIdAndRemove(req.params.id)
     res.json({
-        status: 'Paquete Eliminado'
+        status: 'Usuario Eliminado'
     })
 }
 
@@ -26,7 +26,7 @@ UsuarioCtrl.editUsuario = async (req, res) => {
 
     await Usuario.findByIdAndUpdate(req.params.id, {$set: usua}, {new: true});
     res.json({
-        'status': 'Paquete Modificado'
+        'status': 'Usuario Modificado'
     })
 }
 module.exports=UsuarioCtrl;

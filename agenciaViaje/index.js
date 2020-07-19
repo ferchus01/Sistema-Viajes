@@ -9,7 +9,7 @@ app.use(express.json({limit : '50mb'}));
 app.use(cors({origin: 'http://localhost:4200'}));
 
 //Cargamos el modulo de direccionamiento de rutas para puntos
-app.use('/api/gestionarPaquetes', require('./routes/paquete.route'));
+app.use('/api/paquete', require('./routes/paquete.route'));
 app.use('/api/usuario', require('./routes/usuario.route'));
 app.use('/api/reserva', require('./routes/reserva.route'));
 app.use('/api/tipousuario', require('./routes/tipousuario.route'));
