@@ -29,4 +29,37 @@ UsuarioCtrl.editUsuario = async (req, res) => {
         'status': 'Usuario Modificado'
     })
 }
+UsuarioCtrl.loginUsuario = async (req, res)=>{
+    //en req.body se espera que vengan las credenciales de login
+    //defino los criterios de busqueda en base al username y password recibidos
+    const criteria = {
+        nombreusuario: req.body.nombreusuario,
+        password: req.body.password,
+    } 
+    //el método findOne retorna un objeto que cumpla con los criterios de busqueda
+    Usuario.findOne(criteria, function(err, user) {
+
+       //el método findOne retorna un objeto que cumpla con los criterios de busqueda
+        if (err) {
+            res.json({
+                status: 0,
+                message: 'error'})
+        };
+        if (!user) {
+            res.json({
+                status: 0,
+                message: "not found" })
+        } else {
+            res.json({
+                status: 1,
+                message: "success",
+                nombreusuario: user.nombreusuario,
+                tipoUsuario:{
+                descripcion: user.tipousuario.descripcion
+                },
+                _id: user._id
+                    });
+            }
+    }).populate('tipousuario');
+}
 module.exports=UsuarioCtrl;

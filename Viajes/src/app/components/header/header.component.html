@@ -7,24 +7,26 @@
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav mr-auto">
         <li class="nav-item active">
-          <a class="nav-link" [routerLink]="['home']" >Home<span class="sr-only">(current)</span></a>
+          <a class="nav-link" [routerLink]="['home']"  >Home<span class="sr-only">(current) </span></a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" [routerLink]="['paquetes']" >Paquetes</a>
+          <a class="nav-link" [routerLink]="['paquetes']"*ngIf="usuarioService.usuarioLogeado.tipoUsuario&& usuarioService.usuarioLogeado.tipoUsuario.descripcion == 'agente'">Paquetes</a>
         </li>
-        <li class="nav-item" *ngIf="log==false"  >
-          <a class="nav-link" [routerLink]="['paquetesAbm']" >ABM Paquetes</a>
+        <li class="nav-item" *ngIf=" usuarioService.usuarioLogeado.tipoUsuario.descripcion=='agente'"  >
+          <a class="nav-link" [routerLink]="['paquetesAbm']"  >ABM Paquetes</a>
         </li>
         <li class="nav-item" *ngIf="log==true">
           <a class="nav-link"  >Punto4</a>
         </li>
         
       </ul>
-      <form class="form-inline my-2 my-lg-0">
-        <input class="form-control mr-sm-2" type="text" placeholder="Usuario" aria-label="Usuario">
-        <input class="form-control mr-sm-2" type="password" placeholder="Contraseña" aria-label="Contraseña">
-        <button class="btn btn-outline-success my-2 my-sm-0" type="button">Ingresar</button>
-        <button class="btn btn-outline-primary my-2 my-sm-0" type="button">Registrarse</button>
+      <form class="form-inline my-2 my-lg-0" *ngIf="!usuarioService.usuariologIn">
+        <input class="form-control mr-sm-2" type="text" placeholder="Usuario" aria-label="Usuario" name="nombreusuario" [(ngModel)]="usuarioLoageado.nombreusuario">
+
+        <input class="form-control mr-sm-2" type="password" placeholder="Contraseña" aria-label="Contraseña" name="password" [(ngModel)]="usuarioLoageado.password">
+        <button class="btn btn-outline-success my-2 my-sm-0" type="button"(click)="login()" >Ingresar</button>
+        <button class="btn btn-outline-primary my-2 my-sm-0" type="button" >Registrarse</button>
       </form>
+      <button class="btn btn-outline-primary my-2 my-sm-0" type="button" *ngIf="usuarioService.usuariologIn" (click)="cerrarSession()">salir</button>
     </div>
   </nav>

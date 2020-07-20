@@ -8,33 +8,33 @@ export class Promocion {
     public set id(value: string) {
         this._id = value;
     }
-    private _descuento: number;
-    public get descuento(): number {
-        return this._descuento;
+    private descuento: number;
+    public get _descuento(): number {
+        return this.descuento;
     }
-    public set descuento(value: number) {
-        this._descuento = value;
+    public set _descuento(value: number) {
+        this.descuento = value;
     }
-    private _diasDeRegalo: number;
-    public get diasDeRegalo(): number {
-        return this._diasDeRegalo;
+    private diasDeRegalo: number;
+    public get _diasDeRegalo(): number {
+        return this.diasDeRegalo;
     }
-    public set diasDeRegalo(value: number) {
-        this._diasDeRegalo = value;
+    public set _diasDeRegalo(value: number) {
+        this.diasDeRegalo = value;
     }
-    private _puntosDeRegalo: number;
-    public get puntosDeRegalo(): number {
-        return this._puntosDeRegalo;
+    private puntosDeRegalo: number;
+    public get _puntosDeRegalo(): number {
+        return this.puntosDeRegalo;
     }
-    public set puntosDeRegalo(value: number) {
-        this._puntosDeRegalo = value;
+    public set _puntosDeRegalo(value: number) {
+        this.puntosDeRegalo = value;
     }
-    private _paqueteTuristico: Paquete;
-    public get paqueteTuristico(): Paquete {
-        return this._paqueteTuristico;
+    private paqueteTuristico: Paquete;
+    public get _paqueteTuristico(): Paquete {
+        return this.paqueteTuristico;
     }
-    public set paqueteTuristico(value: Paquete) {
-        this._paqueteTuristico = value;
+    public set _paqueteTuristico(value: Paquete) {
+        this.paqueteTuristico = value;
     }
 
     constructor()

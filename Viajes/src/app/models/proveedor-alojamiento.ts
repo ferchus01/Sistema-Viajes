@@ -7,51 +7,52 @@ export class ProveedorAlojamiento {
     public set id(value: string) {
         this._id = value;
     }
-    private _nombre: string;
-    public get nombre(): string {
-        return this._nombre;
+    private nombre: string;
+    public get _nombre(): string {
+        return this.nombre;
     }
-    public set nombre(value: string) {
-        this._nombre = value;
+    public set _nombre(value: string) {
+        this.nombre = value;
     }
-    private _ubicacion: string;
-    public get ubicacion(): string {
-        return this._ubicacion;
+    private ubicacion: string;
+    public get _ubicacion(): string {
+        return this.ubicacion;
     }
-    public set ubicacion(value: string) {
-        this._ubicacion = value;
+    public set _ubicacion(value: string) {
+        this.ubicacion = value;
     }
-    private _imagen: string;
-    public get imagen(): string {
-        return this._imagen;
+    private imagen: string;
+    public get _imagen(): string {
+        return this.imagen;
     }
-    public set imagen(value: string) {
-        this._imagen = value;
+    public set _imagen(value: string) {
+        this.imagen = value;
     }
-    private _tipo: string;
-    public get tipo(): string {
-        return this._tipo;
+    private tipo: string;
+    public get _tipo(): string {
+        return this.tipo;
     }
-    public set tipo(value: string) {
-        this._tipo = value;
+    public set _tipo(value: string) {
+        this.tipo = value;
     }
-    private _descripcion: string;
-    public get descripcion(): string {
-        return this._descripcion;
+    private descripcion: string;
+    public get _descripcion(): string {
+        return this.descripcion;
     }
-    public set descripcion(value: string) {
-        this._descripcion = value;
+    public set _descripcion(value: string) {
+        this.descripcion = value;
     }
 
-    private _cantpersonas: number;
-    public get cantpersonas(): number {
-        return this._cantpersonas;
+    private cantpersonas: number;
+    public get _cantpersonas(): number {
+        return this.cantpersonas;
     }
-    public set cantpersonas(value: number) {
-        this._cantpersonas = value;
+    public set _cantpersonas(value: number) {
+        this.cantpersonas = value;
     }
     // tslint:disable-next-line: variable-name
-    constructor(_id ?: string,nombre?: string, ubicacion?: string, imagen ?: string, tipo ?: string, descripcion?: string, cantpersonas?:number)
+    // tslint:disable-next-line: max-line-length
+    constructor(_id ?: string, nombre?: string, ubicacion?: string, imagen ?: string, tipo ?: string, descripcion?: string, cantpersonas?: number)
     {
         this._id = _id;
         this.nombre = nombre;

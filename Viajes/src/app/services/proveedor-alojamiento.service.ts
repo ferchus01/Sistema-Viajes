@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient,HttpHeaders} from '@angular/common/http';
+import { HttpClient, HttpHeaders} from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { ProveedorAlojamiento } from '../models/proveedor-alojamiento';
 
@@ -9,42 +9,38 @@ import { ProveedorAlojamiento } from '../models/proveedor-alojamiento';
 export class ProveedorAlojamientoService {
 
   urlBase = 'http://localhost:3000/api/alojamiento/';
-  constructor(private http : HttpClient) { }
+  constructor(private http: HttpClient) { }
 
 public listaPaProveedoresAlojamiento(): Observable<any>{
-    const httpOptions={
+    const httpOptions = {
       headers: new HttpHeaders({
-        
       })
     };
-    
-    return this.http.get(this.urlBase,httpOptions);
+    return this.http.get(this.urlBase, httpOptions);
   }
-  public agregarAlojamiento(proveedor:ProveedorAlojamiento):Observable<any>{
-    const httpOptions={
+  public agregarAlojamiento(proveedor: ProveedorAlojamiento): Observable<any>{
+    const httpOptions = {
       headers: new HttpHeaders({
-        "Content-Type":"application/json"
+        'Content-Type': 'application/json'
       })
     };
-    var body=JSON.stringify(proveedor);
-    return this.http.put(this.urlBase,body ,httpOptions);
+    const body = JSON.stringify(proveedor);
+    return this.http.put(this.urlBase, body , httpOptions);
   }
-  public ModificarAlojamiento(proveedor:ProveedorAlojamiento):Observable<any>{
-    const httpOptions={
+  public ModificarAlojamiento(proveedor: ProveedorAlojamiento): Observable<any>{
+    const httpOptions = {
       headers: new HttpHeaders({
-        "Content-Type":"application/json"
+      'Content-Type': 'application/json'
       })
     };
-    var body=JSON.stringify(proveedor);
-    return this.http.post(this.urlBase+proveedor.id,body ,httpOptions);
+    const body = JSON.stringify(proveedor);
+    return this.http.put(this.urlBase + proveedor.id, body, httpOptions);
 
-  }  public EliminarAlojamiento(id : string):Observable<any>{
-    const httpOptions={
+  }  public EliminarAlojamiento(id: string): Observable<any>{
+    const httpOptions = {
       headers: new HttpHeaders({
       })
     };
-    
-    return this.http.delete(this.urlBase+id,httpOptions);
+    return this.http.delete(this.urlBase + id, httpOptions);
   }
-  
 }

@@ -5,6 +5,7 @@ import { Pago } from './pago';
 import { Formapago } from './formapago';
 
 export class Reserva {
+    // tslint:disable-next-line: variable-name
     private _id: string;
      public get id(): string {
           return this._id;
@@ -12,117 +13,117 @@ export class Reserva {
      public set id(value: string) {
           this._id = value;
      }
-    private _nombre: string;
-     public get nombre(): string {
-          return this._nombre;
+    private nombre: string;
+     public get _nombre(): string {
+          return this.nombre;
      }
-     public set nombre(value: string) {
-          this._nombre = value;
+     public set _nombre(value: string) {
+          this.nombre = value;
      }
-    private _apellido: string;
-     public get apellido(): string {
-          return this._apellido;
+    private apellido: string;
+     public get _apellido(): string {
+          return this.apellido;
      }
-     public set apellido(value: string) {
-          this._apellido = value;
+     public set _apellido(value: string) {
+          this.apellido = value;
      }
-    private _email: string;
-     public get email(): string {
-          return this._email;
+    private email: string;
+     public get _email(): string {
+          return this.email;
      }
-     public set email(value: string) {
-          this._email = value;
+     public set _email(value: string) {
+          this.email = value;
      }
-    private _estado: boolean;
-     public get estado(): boolean {
-          return this._estado;
+    private estado: boolean;
+     public get _estado(): boolean {
+          return this.estado;
      }
-     public set estado(value: boolean) {
-          this._estado = value;
+     public set _estado(value: boolean) {
+          this.estado = value;
      }
-    private _dni: number;
-     public get dni(): number {
-          return this._dni;
+    private dni: number;
+     public get _dni(): number {
+          return this.dni;
      }
-     public set dni(value: number) {
-          this._dni = value;
+     public set _dni(value: number) {
+          this.dni = value;
      }
-    private _fecha: Date;
-     public get fecha(): Date {
-          return this._fecha;
+    private fecha: Date;
+     public get _fecha(): Date {
+          return this.fecha;
      }
-     public set fecha(value: Date) {
-          this._fecha = value;
+     public set _fecha(value: Date) {
+          this.fecha = value;
      }
-    private _domicilio: string;
-     public get domicilio(): string {
-          return this._domicilio;
+    private domicilio: string;
+     public get _domicilio(): string {
+          return this.domicilio;
      }
-     public set domicilio(value: string) {
-          this._domicilio = value;
+     public set _domicilio(value: string) {
+          this.domicilio = value;
      }
-    private _codArea: number;
-     public get codArea(): number {
-          return this._codArea;
+    private codArea: number;
+     public get _codArea(): number {
+          return this.codArea;
      }
-     public set codArea(value: number) {
-          this._codArea = value;
+     public set _codArea(value: number) {
+          this.codArea = value;
      }
-    private _numTicket: number;
-     public get numTicket(): number {
-          return this._numTicket;
+    private numTicket: number;
+     public get _numTicket(): number {
+          return this.numTicket;
      }
-     public set numTicket(value: number) {
-          this._numTicket = value;
+     public set _numTicket(value: number) {
+          this.numTicket = value;
      }
-    private _numTelefono: number;
-     public get numTelefono(): number {
-          return this._numTelefono;
+    private numTelefono: number;
+     public get _numTelefono(): number {
+          return this.numTelefono;
      }
-     public set numTelefono(value: number) {
-          this._numTelefono = value;
+     public set _numTelefono(value: number) {
+          this.numTelefono = value;
      }
-    private _paquete: Paquete;
-     public get paquete(): Paquete {
-          return this._paquete;
+    private paquete: Paquete;
+     public get _paquete(): Paquete {
+          return this.paquete;
      }
-     public set paquete(value: Paquete) {
-          this._paquete = value;
+     public set _paquete(value: Paquete) {
+          this.paquete = value;
      }
-    private _promocion: Promocion;
-     public get promocion(): Promocion {
-          return this._promocion;
+    private promocion: Promocion;
+     public get _promocion(): Promocion {
+          return this.promocion;
      }
-     public set promocion(value: Promocion) {
-          this._promocion = value;
+     public set _promocion(value: Promocion) {
+          this.promocion = value;
      }
-    private _usuario: Usuario;
-     public get usuario(): Usuario {
+    private usuario: Usuario;
+     public get _usuario(): Usuario {
           return this._usuario;
      }
-     public set usuario(value: Usuario) {
-          this._usuario = value;
+     public set _usuario(value: Usuario) {
+          this.usuario = value;
      }
-    private _pago: Pago;
-     public get pago(): Pago {
-          return this._pago;
+    private pago: Pago;
+     public get _pago(): Pago {
+          return this.pago;
      }
-     public set pago(value: Pago) {
-          this._pago = value;
+     public set _pago(value: Pago) {
+          this.pago = value;
      }
-    private _formadePago: Formapago;
-     public get formadePago(): Formapago {
-          return this._formadePago;
+    private formadePago: Formapago;
+     public get _formadePago(): Formapago {
+          return this.formadePago;
      }
-     public set formadePago(value: Formapago) {
-          this._formadePago = value;
+     public set _formadePago(value: Formapago) {
+          this.formadePago = value;
      }
    constructor()
    {
-        this.promocion= new Promocion();
+        this.promocion = new Promocion();
         this.usuario = new Usuario();
-        this.pago= new Pago();
-        this.formadePago= new Formapago();
-        this.paquete= new Paquete();
+        this.pago = new Pago();
+        this.formadePago = new Formapago();
+        this.paquete = new Paquete();
    }
 }

@@ -8,12 +8,12 @@ const PaqueteSchema = new Schema({
     imagen:{type:String,required:true},
     descripcion:{type:String,required:true},
     precio:{type:Number,required:true},
-    fechaS:{type:String,required:true},
-    fechaV:{type:String,required:true},
+    fechaS:{type:Date,required:true},
+    fechaV:{type:Date,required:true},
     estadia:{type:Number,required:true},
     cantPersonas:{type:Number,required:true},
-    transporte: {type: Schema.Types.ObjectId, ref:transporte, required:false},
-    alojamiento: {type: Schema.Types.ObjectId, ref:alojamiento, required:false}
+    transporte: {type: Schema.Types.ObjectId, ref:transporte, required:true},
+    alojamiento: {type: Schema.Types.ObjectId, ref:alojamiento, required:true}
 })
 
 module.exports= mongoose.model('Paquete',PaqueteSchema);

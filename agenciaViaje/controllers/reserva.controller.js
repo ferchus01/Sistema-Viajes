@@ -29,4 +29,4 @@ ReservaCtrl.editReserva = async (req, res) => {
         'status': 'Reserva Modificado'
     })
 }
-module.exports=ReservaCtrl;Reserva
+module.exports=ReservaCtrl;

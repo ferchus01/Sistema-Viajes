@@ -6,33 +6,33 @@ export class ProveedorTransporte {
     public set id(value: string) {
         this._id = value;
     }
-    private _nombre: string;
-    public get nombre(): string {
-        return this._nombre;
+    private nombre: string;
+    public get _nombre(): string {
+        return this.nombre;
     }
-    public set nombre(value: string) {
-        this._nombre = value;
+    public set _nombre(value: string) {
+        this.nombre = value;
     }
-    private _tipo: string;
-    public get tipo(): string {
-        return this._tipo;
+    private tipo: string;
+    public get _tipo(): string {
+        return this.tipo;
     }
-    public set tipo(value: string) {
-        this._tipo = value;
+    public set _tipo(value: string) {
+        this.tipo = value;
     }
-    private _imagen: string;
-    public get imagen(): string {
-        return this._imagen;
+    private imagen: string;
+    public get _imagen(): string {
+        return this.imagen;
     }
-    public set imagen(value: string) {
-        this._imagen = value;
+    public set _imagen(value: string) {
+        this.imagen = value;
     }
-    private _descripcion: string;
-    public get descripcion(): string {
-        return this._descripcion;
+    private descripcion: string;
+    public get _descripcion(): string {
+        return this.descripcion;
     }
-    public set descripcion(value: string) {
-        this._descripcion = value;
+    public set _descripcion(value: string) {
+        this.descripcion = value;
     }
     constructor()
     {

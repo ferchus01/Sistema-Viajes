@@ -5,7 +5,7 @@ const UsuarioCtrl = require('./../controllers/usuario.controller');
 
 router.get('/', UsuarioCtrl.getUsuario);
 router.post('/', UsuarioCtrl.crearUsuario);
-
+router.post('/login', UsuarioCtrl.loginUsuario);
 router.put('/:id', UsuarioCtrl.editUsuario);
 router.delete('/:id', UsuarioCtrl.deleteUsuario);
 

@@ -16,7 +16,7 @@ import { HeaderComponent } from './components/header/header.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { HomeComponent } from './components/home/home.component';
 import { PaquetesComponent } from './components/paquetes/paquetes.component';
-import { from } from 'rxjs';
+import {AlifeFileToBase64Module} from 'alife-file-to-base64';
 import { PaquetesAbmComponent } from './components/paquetes-abm/paquetes-abm.component';
 
 const DEFAULT_SWIPER_CONFIG: SwiperConfigInterface = {
@@ -41,14 +41,15 @@ const DEFAULT_SWIPER_CONFIG: SwiperConfigInterface = {
     NgxDataTableModule,
     FormsModule,
     HttpClientModule,
+    AlifeFileToBase64Module,
     BrowserAnimationsModule,
     ToastrModule.forRoot({
-      timeOut:1000,
-      progressBar:true,
-      progressAnimation:"increasing"
+      timeOut: 1000,
+      progressBar: true,
+      progressAnimation: 'increasing'
     })
   ],
-  
+
   providers: [
     {
       provide: SWIPER_CONFIG,

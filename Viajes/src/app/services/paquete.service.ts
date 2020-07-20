@@ -1,53 +1,54 @@
-import {HttpClient,HttpHeaders} from '@angular/common/http';
-import {observable,Observable} from 'rxjs'
+import {HttpClient, HttpHeaders} from '@angular/common/http';
+import {observable, Observable, from, of} from 'rxjs';
 import { Injectable } from '@angular/core';
 import { Paquete } from '../models/paquete';
+import {catchError} from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
 })
 export class PaqueteService {
 
-  urlBase:string ="http://localhost:3000/api/Paquete/";
+  urlBase = 'http://localhost:3000/api/paquete/';
+  // tslint:disable-next-line: variable-name
+  constructor(private _http: HttpClient) { }
 
-  constructor(private _http:HttpClient) { }
+  public agregarAsis(paq: Paquete): Observable<any>{
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json'
+      })
+    };
+    const body = JSON.stringify(paq);
+    return this._http.post(this.urlBase, body , httpOptions).pipe(
+      catchError(error =>
+        {
+        return of (error);
+        })
+    );
+  }
+  public actualizarT(): Observable<any>{
+    const httpOptions = {
+      headers: new HttpHeaders({
+      })
+    };
+    return this._http.get(this.urlBase, httpOptions);
+  }
 
-  public agregarAsis(paq:Paquete):Observable<any>{
-    const httpOptions={
+  public EliminarA(paq: Paquete): Observable<any>{
+    const httpOptions = {
       headers: new HttpHeaders({
-        "Content-Type":"application/json"
       })
     };
-    var body=JSON.stringify(paq);
-    return this._http.post(this.urlBase, body ,httpOptions);
+    return this._http.delete(this.urlBase + paq.id, httpOptions);
   }
-  
-  public actualizarT():Observable<any>{
-    const httpOptions={
+  public modificar(paq: Paquete): Observable<any>{
+    const httpOptions = {
       headers: new HttpHeaders({
-        
+        'Content-Type': 'application/json'
       })
     };
-    
-    return this._http.get(this.urlBase,httpOptions);
-  }
-
-  public EliminarA(paq:Paquete):Observable<any>{
-    const httpOptions={
-      headers: new HttpHeaders({
-        
-      })
-    };
-    return this._http.delete(this.urlBase+paq.id,httpOptions);
-  }
-  
-  public modificar(paq:Paquete):Observable<any>{
-    const httpOptions={
-      headers: new HttpHeaders({
-        "Content-Type":"application/json"
-      })
-    };
-    var body=JSON.stringify(paq);
-    return this._http.put(this.urlBase+paq.id, body ,httpOptions); 
+    const body = JSON.stringify(paq);
+    return this._http.put(this.urlBase + paq.id, body , httpOptions);
   }
 }

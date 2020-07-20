@@ -9,88 +9,89 @@ export class Paquete {
     public set id(value: string) {
         this._id = value;
     }
-    private _destino: string;
-    public get destino(): string {
-        return this._destino;
+    private destino: string;
+    public get _destino(): string {
+        return this.destino;
     }
-    public set destino(value: string) {
-        this._destino = value;
+    public set _destino(value: string) {
+        this.destino = value;
     }
-    private _imagen: string;
-    public get imagen(): string {
-        return this._imagen;
+    private imagen: string;
+    public get _imagen(): string {
+        return this.imagen;
     }
-    public set imagen(value: string) {
-        this._imagen = value;
+    public set _imagen(value: string) {
+        this.imagen = value;
     }
-    private _descripcion: string;
-    public get descripcion(): string {
-        return this._descripcion;
+    private descripcion: string;
+    public get _descripcion(): string {
+        return this.descripcion;
     }
-    public set descripcion(value: string) {
-        this._descripcion = value;
+    public set _descripcion(value: string) {
+        this.descripcion = value;
     }
-    private _precio: number;
-    public get precio(): number {
-        return this._precio;
+    private precio: number;
+    public get _precio(): number {
+        return this.precio;
     }
-    public set precio(value: number) {
-        this._precio = value;
+    public set _precio(value: number) {
+        this.precio = value;
     }
-    private _fechaS: Date;
-    public get fechaS(): Date {
-        return this._fechaS;
+    private fechaS: Date;
+    public get _fechaS(): Date {
+        return this.fechaS;
     }
-    public set fechaS(value: Date) {
-        this._fechaS = value;
+    public set _fechaS(value: Date) {
+        this.fechaS = value;
     }
-    private _fechaV: Date;
-    public get fechaV(): Date {
-        return this._fechaV;
+    private fechaV: Date;
+    public get _fechaV(): Date {
+        return this.fechaV;
     }
-    public set fechaV(value: Date) {
-        this._fechaV = value;
+    public set _fechaV(value: Date) {
+        this.fechaV = value;
     }
-    private _alojamiento: ProveedorAlojamiento;
-    public get alojamiento(): ProveedorAlojamiento {
-        return this._alojamiento;
+    private alojamiento: ProveedorAlojamiento;
+    public get _alojamiento(): ProveedorAlojamiento {
+        return this.alojamiento;
     }
-    public set alojamiento(value: ProveedorAlojamiento) {
-        this._alojamiento = value;
+    public set _alojamiento(value: ProveedorAlojamiento) {
+        this.alojamiento = value;
     }
-    private _transporte: ProveedorTransporte;
-    public get transporte(): ProveedorTransporte {
-        return this._transporte;
+    private transporte: ProveedorTransporte;
+    public get _transporte(): ProveedorTransporte {
+        return this.transporte;
     }
-    public set transporte(value: ProveedorTransporte) {
-        this._transporte = value;
+    public set _transporte(value: ProveedorTransporte) {
+        this.transporte = value;
     }
-    private _estadia: number;
-    public get estadia(): number {
-        return this._estadia;
+    private estadia: number;
+    public get _estadia(): number {
+        return this.estadia;
     }
-    public set estadia(value: number) {
-        this._estadia = value;
+    public set _estadia(value: number) {
+        this.estadia = value;
     }
-    private _cantPersonas: number;
-    public get cantPersonas(): number {
-        return this._cantPersonas;
+    private cantPersonas: number;
+    public get _cantPersonas(): number {
+        return this.cantPersonas;
     }
-    public set cantPersonas(value: number) {
-        this._cantPersonas = value;
+    public set _cantPersonas(value: number) {
+        this.cantPersonas = value;
     }
 
-    Paquete(_id?:string,destino?:string,imagen?:string,descripcion?:string,precio?:number,fechaS?:Date,fechaV?:Date,alojamiento?:ProveedorAlojamiento,transporte?:ProveedorTransporte,estadia?:number,cantPersonas?:number){
-        this._id=_id;
-        this.destino=destino;
-        this.imagen=imagen;
-        this.descripcion=descripcion;
-        this.precio=precio;
-        this.fechaS=fechaS;
-        this.fechaV=fechaV;
-        this.alojamiento=new ProveedorAlojamiento();
-        this.transporte=new ProveedorTransporte();
-        this.estadia=estadia;
-        this.cantPersonas=cantPersonas;
+    // tslint:disable-next-line: max-line-length
+    Paquete(_id?: string, destino?: string, imagen?: string, descripcion?: string, precio?: number, fechaS?: Date, fechaV?: Date, alojamiento?: ProveedorAlojamiento, transporte?: ProveedorTransporte, estadia?: number, cantPersonas?: number){
+        this._id = _id;
+        this.destino = destino;
+        this.imagen = imagen;
+        this.descripcion = descripcion;
+        this.precio = precio;
+        this.fechaS =  fechaS;
+        this.fechaV = fechaV;
+        this.alojamiento = new ProveedorAlojamiento();
+        this.transporte = new ProveedorTransporte();
+        this.estadia = estadia;
+        this.cantPersonas = cantPersonas;
     }
 }

@@ -3,8 +3,8 @@ import { Paquete } from 'src/app/models/paquete';
 import { PaqueteService } from 'src/app/services/paquete.service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
-import {ProveedorAlojamiento} from 'src/app/models/proveedor-alojamiento'
-import {ProveedorTransporte} from 'src/app/models/proveedor-transporte'
+import {ProveedorAlojamiento} from 'src/app/models/proveedor-alojamiento';
+import {ProveedorTransporte} from 'src/app/models/proveedor-transporte';
 import { ProveedorAlojamientoService } from 'src/app/services/proveedor-alojamiento.service';
 import { ProveedorTransporteService } from 'src/app/services/proveedor-transporte.service';
 @Component({
@@ -14,13 +14,27 @@ import { ProveedorTransporteService } from 'src/app/services/proveedor-transport
 })
 export class PaquetesAbmComponent implements OnInit {
 
-  submitted: boolean = false;
-  paq:Paquete;
+  submitted = false;
+  paq: Paquete;
   paqmod: Paquete;
-  listaPaquetes:Array<Paquete>;
-  listaAlojamiento : Array<ProveedorAlojamiento>;
-  listaTransporte : Array<ProveedorTransporte>;
-  constructor(private ps:PaqueteService,public modal:NgbModal,private toastr:ToastrService, private alojamientoService : ProveedorAlojamientoService, private transporteService : ProveedorTransporteService) {
+  listaPaquetes: Array<Paquete>;
+  listaAlojamiento: Array<ProveedorAlojamiento>;
+  listaTransporte: Array<ProveedorTransporte>;
+
+  // crud alojamiento
+  alojamientonuevo: ProveedorAlojamiento;
+  alojamientomd: ProveedorAlojamiento;
+
+  // crud transporte
+  transportenuevo: ProveedorTransporte;
+  transportemd: ProveedorTransporte;
+  constructor(
+    private ps: PaqueteService,
+    public modal: NgbModal,
+    private toastr: ToastrService,
+    private alojamientoService: ProveedorAlojamientoService,
+    private transporteService: ProveedorTransporteService
+    ) {
     this.paq = new Paquete();
     this.paqmod = new Paquete();
     this.actualizarTabla();
@@ -36,101 +50,196 @@ export class PaquetesAbmComponent implements OnInit {
     console.log(form);
    }
 
-  //ABM paquete
+  // ABM paquete
 
   public actualizarTabla(){
-    this.listaPaquetes=new Array<Paquete>();
+    this.listaPaquetes = new Array<Paquete>();
+    let a = new Paquete();
     this.ps.actualizarT().subscribe(
-      (result)=>{
-        Object.assign(this.listaPaquetes,result);
+      (result) => {
+      for (const i of result)
+      {
+        Object.assign(a, i);
+        const b = new ProveedorAlojamiento();
+        Object.assign( b, i.alojamiento);
+        a._alojamiento = b;
+        const c = new ProveedorTransporte();
+        Object.assign( c , i.transporte);
+        a._transporte = c;
+        this.listaPaquetes.push(a);
+        a = new Paquete();
       }
-    )
+      }
+    );
     // this.toastr.success('paquetes Cargados','Confirmado')
     console.log(this.listaPaquetes);
   }
-  
-  public elegirPaquete(paquete:Paquete){
+  public elegirPaquete(paquete: Paquete){
     Object.assign( this.paq , paquete);
+    this.paq._alojamiento = new ProveedorAlojamiento();
+    this.paq._transporte = new ProveedorTransporte();
   }
+   cargarimagenpaquete(files)
+  {
 
+    if (files != null)
+    {
+       this.paq._imagen = files[0].base64;
+    }
+  }
   public agregarPaquete(){
-    this.paq.transporte = this.paq.transporte[0];
-    this.paq.alojamiento = this.paq.alojamiento[0];
+    console.log(this.paq);
     this.ps.agregarAsis(this.paq).subscribe(
-      (result)=>{
-        this.toastr.success('Paquete Creado Correctamente','Confirmado')
+      (result) => {
+        this.toastr.success('Paquete Creado Correctamente', 'Confirmado');
+        this.paq = new Paquete();
+        this.actualizarTabla();
       },
-      (error)=>{
-        this.toastr.error('no se pudo crear un paquete','Error')
+      (error) => {
+        this.toastr.error('no se pudo crear un paquete', 'Error');
         console.log(error);
       }
     );
-    console.log(this.paq);
-    this.paq=new Paquete();
-    this.actualizarTabla();
   }
 
-  public eliminarPaquete(paquete:Paquete){
+  public eliminarPaquete(paquete: Paquete){
     this.ps.EliminarA(paquete).subscribe(
-      (result)=>{
-        this.toastr.success('Paquete Eliminado Correctamente','Confirmado')
+      (result) => {
+        this.toastr.success('Paquete Eliminado Correctamente', 'Confirmado');
         this.actualizarTabla();
       },
-      (error)=>{
-        this.toastr.error('no se pudo eliminar el paquete','Error')
+      (error) => {
+        this.toastr.error('no se pudo eliminar el paquete', 'Error');
 
       }
-    )
+    );
   }
 
   public modificarPaquete(){
     this.ps.modificar(this.paq).subscribe(
-      (result)=>{
-        this.toastr.info('Paquete Modificado Correctamente','Confirmado')
-        this.paq=new Paquete();
+      (result) => {
+        this.toastr.info('Paquete Modificado Correctamente', 'Confirmado');
+        this.paq = new Paquete();
         this.actualizarTabla();
       },
-      (error)=>{
-        this.toastr.error('no se pudo modificar el paquete','Error')
+      (error) => {
+        this.toastr.error('no se pudo modificar el paquete', 'Error');
       }
-    )
+    );
 
   }
 
-  //TRANSPORTE
+  // TRANSPORTE
   public obtenerListaDeTransporte()
   {
-    this.listaTransporte= new Array<ProveedorTransporte>();
+    this.listaTransporte = new Array<ProveedorTransporte>();
     this.transporteService.listaTransporte().subscribe(
-      (result)=>{
+      (result) => {
         Object.assign(this.listaTransporte, result);
         console.log(this.listaTransporte);
       },
       (error) =>
       {
-        this.toastr.error('no se pudo crear','Error')
+        this.toastr.error('no se pudo crear', 'Error');
       }
-    )
+    );
   }
-
-  //ALOJAMIENTO
+  public agregarTransporte()
+  {
+    this.transporteService.agregarTransporte(this.transportenuevo).subscribe(
+      (resultado) =>
+      {
+        this.toastr.success('transporte agregado', 'operacion exitosa');
+        this.transportenuevo = new ProveedorTransporte();
+        this.obtenerListaDeTransporte();
+        this.actualizarTabla();
+      }
+    );
+  }
+  public modificarTransporte()
+  {
+    this.transporteService.ModificarTransporte(this.transportemd).subscribe(
+      (resultado) =>
+      {
+        this.toastr.success('alojamiento modificado', 'operacion exitosa');
+        this.obtenerListaDeTransporte();
+        this.actualizarTabla();
+        this.transportemd = new ProveedorTransporte();
+      }
+    );
+  }
+  public eliminarTransporte(transport: ProveedorTransporte)
+  {
+    this.transporteService.EliminarTransporte(transport.id).subscribe(
+      (resultado) =>
+      {
+        this.toastr.success('alojamiento eliminado', 'operacion exitosa');
+        this.obtenerListaDeTransporte();
+        this.actualizarTabla();
+      }
+    );
+  }
+  public seleccionarTransporte(transporte: ProveedorAlojamiento)
+  {
+    Object.assign(this.transportemd, transporte);
+  }
+  // ALOJAMIENTO
   public obtenerListaDeAlojamiento()
   {
-    this.listaAlojamiento= new Array<ProveedorAlojamiento>();
+    this.listaAlojamiento = new Array<ProveedorAlojamiento>();
     this.alojamientoService.listaPaProveedoresAlojamiento().subscribe(
-      (result)=>{
+      (result) => {
         Object.assign(this.listaAlojamiento, result);
       },
       (error) =>
       {
-        this.toastr.error('no se pudo crear','Error')
+        this.toastr.error('no se pudo crear', 'Error');
       }
-    )
+    );
+  }
+  public agregarAlojamiento()
+  {
+    this.alojamientoService.agregarAlojamiento(this.alojamientonuevo).subscribe(
+      (resultado) =>
+      {
+        this.toastr.success('alojamiento agregado', 'operacion exitosa');
+        this.alojamientonuevo = new ProveedorAlojamiento();
+        this.obtenerListaDeAlojamiento();
+        this.actualizarTabla();
+      }
+    );
+  }
+  public seleccionarAlojamiento(alojamiento: ProveedorAlojamiento)
+  {
+    Object.assign(this.alojamientomd, alojamiento);
+  }
+  public modificarAlojamient()
+  {
+    this.alojamientoService.ModificarAlojamiento(this.alojamientomd).subscribe(
+      (resultado) =>
+      {
+        this.toastr.success('alojamiento modificado', 'operacion exitosa');
+        this.obtenerListaDeAlojamiento();
+        this.actualizarTabla();
+        this.alojamientomd = new ProveedorAlojamiento();
+      }
+    );
+  }
+  public eliminarAlojamiento(alojamiento: ProveedorAlojamiento)
+  {
+    this.alojamientoService.EliminarAlojamiento(alojamiento.id).subscribe(
+      (resultado) =>
+      {
+        this.toastr.success('alojamiento eliminado', 'operacion exitosa');
+        this.obtenerListaDeAlojamiento();
+        this.actualizarTabla();
+      }
+    );
   }
 
-  public limpiarModal(a:string){
-    switch(a){
-      case 'nuevo-paquete': this.paq = new Paquete();break;
+  public limpiarModal(a: string){
+    switch (a){
+      case 'nuevo-paquete': this.paq = new Paquete(); break;
       case 'mod-paquete': this.paqmod = new Paquete(); break;
     }
     this.modal.dismissAll();
