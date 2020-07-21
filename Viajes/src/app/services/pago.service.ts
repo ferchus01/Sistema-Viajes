@@ -8,7 +8,7 @@ import { Pago } from '../models/pago';
 })
 export class PagoService {
 
-  urlbase = 'http://localhost:3000/api/formapago/';
+  urlbase = 'http://localhost:3000/api/pago/';
   constructor(private http: HttpClient) { }
 
   public listadepago(): Observable<any>{

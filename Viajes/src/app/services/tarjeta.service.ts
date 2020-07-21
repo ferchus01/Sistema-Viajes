@@ -8,7 +8,7 @@ import { Tarjeta } from '../models/tarjeta';
 })
 export class TarjetaService {
 
-  urlbase = 'http://localhost:3000/api/formapago/';
+  urlbase = 'http://localhost:3000/api/tarjeta/';
   constructor(private http: HttpClient) { }
 
   public listadeTarjeta(): Observable<any>{

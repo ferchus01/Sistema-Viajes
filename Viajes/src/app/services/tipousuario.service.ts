@@ -8,7 +8,7 @@ import { TipoUsuario } from '../models/tipo-usuario';
 })
 export class TipousuarioService {
 
-  urlbase = 'http://localhost:3000/api/formapago/';
+  urlbase = 'http://localhost:3000/api/tipousuario/';
   constructor(private http: HttpClient) { }
 
   public listadeTipoUsuario(): Observable<any>{

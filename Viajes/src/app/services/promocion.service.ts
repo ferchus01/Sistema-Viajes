@@ -8,7 +8,7 @@ import { Promocion } from '../models/promocion';
 })
 export class PromocionService {
 
-  urlbase = 'http://localhost:3000/api/formapago/';
+  urlbase = 'http://localhost:3000/api/promocion/';
   constructor(private http: HttpClient) { }
 
   public listadePromocion(): Observable<any>{
