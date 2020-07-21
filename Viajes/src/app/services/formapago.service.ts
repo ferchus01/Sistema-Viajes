@@ -1,44 +1,44 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { ProveedorTransporte } from '../models/proveedor-transporte';
+import { Formapago } from '../models/formapago';
 
 @Injectable({
   providedIn: 'root'
 })
-export class ProveedorTransporteService {
+export class FormapagoService {
 
-  urlbase = 'http://localhost:3000/api/transporte/';
+  urlbase = 'http://localhost:3000/api/formapago/';
   constructor(private http: HttpClient) { }
 
-  public listaTransporte(): Observable<any>{
+  public listadepago(): Observable<any>{
     const httpOptions = {
       headers: new HttpHeaders({ })
     };
     return this.http.get(this.urlbase, httpOptions);
   }
 
-  public agregarTransporte(proveedor: ProveedorTransporte): Observable<any>{
+  public agregarFormaPago(frmpago: Formapago): Observable<any>{
     const httpOptions = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json'
       })
     };
-    const body = JSON.stringify(proveedor);
-    return this.http.post(this.urlbase, body , httpOptions);
+    const body = JSON.stringify(frmpago);
+    return this.http.put(this.urlbase, body , httpOptions);
   }
 
-  public ModificarTransporte(proveedor: ProveedorTransporte): Observable<any>{
+  public ModificarFormaPago(frmpago: Formapago): Observable<any>{
     const httpOptions = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json'
       })
     };
-    const body = JSON.stringify(proveedor);
-    return this.http.put(this.urlbase + proveedor.id, body , httpOptions);
+    const body = JSON.stringify(frmpago);
+    return this.http.put(this.urlbase + frmpago.id, body , httpOptions);
   }
 
-  public EliminarTransporte(id: string): Observable<any>{
+  public EliminarFormaPago(id: string): Observable<any>{
     const httpOptions = {
       headers: new HttpHeaders({
       })

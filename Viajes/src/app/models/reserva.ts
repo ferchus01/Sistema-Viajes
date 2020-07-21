@@ -13,19 +13,19 @@ export class Reserva {
      public set id(value: string) {
           this._id = value;
      }
-    private nombre: string;
-     public get _nombre(): string {
-          return this.nombre;
+    private nomcliente: string;
+     public get _nomcliente(): string {
+          return this.nomcliente;
      }
-     public set _nombre(value: string) {
-          this.nombre = value;
+     public set _nomcliente(value: string) {
+          this.nomcliente = value;
      }
-    private apellido: string;
-     public get _apellido(): string {
-          return this.apellido;
+    private apecliente: string;
+     public get _apecliente(): string {
+          return this.apecliente;
      }
-     public set _apellido(value: string) {
-          this.apellido = value;
+     public set _apecliente(value: string) {
+          this.apecliente = value;
      }
     private email: string;
      public get _email(): string {
@@ -41,12 +41,12 @@ export class Reserva {
      public set _estado(value: boolean) {
           this.estado = value;
      }
-    private dni: number;
-     public get _dni(): number {
-          return this.dni;
+    private dnicliente: number;
+     public get _dnicliente(): number {
+          return this.dnicliente;
      }
-     public set _dni(value: number) {
-          this.dni = value;
+     public set _dnicliente(value: number) {
+          this.dnicliente = value;
      }
     private fecha: Date;
      public get _fecha(): Date {
@@ -76,12 +76,12 @@ export class Reserva {
      public set _numTicket(value: number) {
           this.numTicket = value;
      }
-    private numTelefono: number;
-     public get _numTelefono(): number {
-          return this.numTelefono;
+    private telcliente: number;
+     public get _telcliente(): number {
+          return this.telcliente;
      }
-     public set _numTelefono(value: number) {
-          this.numTelefono = value;
+     public set _telcliente(value: number) {
+          this.telcliente = value;
      }
     private paquete: Paquete;
      public get _paquete(): Paquete {
@@ -99,7 +99,7 @@ export class Reserva {
      }
     private usuario: Usuario;
      public get _usuario(): Usuario {
-          return this._usuario;
+          return this.usuario;
      }
      public set _usuario(value: Usuario) {
           this.usuario = value;
@@ -120,10 +120,15 @@ export class Reserva {
      }
    constructor()
    {
-        this.promocion = new Promocion();
-        this.usuario = new Usuario();
-        this.pago = new Pago();
-        this.formadePago = new Formapago();
-        this.paquete = new Paquete();
+     //    this.promocion = new Promocion();
+     //    this.promocion.id = 'aa';
+     //    this.usuario = new Usuario();
+     //    this.usuario._id = 'aa';
+     //    this.pago = new Pago();
+     //    this.pago.id = 'aa';
+     //    this.formadePago = new Formapago();
+     //    this.formadePago.id = 'aa';
+     //    this.paquete = new Paquete();
+     //    this.paquete.id=' sefsdf';
    }
 }

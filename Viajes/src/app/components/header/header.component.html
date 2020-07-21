@@ -10,9 +10,9 @@
           <a class="nav-link" [routerLink]="['home']"  >Home<span class="sr-only">(current) </span></a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" [routerLink]="['paquetes']"*ngIf="usuarioService.usuarioLogeado.tipoUsuario&& usuarioService.usuarioLogeado.tipoUsuario.descripcion == 'agente'">Paquetes</a>
+          <a class="nav-link" [routerLink]="['paquetes']"*ngIf="usuarioService.usuarioLogeado.tipoUsuario&& usuarioService.usuarioLogeado.tipoUsuario._descripcion == 'agente'">Paquetes</a>
         </li>
-        <li class="nav-item" *ngIf=" usuarioService.usuarioLogeado.tipoUsuario.descripcion=='agente'"  >
+        <li class="nav-item" *ngIf=" usuarioService.usuarioLogeado.tipoUsuario._descripcion=='agente'"  >
           <a class="nav-link" [routerLink]="['paquetesAbm']"  >ABM Paquetes</a>
         </li>
         <li class="nav-item" *ngIf="log==true">

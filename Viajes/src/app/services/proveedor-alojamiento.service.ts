@@ -25,7 +25,7 @@ public listaPaProveedoresAlojamiento(): Observable<any>{
       })
     };
     const body = JSON.stringify(proveedor);
-    return this.http.put(this.urlBase, body , httpOptions);
+    return this.http.post(this.urlBase, body , httpOptions);
   }
   public ModificarAlojamiento(proveedor: ProveedorAlojamiento): Observable<any>{
     const httpOptions = {

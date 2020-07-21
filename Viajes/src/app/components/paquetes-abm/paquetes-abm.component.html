@@ -1,4 +1,4 @@
-<div class="row ">
+<div class="row "> <!--tabla paquete-->
     <button type="button" class="btn btn-outline-success" (click)="modal.open(crear)">Crear Paquete</button>
   <div class="col-12 "  >
     <div class="row">
@@ -55,16 +55,10 @@
         El destino es requerido.
       </div>
     </div> 
-    <div class="form-group">
-      <label for="formImagen">Imagen</label>
-      <input type="text" class="form-control" id="formImagenModel" placeholder="Url de la imagen" 
-       name="imagenModel" [(ngModel)]="paq._imagen" #imagenModel="ngModel" required>
+    <div class="custom-file">
+      <input type="file" class="custom-file-input" id="customFileLang" accept="image/x-png,image/gif,image/jpeg" lang="es" name="image" alife-file-to-base64 (onFileChanged)="cargarimagenpaquete($event)">
+      <label class="custom-file-label" for="customFileLang">Seleccionar una Imagen</label>
     </div>
-    <div *ngIf="imagenModel.invalid && (imagenModel.dirty || imagenModel.touched)" class="alert alert-danger">
-      <div *ngIf="imagenModel.errors.required">
-        La imagen es requerida.
-      </div>
-    </div> 
     <div class="form-group">
       <label for="formPrecio">Precio</label>
       <input type="number" class="form-control" id="formPrecioModel" placeholder="Precio" 
@@ -95,13 +89,17 @@
         Este campo es requerido.
       </div>
     </div> 
-    <div class="form-group">
-      <label for="formAloj">Alojamiento</label>
-      <input type="text" class="form-control" id="formAlojModel" placeholder="Lugar de Alojamiento" name="alojModel" [(ngModel)]="paq._alojamiento">
+    <div class="form-group col-12">
+      <label for="formAloj" class="col-4">Alojamiento</label>
+      <select name="selectaloj" [(ngModel)]="paq._alojamiento" class="col-12" class="form-control">
+        <option *ngFor="let alojamiento of listaAlojamiento " class="form-control" [ngValue]="alojamiento">{{alojamiento._nombre}} </option>
+      </select>
     </div>
-    <div class="form-group">
-      <label for="formTrans">Transporte</label>
-      <input type="text" class="form-control" id="formTransModel" placeholder="Seleccione el tipo Transporte" name="transModel" [(ngModel)]="paq._transporte">
+    <div class="form-group col-12">
+      <label for="formTrans" class="col-4">Transporte</label>
+      <select name="selecttrans" [(ngModel)]="paq._transporte" class="col-12" class="form-control">
+        <option *ngFor="let transporte of listaTransporte" [ngValue]="transporte">{{transporte._nombre}} </option>
+      </select>
     </div>
     <div class="form-group">
       <label for="formEstadia">Estadia</label>
@@ -200,13 +198,13 @@
       <div class="form-group col-12">
         <label for="formAloj1" class="col-4">Alojamiento</label>
         <select name="alojamientoalta" [(ngModel)]="paq._alojamiento" class="col-12" class="form-control">
-          <option *ngFor="let alojamiento of listaAlojamiento " class="form-control" [ngValue]="alojamiento">{{alojamiento.nombre}} </option>
+          <option *ngFor="let alojamiento of listaAlojamiento " class="form-control" [ngValue]="alojamiento">{{alojamiento._nombre}} </option>
         </select>
       </div>
       <div class="form-group col-12">
         <label for="formTrans1" class="col-4">Transporte</label>
         <select name="transportealta" [(ngModel)]="paq._transporte" class="col-12" class="form-control">
-          <option *ngFor="let transporte of listaTransporte" [ngValue]="transporte">{{transporte.nombre}} </option>
+          <option *ngFor="let transporte of listaTransporte" [ngValue]="transporte">{{transporte._nombre}} </option>
         </select>
       </div>
       <div class="form-group">

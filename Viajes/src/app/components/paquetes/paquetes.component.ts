@@ -7,6 +7,8 @@ import { ReservaService } from 'src/app/services/reserva.service';
 import { Reserva } from 'src/app/models/reserva';
 import { ProveedorAlojamiento } from 'src/app/models/proveedor-alojamiento';
 import { ProveedorTransporte } from 'src/app/models/proveedor-transporte';
+import { Formapago } from 'src/app/models/formapago';
+import { FormapagoService } from 'src/app/services/formapago.service';
 
 @Component({
   selector: 'app-paquetes',
@@ -17,8 +19,12 @@ export class PaquetesComponent implements OnInit {
   paq: Paquete;
   resv: Reserva;
   listaPaquetes: Array<Paquete>;
-
-  constructor(private ps: PaqueteService, public modal: NgbModal, private toastr: ToastrService, private rs: ReservaService) {
+  listadeFormaPago: Array<Formapago>;
+  constructor(private ps: PaqueteService,
+              public modal: NgbModal,
+              private toastr: ToastrService,
+              private rs: ReservaService,
+              private formaPagoService: FormapagoService) {
     this.resv = new Reserva();
     this.paq = new Paquete();
     this.listaPaquetes = new Array<Paquete>();
@@ -50,6 +56,20 @@ export class PaquetesComponent implements OnInit {
     // this.toastr.success('paquetes Cargados','Confirmado')
     console.log(this.listaPaquetes);
   }
+  public cargarFormaPago()
+  {
+    this.listadeFormaPago = new Array<Formapago>();
+    this.formaPagoService.listadepago().subscribe(
+      (resultado) => {
+        for (const r of resultado)
+        {
+          const a = new Formapago();
+          Object.assign(a, r);
+          this.listadeFormaPago.push(a);
+        }
+      }
+    );
+  }
   public elegirPaquete(paquete: Paquete){
     Object.assign(this.paq , paquete);
   }
@@ -57,6 +77,8 @@ export class PaquetesComponent implements OnInit {
     const f = new Date();
     this.resv._fecha = f;
     this.resv._paquete = this.paq;
+    this.resv._estado = true;
+    console.log(this.resv);
     this.rs.agregarResv(this.resv).subscribe(
       (result) => {
         this.toastr.success('Reservado Correctamente', 'Confirmado');
@@ -71,7 +93,6 @@ export class PaquetesComponent implements OnInit {
   }
 
   public agregarPaquete(){
-
     this.ps.agregarAsis(this.paq).subscribe(
       (result) => {
         this.toastr.success('Paquete Creado Correctamente', 'Confirmado');

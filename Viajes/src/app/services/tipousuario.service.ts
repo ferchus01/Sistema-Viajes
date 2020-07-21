@@ -1,44 +1,44 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { ProveedorTransporte } from '../models/proveedor-transporte';
+import { TipoUsuario } from '../models/tipo-usuario';
 
 @Injectable({
   providedIn: 'root'
 })
-export class ProveedorTransporteService {
+export class TipousuarioService {
 
-  urlbase = 'http://localhost:3000/api/transporte/';
+  urlbase = 'http://localhost:3000/api/formapago/';
   constructor(private http: HttpClient) { }
 
-  public listaTransporte(): Observable<any>{
+  public listadeTipoUsuario(): Observable<any>{
     const httpOptions = {
       headers: new HttpHeaders({ })
     };
     return this.http.get(this.urlbase, httpOptions);
   }
 
-  public agregarTransporte(proveedor: ProveedorTransporte): Observable<any>{
+  public agregarTipoUsuario(tipos: TipoUsuario): Observable<any>{
     const httpOptions = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json'
       })
     };
-    const body = JSON.stringify(proveedor);
+    const body = JSON.stringify(tipos);
     return this.http.post(this.urlbase, body , httpOptions);
   }
 
-  public ModificarTransporte(proveedor: ProveedorTransporte): Observable<any>{
+  public ModificarTipoUsuario(tipos: TipoUsuario): Observable<any>{
     const httpOptions = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json'
       })
     };
-    const body = JSON.stringify(proveedor);
-    return this.http.put(this.urlbase + proveedor.id, body , httpOptions);
+    const body = JSON.stringify(tipos);
+    return this.http.put(this.urlbase + tipos.id, body , httpOptions);
   }
 
-  public EliminarTransporte(id: string): Observable<any>{
+  public EliminarTipoUsuario(id: string): Observable<any>{
     const httpOptions = {
       headers: new HttpHeaders({
       })
