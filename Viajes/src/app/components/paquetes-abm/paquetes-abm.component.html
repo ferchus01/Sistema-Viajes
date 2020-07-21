@@ -1,156 +1,561 @@
-<div class="row "> <!--tabla paquete-->
-    <button type="button" class="btn btn-outline-success" (click)="modal.open(crear)">Crear Paquete</button>
-  <div class="col-12 "  >
-    <div class="row">
-      <div class="col-md-12 col-lg-12" *ngFor="let item of listaPaquetes" >
-        <div class="card"  >
-          <div class="card-header titulocard "  >
-              <h2 class="card-title ">{{item._destino}}</h2>
+<div class="row">
+  <div class="col-3">
+    <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+      <a class="nav-link active" id="v-pills-paquetes-tab" data-toggle="pill" href="#v-pills-paquetes" role="tab" aria-controls="v-pills-paquetes" aria-selected="true">Paquetes</a>
+      <a class="nav-link" id="v-pills-usuarios-tab" data-toggle="pill" href="#v-pills-usuarios" role="tab" aria-controls="v-pills-usuarios" aria-selected="false">Usuarios</a>
+      <a class="nav-link" id="v-pills-alojamiento-tab" data-toggle="pill" href="#v-pills-alojamiento" role="tab" aria-controls="v-pills-alojamiento" aria-selected="false">Alojamiento</a>
+      <a class="nav-link" id="v-pills-transportes-tab" data-toggle="pill" href="#v-pills-transportes" role="tab" aria-controls="v-pills-transportes" aria-selected="false">Transportes</a>
+      <a class="nav-link" id="v-pills-promociones-tab" data-toggle="pill" href="#v-pills-promociones" role="tab" aria-controls="v-pills-promociones" aria-selected="false">Promociones</a>
+      <a class="nav-link" id="v-pills-reservas-tab" data-toggle="pill" href="#v-pills-reservas" role="tab" aria-controls="v-pills-reservas" aria-selected="false">Reservas</a>
+      
+    </div>
+  </div>
+  <div class="col-9">
+    <div class="tab-content" id="v-pills-tabContent">
+      <!--Tabla Paquetes-->
+      <div class="tab-pane fade show active" id="v-pills-paquetes" role="tabpanel" aria-labelledby="v-pills-paquetes-tab">
+        <div class="row "> 
+          <div>
+           <button type="button" class="btn btn-outline-success" (click)="modal.open(crear,{scrollable:true})">Crear Paquete</button> 
           </div>
-          <div class="card-body" >
-            <div class="row no-gutters">
-              <div class="col-md-4">
-                  <img src="{{item._imagen}}" class="card-img" alt="...">
+          
+        <div class="col-12 "  >
+          <div class="row">
+            <div class="col-md-12 col-lg-12"  >
+              <div class="card" *ngFor="let item of listaPaquetes">
+                <div class="card-header titulocard "   >
+                    <h2 class="card-title ">{{item.destino}}</h2>
+                </div>
+                <div class="card-body" >
+                  <div class="row no-gutters">
+                    <div class="col-md-4">
+                        <img src="{{item.imagen}}" class="card-img" alt="...">
+                    </div>
+                      
+                    <div class="card-body col-md-8">
+                      <h4>Alojamiento:{{item.alojamiento.nombre}}</h4>
+                      <h4>De:{{item.fechaS}} Hasta:{{item.fechaV}}</h4>
+                      <h4>Transporte:{{item.transporte.nombre}},{{item.transporte.tipo}}</h4>
+                      <h4>Descripcion: </h4>
+                      <h5>{{item.descripcion}}</h5>
+                      <h4>Cantidad de Personas: {{item.cantPersonas}}</h4>
+                      <h4>Estadia:{{item.estadia}}</h4>
+                      <h3>Precio:{{item.precio}}</h3>
+                      <div class="card-footer">
+                      <button type="button" class="btn btn-outline-primary" (click)="elegirPaquete(item);modal.open(modPaquete,{scrollable:true})">Modificar</button>
+                      <button type="button" class="btn btn-outline-danger" (click)="eliminarPaquete(item)">Eliminar</button>
+                      </div>                               
+                    </div>
+                  </div>
+                </div>
               </div>
+            </div>
+          </div>    
+        </div>
+      </div>
+      </div>
+     
+      <div class="tab-pane fade" id="v-pills-usuarios" role="tabpanel" aria-labelledby="v-pills-usuarios-tab"><!--Tabla Usuarios-->
+        <div>
+          <button class="btn btn-outline-success" type="button"
+            (click)="modal.open(registrarUsu,{scrollable:true})">Agregar Usuario</button>
+        </div>
+        <div class="table-responsive " id="reporte">
+          <table class="table table-striped" [mfData]="listausuario" #mf="mfDataTable" [mfRowsOnPage]="5">
+            <thead>
+              <tr>
+                <th style="width: 15%">
+                  <mfDefaultSorter by="de">Dni</mfDefaultSorter>
+                </th>
+                <th style="width: 25%">
+                  <mfDefaultSorter by="para">Apellido</mfDefaultSorter>
+                </th>
+                <th style="width: 15%">
+                  <mfDefaultSorter by="empresa">NombreUsuario</mfDefaultSorter>
+                </th>
+                <th style="width: 15%">
+                  <mfDefaultSorter by="texto">Contraseña</mfDefaultSorter>
+                </th>
+                <th style="width: 100%">
+                  <mfDefaultSorter by="fecha">Email</mfDefaultSorter>
+                </th>
+                <th style="width: 10%">
+                  <mfDefaultSorter by="fecha">Telefono</mfDefaultSorter>
+                </th>
+                <th style="width: 10%">
+                  <mfDefaultSorter by="fecha">Tipo Usuario</mfDefaultSorter>
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let usuario of listausuario">
+                <td>{{usuario.dni}}</td>
+                <td>{{usuario.apellido}},{{usuario.nombre}}</td>
+                <td>{{usuario.nombreusuario}}</td>
+                <td>{{usuario.password}}</td>
+                <td>{{usuario.email}}</td>
+                <td>{{usuario.numTelefono}}</td>
+                <td>{{usuario.tipoUsuario.descripcion}}</td>
+                <td>
+                  <button class="btn btn-outline-primary mr-2" type="button" (click)="seleccionarUsuario(usuario)"
+                    data-toggle="modal" data-target="#modalmdUsuario"><i class="fas fa-edit"></i></button>
+                  <button class="btn btn-outline-danger" type="button" data-toggle="modal"
+                    data-target="#exampleModal2" data-whatever="@mdo"
+                    (click)="eliminarUsuario(usuario)"><i class="fas fa-trash-alt"></i></button>
+                </td>
+              </tr>
+            </tbody>
+            <tfoot>
+              <tr>
+                <td colspan="4">
+                  <mfBootstrapPaginator [rowsOnPageSet]="[5,10,25]"></mfBootstrapPaginator>
+                </td>
+              </tr>
+          </table>
+        </div>
+      </div>
+      
+      <div class="tab-pane fade" id="v-pills-alojamiento" role="tabpanel" aria-labelledby="v-pills-alojamiento-tab"><!--Tabla Alojamientos-->
+        <div>
+          <button class="btn btn-outline-success" type="button" (click)="modal.open(crearAlojamiento,{scrollable:true})">Agregar Alojamiento</button>
+        </div>
+        <div class="col-12 "  >
+          <div class="row">
+            <div class="col-md-6 col-lg-12" >
+              <div class="card"  *ngFor="let item of listaAlojamiento">
+                <img src="{{item.imagen}}" class="card-img-top" height="200" alt="...">
+                <div class="card-body col-md-8">
+                  
+                  <h4>Ubicacion: {{item.ubicacion}}</h4>
+                  <h4>Tipo: {{item.tipo}}</h4>
+                  
+                  <h4>Descripcion: {{item.descripcion}}</h4>
+                  <h4>Cantidad de Personas: {{item.cantpersonas}}</h4>
                 
-              <div class="card-body col-md-8">
-                
-                <h4>De: {{item._fechaS}}  Hasta:{{item._fechaV}} </h4>
-                <h4>Alojamiento: {{item._alojamiento._nombre}}</h4>
-                <h4>Transporte: {{item._transporte._nombre}}</h4>
-                <h4>Descripcion: </h4>
-                <h4>{{item._descripcion}}</h4>
-                <h4>Estadia: {{item._estadia}}</h4>
-                <h4>Cantidad de Personas: {{item._cantPersonas}}</h4>
-                <h3>Precio: {{item._precio}} </h3> 
-
-                <div class="card-footer">
-                <button type="button" class="btn btn-outline-primary" (click)="elegirPaquete(item);modal.open(modificar)">Modificar</button>
-                <button type="button" class="btn btn-outline-danger" (click)="eliminarPaquete(item)">Eliminar</button>
-                </div>                               
+                  <div class="card-footer">
+                    <button type="button" class="btn btn-outline-primary" (click)="seleccionarAlojamiento(item);modal.open(modAlojamiento)">Modificar</button>
+                    <button type="button" class="btn btn-outline-danger" (click)="eliminarAlojamiento(item)">Eliminar</button>
+                  </div>     
+                </div>
+              </div>
+            </div>
+          </div>    
+        </div>
+      </div>
+            
+      <div class="tab-pane fade" id="v-pills-transportes" role="tabpanel" aria-labelledby="v-pills-transportes-tab"><!-- Tabla Transportes -->
+              <div>
+                <button class="btn btn-outline-success" type="button" (click)="modal.open(crearTransporte,{scrollable:true})">Agregar Transporte</button>
+              </div>
+              <div class="col-12 "  >
+                <div class="row">
+                  <div class="col-md-12 col-lg-12" >
+                    <div class="card" *ngFor="let tran of listaTransporte" >
+                      <div class="card-header titulocard "  >
+                          <h2 class="card-title ">{{tran.nombre}}</h2>
+                      </div>
+                      <div class="card-body" >
+                        <div class="row no-gutters">
+                          <div class="col-md-4">
+                              <img src="{{tran.imagen}}" class="card-img" alt="...">
+                          </div>
+                            
+                          <div class="card-body col-md-8">
+                          
+                            <h4>Tipo:{{tran.tipo}}</h4>
+                            
+                            <h4>Descripcion: {{tran.descripcion}}</h4>
+                           
+                            <div class="card-footer">
+                            <button type="button" class="btn btn-outline-primary" (click)="seleccionarTransporte(tran);modal.open(modTransporte)">Modificar</button>
+                            <button type="button" class="btn btn-outline-danger" (click)="eliminarTransporte(tran)">Eliminar</button>
+                            </div>                               
+                        </div>
+                      </div>
+                  </div>
+                </div>    
               </div>
             </div>
           </div>
-        </div>
       </div>
-    </div>    
+      
+      <!-- Tabla Promociones -->
+      <div class="tab-pane fade" id="v-pills-promociones" role="tabpanel" aria-labelledby="v-pills-promociones-tab">
+        <div>
+          <button type="button" class="btn btn-outline-success" (click)="modal.open(crearPromocion,{scrollable:true})"> Crear Promocion</button>
+        </div>
+              <div class="col-12 "  >
+                <div class="row">
+                  <div class="col-md-12 col-lg-12"  >
+                    <div class="card"  *ngFor="let item of listapromocion">
+                      <div class="card-header titulocard "   >
+                          <h2 class="card-title ">{{item.paqueteTuristico.destino}}</h2>
+                      </div>
+                      <div class="card-body" >
+                        <div class="row no-gutters">
+                          <div class="col-md-4">
+                              <img src="{{item.paqueteTuristico.imagen}}" class="card-img" alt="...">
+                          </div>
+                            
+                          <div class="card-body col-md-8">
+                            
+                            <h4>Descuento:{{item.descuento}}</h4>
+                            <h4>Dias de Regalo: {{item.diasDeRegalo}}</h4>
+                            <h4>Puntos de Regalo: {{item.puntosDeRegalo}}</h4>
+            
+                            <div class="card-footer">
+                            <button type="button" class="btn btn-outline-primary" (click)="selecionarPromociones(item);modal.open(modificarPromocion,{scrollable:true})">Modificar</button>
+                            <button type="button" class="btn btn-outline-danger" (click)="eliminarPromociones(item)">Eliminar</button>
+                            </div>                               
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>    
+              </div>
+      </div>
+      <!--Tabla reservas-->
+      <!-- <div class="tab-pane fade" id="v-pills-reservas" role="tabpanel" aria-labelledby="v-pills-reservas-tab">
+        <div>
+          <button class="btn btn-outline-success" type="button" (click)="modal.open(registrarPago)">Reserva</button>
+          
+        </div>
+        <div class="table-responsive">
+          <table class="table table-striped" [mfData]="" #mf="mfDataTable" [mfRowsOnPage]="5">
+            <thead>
+              <tr>
+                <th style="width: 10%">
+                  <mfDefaultSorter by="de">DNI</mfDefaultSorter>
+                </th>
+                <th style="width: 20%">
+                  <mfDefaultSorter by="para">Apellido y Nom.</mfDefaultSorter>
+                </th>
+                <th style="width: 15%">
+                  <mfDefaultSorter by="empresa">Email</mfDefaultSorter>
+                </th>
+                <th style="width: 15%">
+                  <mfDefaultSorter by="texto">Estado</mfDefaultSorter>
+                </th>
+                <th style="width: 15%">
+                  <mfDefaultSorter by="texto">Fecha</mfDefaultSorter>
+                </th>
+                <th style="width: 15%">
+                  <mfDefaultSorter by="texto">Domicilio</mfDefaultSorter>
+                </th>
+                <th style="width: 15%">
+                  <mfDefaultSorter by="texto">Codigo de Area</mfDefaultSorter>
+                </th>
+                <th style="width: 15%">
+                  <mfDefaultSorter by="texto">Nombre Usuario</mfDefaultSorter>
+                </th>
+                <th style="width: 15%">
+                  <mfDefaultSorter by="texto">Pago</mfDefaultSorter>
+                </th>
+                <th style="width: 15%">
+                  <mfDefaultSorter by="texto">Forma de Pago</mfDefaultSorter>
+                </th>
+                <th style="width: 15%">
+                  <mfDefaultSorter by="texto">Num Ticket</mfDefaultSorter>
+                </th>
+                <th style="width: 15%">
+                  <mfDefaultSorter by="texto">Telefono</mfDefaultSorter>
+                </th>
+                <th style="width: 15%">
+                  <mfDefaultSorter by="texto">Paquete</mfDefaultSorter>
+                </th>
+                <th style="width: 15%">
+                  <mfDefaultSorter by="texto">Promocion</mfDefaultSorter>
+                </th>
+                <th style="width: 15%">
+                  <mfDefaultSorter by="texto">Nombre Usuario</mfDefaultSorter>
+                </th>
+                <th style="width: 15%">
+                  <mfDefaultSorter by="texto">Pago</mfDefaultSorter>
+                </th>
+                <th style="width: 15%">
+                  <mfDefaultSorter by="texto">Forma de Pago</mfDefaultSorter>
+                </th>
+                <th style="width: 25%">
+                  <mfDefaultSorter by="fecha">Acciones</mfDefaultSorter>
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let pago of listaPagos">
+                <td>{{pago.afiliado.dni}}</td>
+                <td>{{pago.monto}} $</td>
+                <td>{{pago.fecha|date:'dd/MM/yy'}}</td>
+                <td>{{pago.formapago}}</td>
+                <td>{{pago.formapago}}</td>
+                <td>{{pago.formapago}}</td>
+                <td>{{pago.formapago}}</td>
+                <td>{{pago.formapago}}</td>
+                <td>{{pago.formapago}}</td>
+                <td>{{pago.formapago}}</td>
+                <td>{{pago.formapago}}</td>
+                <td>{{pago.formapago}}</td>
+                <td>{{pago.formapago}}</td>
+                <td>
+                  <button class="btn btn-outline-primary" type="button" (click)="modal.open(modificarPago,{scrollable:true});elegirPago(pago)">Modificar</button> 
+                  <button class="btn btn-outline-danger" type="button"(click)="eliminarPago(pago)"><i class="fas fa-trash-alt"></i> Eliminar</button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div> -->
+    </div>
   </div>
 </div>
-<ng-template #modificar let-modal> <!--Modificar paquete-->
-  <form #modpaquete="ngForm">
-    <div class="modal-header">
-      <h4>Modificar</h4>
-      <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="modal.close()">
-        <span aria-hidden="true">&times;</span>
-      </button>
+
+<!--MODALS MODIFICAR-->
+
+<ng-template #modPaquete let-modal><!--Modificar paquete-->
+  <div class="modal-header">
+    <h4>Modificar</h4>
+    <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="limpiarModal('mod-paquete')">
+      <span aria-hidden="true">&times;</span>
+    </button>
   </div>
   <div class="modal-body">
-    <div class="form-group">
-      <label for="inputDestino">Destino</label>
-      <input type="text" class="form-control" id="inputDestinoModel" placeholder="Ingrese el Destino" 
-       name="destinoModel" [(ngModel)]="paq._destino" #destinoModel="ngModel" required>
-    </div>
-    <div *ngIf="destinoModel.invalid && (destinoModel.dirty || destinoModel.touched)" class="alert alert-danger">
-      <div *ngIf="destinoModel.errors.required">
-        El destino es requerido.
+    <form #modpaquete="ngForm">
+      <div class="form-group">
+        <label for="inputDestino">Destino</label>
+        <input type="text" class="form-control" id="inputDestinoModel" placeholder="Ingrese el Destino" 
+        name="destinoModel" [(ngModel)]="paq._destino" #destinoModel="ngModel" required>
       </div>
-    </div> 
-    <div class="custom-file">
-      <input type="file" class="custom-file-input" id="customFileLang" accept="image/x-png,image/gif,image/jpeg" lang="es" name="image" alife-file-to-base64 (onFileChanged)="cargarimagenpaquete($event)">
-      <label class="custom-file-label" for="customFileLang">Seleccionar una Imagen</label>
-    </div>
-    <div class="form-group">
-      <label for="formPrecio">Precio</label>
-      <input type="number" class="form-control" id="formPrecioModel" placeholder="Precio" 
-       name="precioModel" [(ngModel)]="paq._precio" #precioModel="ngModel" required>
-    </div>
-    <div *ngIf="precioModel.invalid && (precioModel.dirty || precioModel.touched)" class="alert alert-danger">
-      <div *ngIf="precioModel.errors.required">
-        El precio es requerido.
+      <div *ngIf="destinoModel.invalid && (destinoModel.dirty || destinoModel.touched)" class="alert alert-danger">
+        <div *ngIf="destinoModel.errors.required">
+          El destino es requerido.
+        </div>
+      </div> 
+      <div class="custom-file">
+        <input type="file" class="custom-file-input" id="customFileLang" accept="image/x-png,image/gif,image/jpeg" lang="es" name="image" alife-file-to-base64 (onFileChanged)="cargarimagenpaquete($event,'paquetemod')">
+        <label class="custom-file-label" for="customFileLang">Seleccionar una Imagen</label>
       </div>
-    </div> 
-    <div class="form-group">
-      <label for="formDe">Desde</label>
-      <input type="date" class="form-control" id="formDeModel" placeholder="Ingrese fecha de ida" 
-       name="idaModel" [(ngModel)]="paq._fechaS" #idaModel="ngModel" required>
-    </div>
-    <div *ngIf="idaModel.invalid && (idaModel.dirty || idaModel.touched)" class="alert alert-danger">
-      <div *ngIf="idaModel.errors.required">
-        Este campo es requerido.
+      <div class="form-group">
+        <label for="formPrecio">Precio</label>
+        <input type="number" class="form-control" id="formPrecioModel" placeholder="Precio" 
+        name="precioModel" [(ngModel)]="paq._precio" #precioModel="ngModel" required>
       </div>
-    </div> 
-    <div class="form-group">
-      <label for="formHasta">Hasta</label>
-      <input type="date" class="form-control" id="formHastaModel" placeholder="Ingrese fecha de vuelta" 
-       name="vueltaModel" [(ngModel)]="paq._fechaV" #vueltaModel="ngModel" required>
-    </div>
-    <div *ngIf="vueltaModel.invalid && (vueltaModel.dirty || vueltaModel.touched)" class="alert alert-danger">
-      <div *ngIf="vueltaModel.errors.required">
-        Este campo es requerido.
+      <div *ngIf="precioModel.invalid && (precioModel.dirty || precioModel.touched)" class="alert alert-danger">
+        <div *ngIf="precioModel.errors.required">
+          El precio es requerido.
+        </div>
+      </div> 
+      <div class="form-group">
+        <label for="formDe">Desde</label>
+        <input type="date" class="form-control" id="formDeModel" placeholder="Ingrese fecha de ida" 
+        name="idaModel" [(ngModel)]="paq._fechaS" #idaModel="ngModel" required>
       </div>
-    </div> 
-    <div class="form-group col-12">
-      <label for="formAloj" class="col-4">Alojamiento</label>
-      <select name="selectaloj" [(ngModel)]="paq._alojamiento" class="col-12" class="form-control">
-        <option *ngFor="let alojamiento of listaAlojamiento " class="form-control" [ngValue]="alojamiento">{{alojamiento._nombre}} </option>
-      </select>
-    </div>
-    <div class="form-group col-12">
-      <label for="formTrans" class="col-4">Transporte</label>
-      <select name="selecttrans" [(ngModel)]="paq._transporte" class="col-12" class="form-control">
-        <option *ngFor="let transporte of listaTransporte" [ngValue]="transporte">{{transporte._nombre}} </option>
-      </select>
-    </div>
-    <div class="form-group">
-      <label for="formEstadia">Estadia</label>
-      <input type="number" class="form-control" id="formEstadiaModel" placeholder="Estadia" 
-       name="estadiaModel" [(ngModel)]="paq._estadia" #estadiaModel="ngModel" required>
-    </div>
-    <div *ngIf="estadiaModel.invalid && (estadiaModel.dirty || estadiaModel.touched)" class="alert alert-danger">
-      <div *ngIf="estadiaModel.errors.required">
-        Este campo es requerido.
+      <div *ngIf="idaModel.invalid && (idaModel.dirty || idaModel.touched)" class="alert alert-danger">
+        <div *ngIf="idaModel.errors.required">
+          Este campo es requerido.
+        </div>
+      </div> 
+      <div class="form-group">
+        <label for="formHasta">Hasta</label>
+        <input type="date" class="form-control" id="formHastaModel" placeholder="Ingrese fecha de vuelta" 
+        name="vueltaModel" [(ngModel)]="paq._fechaV" #vueltaModel="ngModel" required>
       </div>
-    </div> 
-    <div class="form-group">
-      <label for="formCant">Cant Personas</label>
-      <input type="number" class="form-control" id="formCantModel" placeholder="Cantidad de Personas" 
-       name="cantModel" [(ngModel)]="paq._cantPersonas" #cantModel="ngModel" required>
-    </div>
-    <div *ngIf="cantModel.invalid && (cantModel.dirty || cantModel.touched)" class="alert alert-danger">
-      <div *ngIf="cantModel.errors.required">
-        Este campo es requerido.
+      <div *ngIf="vueltaModel.invalid && (vueltaModel.dirty || vueltaModel.touched)" class="alert alert-danger">
+        <div *ngIf="vueltaModel.errors.required">
+          Este campo es requerido.
+        </div>
+      </div> 
+      <div class="form-group col-12">
+        <label for="formAloj" class="col-4">Alojamiento</label>
+        <select name="selectaloj" [(ngModel)]="paq._alojamiento" class="col-12" class="form-control">
+          <option *ngFor="let alojamiento of listaAlojamiento " class="form-control" [ngValue]="alojamiento">{{alojamiento._nombre}} </option>
+        </select>
       </div>
-    </div> 
-    <div class="form-group">
-      <label for="formDes">Descripcion</label>
-      <input type="text" class="form-control" id="formDesModel" placeholder="Descripcion"
-       name="desModel" [(ngModel)]="paq._descripcion" #desModel="ngModel" required>
-    </div>
-    <div *ngIf="desModel.invalid && (desModel.dirty || desModel.touched)" class="alert alert-danger">
-      <div *ngIf="desModel.errors.required">
-        La descripcion es requerida.
+      <div class="form-group col-12">
+        <label for="formTrans" class="col-4">Transporte</label>
+        <select name="selecttrans" [(ngModel)]="paq._transporte" class="col-12" class="form-control">
+          <option *ngFor="let transporte of listaTransporte" [ngValue]="transporte">{{transporte._nombre}} </option>
+        </select>
       </div>
-      <div *ngIf="desModel.errors.minlength">
-        La descripcion debe tener al menos 10 letras.
+      <div class="form-group">
+        <label for="formEstadia">Estadia</label>
+        <input type="number" class="form-control" id="formEstadiaModel" placeholder="Estadia" 
+        name="estadiaModel" [(ngModel)]="paq._estadia" #estadiaModel="ngModel" required>
       </div>
-    </div> 
+      <div *ngIf="estadiaModel.invalid && (estadiaModel.dirty || estadiaModel.touched)" class="alert alert-danger">
+        <div *ngIf="estadiaModel.errors.required">
+          Este campo es requerido.
+        </div>
+      </div> 
+      <div class="form-group">
+        <label for="formCant">Cant Personas</label>
+        <input type="number" class="form-control" id="formCantModel" placeholder="Cantidad de Personas" 
+        name="cantModel" [(ngModel)]="paq._cantPersonas" #cantModel="ngModel" required>
+      </div>
+      <div *ngIf="cantModel.invalid && (cantModel.dirty || cantModel.touched)" class="alert alert-danger">
+        <div *ngIf="cantModel.errors.required">
+          Este campo es requerido.
+        </div>
+      </div> 
+      <div class="form-group">
+        <label for="formDes">Descripcion</label>
+        <input type="text" class="form-control" id="formDesModel" placeholder="Descripcion"
+        name="desModel" [(ngModel)]="paq._descripcion" #desModel="ngModel" required>
+      </div>
+      <div *ngIf="desModel.invalid && (desModel.dirty || desModel.touched)" class="alert alert-danger">
+        <div *ngIf="desModel.errors.required">
+          La descripcion es requerida.
+        </div>
+        <div *ngIf="desModel.errors.minlength">
+          La descripcion debe tener al menos 10 letras.
+        </div>
+      </div> 
+    </form>
   </div>
-  </form>
   <div class="modal-footer">
-      <button type="button" class="btn btn-outline-success" [disabled]="!modpaquete.form.valid" (click)="modificarPaquete()" (click)="modal.close()">Guardar Cambios</button>
-      <button type="button" class="btn btn-outline-danger" (click)="modal.close()">Cancelar</button>
+      <button type="button" class="btn btn-outline-success" [disabled]="!modpaquete.form.valid" (click)="modificarPaquete()" (click)="limpiarModal('mod-paquete')">Guardar Cambios</button>
+      <button type="button" class="btn btn-outline-danger" (click)="limpiarModal('mod-paquete')">Cancelar</button>
   </div>
 </ng-template>
 
-<ng-template #crear let-modal> <!--crear paquete-->
-  <form #crearpaquete="ngForm">
-    <div class="modal-header">
-      <h4>Crear</h4>
-      <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="limpiarModal('nuevo-paquete')">
-        <span aria-hidden="true">&times;</span>
-      </button>
-    </div>
-    <div class="modal-body">
+<ng-template #modTransporte let-modal><!--Modificar transporte-->
+  <div class="modal-header">
+    <h4>Modificar transporte</h4>
+    <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="limpiarModal('mod-transporte')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <form #modifTransporte="ngForm">
+      <div class="form-group">
+        <label for="formUsu1">Nombre</label>
+        <input type="text" class="form-control" id="formUsuModel1" placeholder="Nombre de Transporte" name="transporteModel1"
+          [(ngModel)]="transportemd._nombre" #transporteModel1="ngModel" required>
+      </div>
+      <div *ngIf="transporteModel1.invalid && (transporteModel1.dirty || transporteModel1.touched)" class="alert alert-danger">
+        <div *ngIf="transporteModel1.errors.required">
+          Nombre de Transporte es requerido.
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="formContra1">Tipo</label>
+        <input type="text" class="form-control" id="formContraModel1" placeholder="Ingrese tipo"
+          name="tipoModel1" [(ngModel)]="transportemd._tipo" #tipoModel1="ngModel" required>
+      </div>
+      <div *ngIf="tipoModel1.invalid && (tipoModel1.dirty || tipoModel1.touched)" class="alert alert-danger">
+        <div *ngIf="tipoModel1.errors.required">
+          El tipo es requerido.
+        </div>
+      </div>
+      <div class="custom-file">
+        <input type="file" class="custom-file-input" id="customFileLang" accept="image/x-png,image/gif,image/jpeg" lang="es" name="qweeqw" alife-file-to-base64 (onFileChanged)="cargarimagenTransporte($event,'transportemod')">
+        <label class="custom-file-label" for="customFileLang">Seleccionar una Imagen</label>
+      </div>
+      <div>
+        <br><img src="{{transportemd._imagen}}" class="card-img" alt="..." height="500px" ><br> 
+      </div>
+      <div class="form-group">
+        <label for="formContra1">Descripcion</label>
+        <input type="text" class="form-control" id="formContraModel1" placeholder="Ingrese descripcion"
+          name="descripcion" [(ngModel)]="transportemd._descripcion" #descripcion="ngModel" required>
+      </div>
+      <div *ngIf="descripcion.invalid && (descripcion.dirty || descripcion.touched)" class="alert alert-danger">
+        <div *ngIf="descripcion.errors.required">
+          La descripcion es requerida.
+        </div>
+      </div>     
+    </form>  
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-outline-success" (click)="modificarTransporte()" [disabled]="(!modifTransporte.form.valid)">Modificar</button>
+    <button type="button" class="btn btn-outline-danger" (click)="limpiarModal('mod-transporte')">Cancelar</button>
+  </div>
+</ng-template>
+
+<ng-template #modAlojamiento let-modal><!--Modificar alojamiento-->
+  <div class="modal-header">
+    <h4>Modificar Alojamiento</h4>
+    <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="limpiarModal('mod-alojamiento')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <form #modifAlojamiento="ngForm">
+      <div class="form-group">
+        <label for="formUsu1">Nombre</label>
+        <input type="text" class="form-control" id="formUsuModel1" placeholder="Nombre de Transporte" name="usuModel1"
+          [(ngModel)]="alojamientomd._nombre" #alojamientoModel1="ngModel" required>
+      </div>
+      <div *ngIf="alojamientoModel1.invalid && (alojamientoModel1.dirty || alojamientoModel1.touched)" class="alert alert-danger">
+        <div *ngIf="alojamientoModel1.errors.required">
+          Nombre de Alojamiento es requerido.
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="formContra1">Ubicacion</label>
+        <input type="text" class="form-control" id="formContraModel1" placeholder="Ingrese Ubicacion"
+          name="ubicacion" [(ngModel)]="alojamientomd._ubicacion" #ubicacion="ngModel" required>
+      </div>
+      <div *ngIf="ubicacion.invalid && (ubicacion.dirty || ubicacion.touched)" class="alert alert-danger">
+        <div *ngIf="ubicacion.errors.required">
+          El tipo de alojamiento es requerido.
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="formContra1">Tipo</label>
+        <input type="text" class="form-control" id="formContraModel1" placeholder="Ingrese tipo de alojamiento"
+          name="contraModel1" [(ngModel)]="alojamientomd._tipo" #tipoAloj="ngModel" required>
+      </div>
+      <div *ngIf="tipoAloj.invalid && (tipoAloj.dirty || tipoAloj.touched)" class="alert alert-danger">
+        <div *ngIf="tipoAloj.errors.required">
+          El tipo de alojamiento es requerido.
+        </div>
+      </div>
+      <div class="custom-file">
+        <input type="file" class="custom-file-input" id="customFileLang" accept="image/x-png,image/gif,image/jpeg" lang="es" name="qweeqw" alife-file-to-base64 (onFileChanged)="cargarimagenAlojamiento($event,'alojmod')">
+        <label class="custom-file-label" for="customFileLang">Seleccionar una Imagen</label>
+      </div>
+      <div>
+        <br><img src="{{alojamientomd._imagen}}" class="card-img" alt="..." height="500px" ><br> 
+      </div>
+      <div class="form-group">
+        <label for="formContra1">Descripcion</label>
+        <input type="text" class="form-control" id="formContraModel1" placeholder="Ingrese descripcion"
+          name="descripcion" [(ngModel)]="alojamientomd._descripcion" #descripcionAloj="ngModel" required>
+      </div>
+      <div *ngIf="descripcionAloj.invalid && (descripcionAloj.dirty || descripcionAloj.touched)" class="alert alert-danger">
+        <div *ngIf="descripcionAloj.errors.required">
+          La descripcion es requerida.
+        </div>
+      </div>     
+      <div class="form-group">
+        <label for="formContra1">Cantidad de personas</label>
+        <input type="number" class="form-control" id="formContraModel1" placeholder="Ingrese cantidad de personas"
+          name="cantPersonas" [(ngModel)]="alojamientomd._cantpersonas" #cantPersonas="ngModel" required>
+      </div>
+      <div *ngIf="cantPersonas.invalid && (cantPersonas.dirty || cantPersonas.touched)" class="alert alert-danger">
+        <div *ngIf="cantPersonas.errors.required">
+          La cantidad de personas es requerida.
+        </div>
+      </div>     
+    </form>  
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-outline-success" (click)="modificarAlojamiento()" [disabled]="(!modifAlojamiento.form.valid)">Modificar</button>
+    <button type="button" class="btn btn-outline-danger" (click)="limpiarModal('mod-alojamiento')">Cancelar</button>
+  </div>
+</ng-template>
+
+<!--MODALS AGREGAR-->
+
+<ng-template #crear let-modal><!--Agregar paquete-->
+  <div class="modal-header">
+    <h4>Crear</h4>
+    <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="limpiarModal('nuevo-paquete')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <form #crearpaquete="ngForm">
       <div class="form-group">
         <label for="inputDestino1">Destino</label>
         <input type="text" class="form-control" id="inputDestinoModel1" placeholder="Ingrese el Destino" 
@@ -162,13 +567,16 @@
         </div>
       </div> 
       <div class="custom-file">
-        <input type="file" class="custom-file-input" id="customFileLang" accept="image/x-png,image/gif,image/jpeg" lang="es" name="qweeqw" alife-file-to-base64 (onFileChanged)="cargarimagenpaquete($event)">
+        <input type="file" class="custom-file-input" id="customFileLang" accept="image/x-png,image/gif,image/jpeg" lang="es" name="qweeqw" alife-file-to-base64 (onFileChanged)="cargarimagenpaquete($event, 'paquetenuevo')">
         <label class="custom-file-label" for="customFileLang">Seleccionar una Imagen</label>
+      </div>
+      <div>
+        <br><img src="{{paq._imagen}}" class="card-img" alt="..." height="500px" ><br> 
       </div>
       <div class="form-group">
         <label for="formPrecio1">Precio</label>
         <input type="number" class="form-control" id="formPrecioModel1" placeholder="Precio"
-         name="precioModel1" [(ngModel)]="paq._precio" #precioModel1="ngModel" required>
+        name="precioModel1" [(ngModel)]="paq._precio" #precioModel1="ngModel" required>
       </div>
       <div *ngIf="precioModel1.invalid && (precioModel1.dirty || precioModel1.touched)" class="alert alert-danger">
         <div *ngIf="precioModel1.errors.required">
@@ -178,7 +586,7 @@
       <div class="form-group">
         <label for="formDe1">Desde</label>
         <input type="date" class="form-control" id="formDeModel1" placeholder="Ingrese fecha de ida" 
-         name="idaModel1" [(ngModel)]="paq._fechaS" #idaModel1="ngModel" required>
+        name="idaModel1" [(ngModel)]="paq._fechaS" #idaModel1="ngModel" required>
       </div>
       <div *ngIf="idaModel1.invalid && (idaModel1.dirty || idaModel1.touched)" class="alert alert-danger">
         <div *ngIf="idaModel1.errors.required">
@@ -188,7 +596,7 @@
       <div class="form-group">
         <label for="formHasta1">Hasta</label>
         <input type="date" class="form-control" id="formHastaModel1" placeholder="Ingrese fecha de vuelta" 
-         name="vueltaModel1" [(ngModel)]="paq._fechaV" #vueltaModel1="ngModel" required >
+        name="vueltaModel1" [(ngModel)]="paq._fechaV" #vueltaModel1="ngModel" required >
       </div>
       <div *ngIf="vueltaModel1.invalid && (vueltaModel1.dirty || vueltaModel1.touched)" class="alert alert-danger">
         <div *ngIf="vueltaModel1.errors.required">
@@ -198,19 +606,19 @@
       <div class="form-group col-12">
         <label for="formAloj1" class="col-4">Alojamiento</label>
         <select name="alojamientoalta" [(ngModel)]="paq._alojamiento" class="col-12" class="form-control">
-          <option *ngFor="let alojamiento of listaAlojamiento " class="form-control" [ngValue]="alojamiento">{{alojamiento._nombre}} </option>
+          <option *ngFor="let alojamiento of listaAlojamiento " class="form-control" [ngValue]="alojamiento">{{alojamiento.nombre}} </option>
         </select>
       </div>
       <div class="form-group col-12">
         <label for="formTrans1" class="col-4">Transporte</label>
         <select name="transportealta" [(ngModel)]="paq._transporte" class="col-12" class="form-control">
-          <option *ngFor="let transporte of listaTransporte" [ngValue]="transporte">{{transporte._nombre}} </option>
+          <option *ngFor="let transporte of listaTransporte" [ngValue]="transporte">{{transporte.nombre}} </option>
         </select>
       </div>
       <div class="form-group">
         <label for="formEstadia1">Estadia</label>
         <input type="number" class="form-control" id="formEstadiaModel1" placeholder="Estadia"
-         name="estadiaModel1" [(ngModel)]="paq._estadia" #estadiaModel1="ngModel" required>
+        name="estadiaModel1" [(ngModel)]="paq._estadia" #estadiaModel1="ngModel" required>
       </div>
       <div *ngIf="estadiaModel1.invalid && (estadiaModel1.dirty || estadiaModel1.touched)" class="alert alert-danger">
         <div *ngIf="estadiaModel1.errors.required">
@@ -220,7 +628,7 @@
       <div class="form-group">
         <label for="formCant">Cant Personas</label>
         <input type="number" class="form-control" id="formCantModel1" placeholder="Cantidad de Personas" 
-         name="cantModel" [(ngModel)]="paq._cantPersonas" #cantModel="ngModel" required>
+        name="cantModel" [(ngModel)]="paq._cantPersonas" #cantModel="ngModel" required>
       </div>
       <div *ngIf="cantModel.invalid && (cantModel.dirty || cantModel.touched)" class="alert alert-danger">
         <div *ngIf="cantModel.errors.required">
@@ -230,7 +638,7 @@
       <div class="form-group">
         <label for="formDes1">Descripcion</label>
         <input type="text" class="form-control" id="formDesModel1" placeholder="Descripcion" 
-         name="desModel1" [(ngModel)]="paq._descripcion" #desModel1="ngModel" minlength="10" required>
+        name="desModel1" [(ngModel)]="paq._descripcion" #desModel1="ngModel" minlength="10" required>
       </div>
       <div *ngIf="desModel1.invalid && (desModel1.dirty || desModel1.touched)" class="alert alert-danger">
         <div *ngIf="desModel1.errors.required">
@@ -240,14 +648,314 @@
           Escriba una descripcion de al menos 10 letras.
         </div>
       </div> 
-    </div>
-  </form>
+    </form>     
+  </div>
   <div class="modal-footer">
       <button type="button" class="btn btn-outline-success" [disabled]="!crearpaquete.form.valid" (click)="agregarPaquete();modal.close()">Guardar Cambios</button>
       <button type="button" class="btn btn-outline-danger" (click)="limpiarModal('nuevo-paquete')">Cancelar</button>
   </div>
 </ng-template>
 
-<div class="modal-dialog modal-dialog-scrollable">
+<ng-template #registrarUsu let-modal><!--Agregar Usuario -->
+  <div class="modal-header">
+    <h4>Registro Usuario</h4>
+    <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="limpiarModal('nuevo-usuario')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <form #crearusu="ngForm">
+      <div class="form-group">
+        <label for="formUsu1">Nombre</label>
+        <input type="text" class="form-control" id="formUsuModel1" placeholder="Ingrese su Nombre" name="usuModel1"
+          [(ngModel)]="usuarionuevo.nombre" #usuModel1="ngModel" required>
+      </div>
+      <div *ngIf="usuModel1.invalid && (usuModel1.dirty || usuModel1.touched)" class="alert alert-danger">
+        <div *ngIf="usuModel1.errors.required">
+          Nombre es requerido.
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="formUsu1">Apellido</label>
+        <input type="text" class="form-control" id="formUsuModel1" placeholder="Ingrese su apellido" name="usuModel1"
+          [(ngModel)]="usuarionuevo.apellido" #usuApellido="ngModel" required>
+      </div>
+      <div *ngIf="usuApellido.invalid && (usuApellido.dirty || usuApellido.touched)" class="alert alert-danger">
+        <div *ngIf="usuApellido.errors.required">
+          Apellido es requerido.
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="formUsu1">DNI</label>
+        <input type="text" class="form-control" id="formUsuModel1" placeholder="Ingrese su DNI" name="usuModel1"
+          [(ngModel)]="usuarionuevo.dni" #usuDni="ngModel" required>
+      </div>
+      <div *ngIf="usuDni.invalid && (usuDni.dirty || usuDni.touched)" class="alert alert-danger">
+        <div *ngIf="usuDni.errors.required">
+          DNI es requerido.
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="formContra1">Contraseña</label>
+        <input type="password" class="form-control" id="formContraModel1" placeholder="Ingrese Contraseña"
+          name="contraModel1" [(ngModel)]="usuarionuevo.password" #contraModel1="ngModel" minlength="8" required>
+      </div>
+      <div *ngIf="contraModel1.invalid && (contraModel1.dirty || contraModel1.touched)" class="alert alert-danger">
+        <div *ngIf="contraModel1.errors.required">
+          La Contraseña es requerida.
+        </div>
+        <div *ngIf="contraModel1.errors.minlength">
+          La Contraseña debe tener al menos 8 caracteres.
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="exampleFormControlSelect1" >Perfil:</label>
+        <select class="form-control" id="exampleFormControlSelect1" name="categoriaModel2" [(ngModel)]="usuarionuevo.tipoUsuario" #categoriaModel2="ngModel"  required>
+          <option value="socio">Cliente</option>
+          <option value="administrador">Administrador</option>
+        </select>
+      </div>    
+    </form>  
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-outline-success" (click)="agregarUsuario();limpiarModal('nuevo-usuario')" [disabled]="(!crearusu.form.valid)">Registrar Usuario</button>
+    <button type="button" class="btn btn-outline-danger" (click)="limpiarModal('nuevo-usuario')">Cancelar</button>
+  </div>
+</ng-template>
 
-</div>
+<ng-template #crearTransporte let-modal><!--Agregar transporte -->
+  <div class="modal-header">
+    <h4>Crear transporte</h4>
+    <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="limpiarModal('nuevo-transporte')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <form #newTransporte="ngForm">
+      <div class="form-group">
+        <label for="formUsu1">Nombre</label>
+        <input type="text" class="form-control" id="formUsuModel1" placeholder="Nombre de Transporte" name="usuModel1"
+          [(ngModel)]="transportenuevo._nombre" #transporteModel1="ngModel" required>
+      </div>
+      <div *ngIf="transporteModel1.invalid && (transporteModel1.dirty || transporteModel1.touched)" class="alert alert-danger">
+        <div *ngIf="transporteModel1.errors.required">
+          Nombre de Transporte es requerido.
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="formContra1">Tipo</label>
+        <input type="text" class="form-control" id="formContraModel1" placeholder="Ingrese tipo"
+          name="contraModel1" [(ngModel)]="transportenuevo._tipo" #tipoModel1="ngModel" required>
+      </div>
+      <div *ngIf="tipoModel1.invalid && (tipoModel1.dirty || tipoModel1.touched)" class="alert alert-danger">
+        <div *ngIf="tipoModel1.errors.required">
+          El tipo es requerido.
+        </div>
+      </div>
+      <div class="custom-file">
+        <input type="file" class="custom-file-input" id="customFileLang" accept="image/x-png,image/gif,image/jpeg" lang="es" name="qweeqw" alife-file-to-base64 (onFileChanged)="cargarimagenTransporte($event, 'transportenuevo')">
+        <label class="custom-file-label" for="customFileLang">Seleccionar una Imagen</label>
+      </div>
+      <div>
+        <br><img src="{{transportenuevo._imagen}}" class="card-img" alt="..." height="500px" ><br> 
+      </div>
+      <div class="form-group">
+        <label for="formContra1">Descripcion</label>
+        <input type="text" class="form-control" id="formContraModel1" placeholder="Ingrese descripcion"
+          name="descripcion" [(ngModel)]="transportenuevo._descripcion" #descripcion="ngModel" required>
+      </div>
+      <div *ngIf="descripcion.invalid && (descripcion.dirty || descripcion.touched)" class="alert alert-danger">
+        <div *ngIf="descripcion.errors.required">
+          La descripcion es requerida.
+        </div>
+      </div>     
+    </form>  
+  </div>
+
+  <div class="modal-footer">
+    <button type="button" class="btn btn-outline-success" (click)="agregarTransporte();limpiarModal('nuevo-transporte')" [disabled]="(!newTransporte.form.valid)">Agregar</button>
+    <button type="button" class="btn btn-outline-danger" (click)="limpiarModal('nuevo-transporte')">Cancelar</button>
+  </div>
+</ng-template>
+
+<ng-template #crearAlojamiento let-modal><!--Agregar alojamiento -->
+  <div class="modal-header">
+    <h4>Agregar Alojamiento</h4>
+    <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="limpiarModal('nuevo-alojamiento')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <form #newAlojamiento="ngForm">
+      <div class="form-group">
+        <label for="formUsu1">Nombre</label>
+        <input type="text" class="form-control" id="formUsuModel1" placeholder="Nombre de Transporte" name="usuModel1"
+          [(ngModel)]="alojamientonuevo._nombre" #alojamientoModel1="ngModel" required>
+      </div>
+      <div *ngIf="alojamientoModel1.invalid && (alojamientoModel1.dirty || alojamientoModel1.touched)" class="alert alert-danger">
+        <div *ngIf="alojamientoModel1.errors.required">
+          Nombre de Alojamiento es requerido.
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="formContra1">Ubicacion</label>
+        <input type="text" class="form-control" id="formContraModel1" placeholder="Ingrese Ubicacion"
+          name="ubicacion" [(ngModel)]="alojamientonuevo._ubicacion" #ubicacion="ngModel" required>
+      </div>
+      <div *ngIf="ubicacion.invalid && (ubicacion.dirty || ubicacion.touched)" class="alert alert-danger">
+        <div *ngIf="ubicacion.errors.required">
+          El tipo de alojamiento es requerido.
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="formContra1">Tipo</label>
+        <input type="text" class="form-control" id="formContraModel1" placeholder="Ingrese tipo de alojamiento"
+          name="contraModel1" [(ngModel)]="alojamientonuevo._tipo" #tipoAloj="ngModel" required>
+      </div>
+      <div *ngIf="tipoAloj.invalid && (tipoAloj.dirty || tipoAloj.touched)" class="alert alert-danger">
+        <div *ngIf="tipoAloj.errors.required">
+          El tipo de alojamiento es requerido.
+        </div>
+      </div>
+      <div class="custom-file">
+        <input type="file" class="custom-file-input" id="customFileLang" accept="image/x-png,image/gif,image/jpeg" lang="es" name="qweeqw" alife-file-to-base64 (onFileChanged)="cargarimagenAlojamiento($event, 'alojamientonuevo')">
+        <label class="custom-file-label" for="customFileLang">Seleccionar una Imagen</label>
+      </div>
+      <div>
+        <br><img src="{{alojamientonuevo._imagen}}" class="card-img" alt="..." height="500px" ><br> 
+      </div>
+      <div class="form-group">
+        <label for="formContra1">Descripcion</label>
+        <input type="text" class="form-control" id="formContraModel1" placeholder="Ingrese descripcion"
+          name="descripcion" [(ngModel)]="alojamientonuevo._descripcion" #descripcionAloj="ngModel" required>
+      </div>
+      <div *ngIf="descripcionAloj.invalid && (descripcionAloj.dirty || descripcionAloj.touched)" class="alert alert-danger">
+        <div *ngIf="descripcionAloj.errors.required">
+          La descripcion es requerida.
+        </div>
+      </div>     
+      <div class="form-group">
+        <label for="formContra1">Cantidad de personas</label>
+        <input type="number" class="form-control" id="formContraModel1" placeholder="Ingrese cantidad de personas"
+          name="cantPersonas" [(ngModel)]="alojamientonuevo._cantpersonas" #cantPersonas="ngModel" required>
+      </div>
+      <div *ngIf="cantPersonas.invalid && (cantPersonas.dirty || cantPersonas.touched)" class="alert alert-danger">
+        <div *ngIf="cantPersonas.errors.required">
+          La cantidad de personas es requerida.
+        </div>
+      </div>     
+    </form>  
+  </div>
+
+  <div class="modal-footer">
+    <button type="button" class="btn btn-outline-success" (click)="agregarAlojamiento()" [disabled]="(!newAlojamiento.form.valid)">Agregar</button>
+    <button type="button" class="btn btn-outline-danger" (click)="limpiarModal('nuevo-alojamiento')">Cancelar</button>
+  </div>
+</ng-template>
+
+<ng-template #crearPromocion let-modal>
+  <div class="modal-header">
+    <h4>Agregar Promocion</h4>
+    <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="limpiarModal('nuevo-promocion')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <form #newPromocion="ngForm">
+    <div class="form-group">
+      <label for="formUsu1">Descuento</label>
+      <input type="number" class="form-control" id="formUsuModel1" placeholder="Ingrese Descuento" name="usuModel1"
+        [(ngModel)]="promocionnuevo._descuento" #descuento="ngModel" required>
+    </div>
+    <div *ngIf="descuento.invalid && (descuento.dirty || descuento.touched)" class="alert alert-danger">
+      <div *ngIf="descuento.errors.required">
+        Descuento es requerido.
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="formContra1">Dias de regalo</label>
+      <input type="number" class="form-control" id="formContraModel1" placeholder="Ingrese dias de regalo"
+        name="ubicacion" [(ngModel)]="promocionnuevo._diasDeRegalo" #regalo="ngModel" required>
+    </div>
+    <div *ngIf="regalo.invalid && (regalo.dirty || regalo.touched)" class="alert alert-danger">
+      <div *ngIf="regalo.errors.required">
+        El tipo de alojamiento es requerido.
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="formContra1">Puntos de regalo</label>
+      <input type="number" class="form-control" id="formContraModel1" placeholder="Ingrese puntos de regalo"
+        name="contraModel1" [(ngModel)]="promocionnuevo._puntosDeRegalo" #puntos="ngModel" required>
+    </div>
+    <div *ngIf="puntos.invalid && (puntos.dirty || puntos.touched)" class="alert alert-danger">
+      <div *ngIf="puntos.errors.required">
+        Los puntos de regalo son requerido.
+      </div>
+    </div>
+    <div class="form-group col-12">
+      <label for="formAloj1" class="col-4">Paquetes turisticos</label>
+      <select name="paquetes" [(ngModel)]="promocionnuevo._paqueteTuristico" class="col-12" class="form-control">
+        <option *ngFor="let paquete of listaPaquetes " class="form-control" [ngValue]="paquete">{{paquete.destino}} </option>
+      </select>
+    </div>
+  </form>  
+  </div>
+
+  <div class="modal-footer">
+    <button type="button" class="btn btn-outline-success" (click)="agregarPromociones();limpiarModal('nuevo-promocion')" [disabled]="(!newPromocion.form.valid)">Agregar</button>
+    <button type="button" class="btn btn-outline-danger" (click)="limpiarModal('nuevo-promocion')">Cancelar</button>
+  </div>
+</ng-template>
+<ng-template #modificarPromocion let-modal>
+  <div class="modal-header">
+    <h4>Modificar Promocion</h4>
+    <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="limpiarModal('mod-promocion')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <form #modifPromocion="ngForm">
+    <div class="form-group">
+      <label for="formUsu1">Descuento</label>
+      <input type="number" class="form-control" id="formUsuModel1" placeholder="Ingrese Descuento" name="usuModel1"
+        [(ngModel)]="promocionmd._descuento" #descuento="ngModel" required>
+    </div>
+    <div *ngIf="descuento.invalid && (descuento.dirty || descuento.touched)" class="alert alert-danger">
+      <div *ngIf="descuento.errors.required">
+        Descuento es requerido.
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="formContra1">Dias de regalo</label>
+      <input type="number" class="form-control" id="formContraModel1" placeholder="Ingrese dias de regalo"
+        name="ubicacion" [(ngModel)]="promocionmd._diasDeRegalo" #regalo="ngModel" required>
+    </div>
+    <div *ngIf="regalo.invalid && (regalo.dirty || regalo.touched)" class="alert alert-danger">
+      <div *ngIf="regalo.errors.required">
+        El tipo de alojamiento es requerido.
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="formContra1">Puntos de regalo</label>
+      <input type="number" class="form-control" id="formContraModel1" placeholder="Ingrese puntos de regalo"
+        name="contraModel1" [(ngModel)]="promocionmd._diasDeRegalo" #puntos="ngModel" required>
+    </div>
+    <div *ngIf="puntos.invalid && (puntos.dirty || puntos.touched)" class="alert alert-danger">
+      <div *ngIf="puntos.errors.required">
+        Los puntos de regalo son requerido.
+      </div>
+    </div>
+    <div class="form-group col-12">
+      <label for="formAloj1" class="col-4">Paquetes turisticos</label>
+      <select name="paquetes" [(ngModel)]="promocionmd._paqueteTuristico" class="col-12" class="form-control">
+        <option *ngFor="let paquete of listaPaquetes " class="form-control" [ngValue]="paquete">{{paquete.destino}} </option>
+      </select>
+    </div>
+  </form>  
+  </div>
+
+  <div class="modal-footer">
+    <button type="button" class="btn btn-outline-success" (click)="modificarPromociones();limpiarModal('mod-promocion')" [disabled]="(!modifPromocion.form.valid)">Agregar</button>
+    <button type="button" class="btn btn-outline-danger" (click)="limpiarModal('mod-promocion')">Cancelar</button>
+  </div>
+</ng-template>

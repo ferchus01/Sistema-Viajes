@@ -2,8 +2,9 @@ import { TipoUsuario } from './tipo-usuario';
 
 export class Usuario {
     _id: string;
-    dni: number;
+    nombre:string;
     apellido: string;
+    dni: number;
     email: string;
     numTelefono: number;
     nombreusuario: string;

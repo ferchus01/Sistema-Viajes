@@ -56,7 +56,7 @@ export class PaquetesAbmComponent implements OnInit {
   tarjetanueva: Tarjeta;
   tarjetamd: Tarjeta;
   listatarjeta: Array<Tarjeta>;
-  // crud promocion
+  // crud tipo usuario
   tipousuarionuevo: TipoUsuario;
   tipousuariomd: TipoUsuario;
   listatipousuario: Array<TipoUsuario>;
@@ -146,17 +146,23 @@ export class PaquetesAbmComponent implements OnInit {
     console.log(this.listaPaquetes);
   }
   public elegirPaquete(paquete: Paquete){
-    Object.assign( this.paq , paquete);
-    this.paq._alojamiento = new ProveedorAlojamiento();
-    this.paq._transporte = new ProveedorTransporte();
+    Object.assign( this.paqmod , paquete);
+    this.paqmod._alojamiento = new ProveedorAlojamiento();
+    this.paqmod._transporte = new ProveedorTransporte();
   }
 
-  cargarimagenpaquete(files)
+  cargarimagenpaquete(files, a:string)
   {
 
     if (files != null)
     {
-       this.paq._imagen = files[0].base64;
+      if (a === 'paquetenuevo')
+      {
+        this.paq._imagen = files[0].base64;
+      }
+       else{
+        this.paqmod._imagen = files[0].base64;
+      }
     }
   }
   public agregarPaquete(){
@@ -188,10 +194,10 @@ export class PaquetesAbmComponent implements OnInit {
   }
 
   public modificarPaquete(){
-    this.ps.modificar(this.paq).subscribe(
+    this.ps.modificar(this.paqmod).subscribe(
       (result) => {
         this.toastr.info('Paquete Modificado Correctamente', 'Confirmado');
-        this.paq = new Paquete();
+        this.paqmod = new Paquete();
         this.actualizarTabla();
       },
       (error) => {
@@ -227,6 +233,21 @@ export class PaquetesAbmComponent implements OnInit {
         this.actualizarTabla();
       }
     );
+  }
+
+  cargarimagenTransporte(files, a:string)
+  {
+
+    if (files != null)
+    {
+      if (a === 'transportenuevo')
+      {
+        this.transportenuevo._imagen = files[0].base64;
+      }
+       else{
+        this.transportemd._imagen = files[0].base64;
+      }
+    }
   }
   public modificarTransporte()
   {
@@ -281,11 +302,26 @@ export class PaquetesAbmComponent implements OnInit {
       }
     );
   }
+  cargarimagenAlojamiento(files, a:string)
+  {
+
+    if (files != null)
+    {
+      if (a === 'alojamientonuevo')
+      {
+        this.alojamientonuevo._imagen = files[0].base64;
+      }
+       else{
+        this.alojamientomd._imagen = files[0].base64;
+      }
+       
+    }
+  }
   public seleccionarAlojamiento(alojamiento: ProveedorAlojamiento)
   {
     Object.assign(this.alojamientomd, alojamiento);
   }
-  public modificarAlojamient()
+  public modificarAlojamiento()
   {
     this.alojamientoService.ModificarAlojamiento(this.alojamientomd).subscribe(
       (resultado) =>
