@@ -30,7 +30,7 @@ export class UsuarioService {
       })
     };
     const body = JSON.stringify(usuario);
-    return this._http.put(this.urlbase, body , httpOptions);
+    return this._http.post(this.urlbase, body , httpOptions);
   }
 
   public ModificarUsuario(usuario: Usuario): Observable<any>{

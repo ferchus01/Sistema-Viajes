@@ -24,23 +24,23 @@
             <div class="col-md-12 col-lg-12"  >
               <div class="card" *ngFor="let item of listaPaquetes">
                 <div class="card-header titulocard "   >
-                    <h2 class="card-title ">{{item.destino}}</h2>
+                    <h2 class="card-title ">{{item._destino}}</h2>
                 </div>
                 <div class="card-body" >
                   <div class="row no-gutters">
                     <div class="col-md-4">
-                        <img src="{{item.imagen}}" class="card-img" alt="...">
+                        <img src="{{item._imagen}}" class="card-img" alt="...">
                     </div>
                       
                     <div class="card-body col-md-8">
-                      <h4>Alojamiento:{{item.alojamiento.nombre}}</h4>
-                      <h4>De:{{item.fechaS}} Hasta:{{item.fechaV}}</h4>
-                      <h4>Transporte:{{item.transporte.nombre}},{{item.transporte.tipo}}</h4>
+                      <h4>Alojamiento:{{item._alojamiento._nombre}}</h4>
+                      <h4>De:{{item._fechaS}} Hasta:{{item._fechaV}}</h4>
+                      <h4>Transporte:{{item._transporte._nombre}},{{item._transporte._tipo}}</h4>
                       <h4>Descripcion: </h4>
-                      <h5>{{item.descripcion}}</h5>
-                      <h4>Cantidad de Personas: {{item.cantPersonas}}</h4>
-                      <h4>Estadia:{{item.estadia}}</h4>
-                      <h3>Precio:{{item.precio}}</h3>
+                      <h5>{{item._descripcion}}</h5>
+                      <h4>Cantidad de Personas: {{item._cantPersonas}}</h4>
+                      <h4>Estadia:{{item._estadia}}</h4>
+                      <h3>Precio:{{item._precio}}</h3>
                       <div class="card-footer">
                       <button type="button" class="btn btn-outline-primary" (click)="elegirPaquete(item);modal.open(modPaquete,{scrollable:true})">Modificar</button>
                       <button type="button" class="btn btn-outline-danger" (click)="eliminarPaquete(item)">Eliminar</button>
@@ -98,7 +98,7 @@
                 <td>{{usuario.password}}</td>
                 <td>{{usuario.email}}</td>
                 <td>{{usuario.numTelefono}}</td>
-                <td>{{usuario.tipoUsuario.descripcion}}</td>
+                <td>{{usuario.tipoUsuario._descripcion}}</td>
                 <td>
                   <button class="btn btn-outline-primary mr-2" type="button" (click)="seleccionarUsuario(usuario)"
                   ><i class="fas fa-edit"></i></button>
@@ -192,19 +192,19 @@
                   <div class="col-md-12 col-lg-12"  >
                     <div class="card"  *ngFor="let item of listapromocion">
                       <div class="card-header titulocard "   >
-                          <h2 class="card-title ">{{item.paqueteTuristico.destino}}</h2>
+                          <h2 class="card-title ">{{item._paqueteTuristico._destino}}</h2>
                       </div>
                       <div class="card-body" >
                         <div class="row no-gutters">
                           <div class="col-md-4">
-                              <img src="{{item.paqueteTuristico.imagen}}" class="card-img" alt="...">
+                              <img src="{{item._paqueteTuristico._imagen}}" class="card-img" alt="...">
                           </div>
                             
                           <div class="card-body col-md-8">
                             
-                            <h4>Descuento:{{item.descuento}}</h4>
-                            <h4>Dias de Regalo: {{item.diasDeRegalo}}</h4>
-                            <h4>Puntos de Regalo: {{item.puntosDeRegalo}}</h4>
+                            <h4>Descuento:{{item._descuento}}</h4>
+                            <h4>Dias de Regalo: {{item._diasDeRegalo}}</h4>
+                            <h4>Puntos de Regalo: {{item._puntosDeRegalo}}</h4>
             
                             <div class="card-footer">
                             <button type="button" class="btn btn-outline-primary" (click)="selecionarPromociones(item);modal.open(modificarPromocion,{scrollable:true})">Modificar</button>
@@ -370,13 +370,13 @@
       <div class="form-group col-12">
         <label for="formAloj" class="col-4">Alojamiento</label>
         <select name="selectaloj" [(ngModel)]="paqmod._alojamiento" class="col-12" class="form-control">
-          <option *ngFor="let alojamiento of listaAlojamiento " class="form-control" [ngValue]="alojamiento">{{alojamiento.nombre}} </option>
+          <option *ngFor="let alojamiento of listaAlojamiento " class="form-control" [ngValue]="alojamiento">{{alojamiento._nombre}} </option>
         </select>
       </div>
       <div class="form-group col-12">
         <label for="formTrans" class="col-4">Transporte</label>
         <select name="selecttrans" [(ngModel)]="paqmod._transporte" class="col-12" class="form-control">
-          <option *ngFor="let transporte of listaTransporte" [ngValue]="transporte">{{transporte.nombre}} </option>
+          <option *ngFor="let transporte of listaTransporte" [ngValue]="transporte">{{transporte._nombre}} </option>
         </select>
       </div>
       <div class="form-group">
@@ -543,7 +543,7 @@
     </form>  
   </div>
   <div class="modal-footer">
-    <button type="button" class="btn btn-outline-success" (click)="modificarAlojamiento()" [disabled]="(!modifAlojamiento.form.valid)">Modificar</button>
+    <button type="button" class="btn btn-outline-success" (click)="modificarAlojamiento(); modal.close()" [disabled]="(!modifAlojamiento.form.valid)">Modificar</button>
     <button type="button" class="btn btn-outline-danger" (click)="limpiarModal('mod-alojamiento')">Cancelar</button>
   </div>
 </ng-template>
@@ -589,7 +589,7 @@
     <div class="form-group col-12">
       <label for="formAloj1" class="col-4">Paquetes turisticos</label>
       <select name="paquetes" [(ngModel)]="promocionnuevo._paqueteTuristico" class="col-12" class="form-control">
-        <option *ngFor="let paquete of listaPaquetes " class="form-control" [ngValue]="paquete">{{paquete.destino}} </option>
+        <option *ngFor="let paquete of listaPaquetes " class="form-control" [ngValue]="paquete">{{paquete._descripcion}} </option>
       </select>
     </div>
   </form>  
@@ -723,7 +723,7 @@
       <div class="form-group">
         <label for="formUsu1">Nombre</label>
         <input type="text" class="form-control" id="formUsuModel1" placeholder="Ingrese su Nombre" name="usuModel1"
-          [(ngModel)]="usuarionuevo.nombre" #usuModel1="ngModel" required>
+          [(ngModel)]="usuarionuevo.nombreusuario" #usuModel1="ngModel" required>
       </div>
       <div *ngIf="usuModel1.invalid && (usuModel1.dirty || usuModel1.touched)" class="alert alert-danger">
         <div *ngIf="usuModel1.errors.required">
@@ -766,8 +766,7 @@
       <div class="form-group">
         <label for="exampleFormControlSelect1" >Perfil:</label>
         <select class="form-control" id="exampleFormControlSelect1" name="categoriaModel2" [(ngModel)]="usuarionuevo.tipoUsuario" #categoriaModel2="ngModel"  required>
-          <option value="socio">Cliente</option>
-          <option value="administrador">Administrador</option>
+          <option *ngFor="let item of listatipousuario" [ngValue]="item">{{item._descripcion}}</option>
         </select>
       </div>    
     </form>  

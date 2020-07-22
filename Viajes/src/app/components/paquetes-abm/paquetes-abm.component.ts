@@ -147,11 +147,12 @@ export class PaquetesAbmComponent implements OnInit {
   }
   public elegirPaquete(paquete: Paquete){
     Object.assign( this.paqmod , paquete);
-    // this.paqmod._alojamiento = new ProveedorAlojamiento();
-    // this.paqmod._transporte = new ProveedorTransporte();
+    console.log(paquete);
+    this.paqmod._transporte = this.listaTransporte.find((item: ProveedorTransporte)=> item.id === paquete._transporte.id);
+    this.paqmod._alojamiento = this.listaAlojamiento.find((item: ProveedorAlojamiento)=> item.id === paquete._alojamiento.id);
   }
 
-  cargarimagenpaquete(files, a:string)
+  cargarimagenpaquete(files, a: string)
   {
 
     if (files != null)
@@ -204,7 +205,6 @@ export class PaquetesAbmComponent implements OnInit {
         this.toastr.error('no se pudo modificar el paquete', 'Error');
       }
     );
-
   }
 
   // TRANSPORTE
@@ -213,8 +213,13 @@ export class PaquetesAbmComponent implements OnInit {
     this.listaTransporte = new Array<ProveedorTransporte>();
     this.transporteService.listaTransporte().subscribe(
       (result) => {
-        Object.assign(this.listaTransporte, result);
-        console.log(this.listaTransporte);
+        let a = new ProveedorTransporte();
+        for ( let r of result)
+        {
+          Object.assign(a, r);
+          this.listaTransporte.push(a);
+          a = new ProveedorTransporte();
+        }
       },
       (error) =>
       {
@@ -235,7 +240,7 @@ export class PaquetesAbmComponent implements OnInit {
     );
   }
 
-  cargarimagenTransporte(files, a:string)
+  cargarimagenTransporte(files, a: string)
   {
 
     if (files != null)
@@ -282,7 +287,13 @@ export class PaquetesAbmComponent implements OnInit {
     this.listaAlojamiento = new Array<ProveedorAlojamiento>();
     this.alojamientoService.listaPaProveedoresAlojamiento().subscribe(
       (result) => {
-        Object.assign(this.listaAlojamiento, result);
+        let a = new ProveedorAlojamiento();
+        for ( let r of result)
+        {
+          Object.assign(a, r);
+          this.listaAlojamiento.push(a);
+          a = new ProveedorAlojamiento();
+        }
       },
       (error) =>
       {
@@ -302,7 +313,7 @@ export class PaquetesAbmComponent implements OnInit {
       }
     );
   }
-  cargarimagenAlojamiento(files, a:string)
+  cargarimagenAlojamiento(files, a: string)
   {
 
     if (files != null)
@@ -311,10 +322,9 @@ export class PaquetesAbmComponent implements OnInit {
       {
         this.alojamientonuevo._imagen = files[0].base64;
       }
-       else{
+      else{
         this.alojamientomd._imagen = files[0].base64;
       }
-       
     }
   }
   public seleccionarAlojamiento(alojamiento: ProveedorAlojamiento)
@@ -414,6 +424,7 @@ export class PaquetesAbmComponent implements OnInit {
       {
         this.toastr.success('Promocion agregado', ' operacion exitosa');
         this.obtenerPromociones();
+        this.promocionnuevo = new Promocion();
       }
     );
   }
@@ -464,7 +475,7 @@ export class PaquetesAbmComponent implements OnInit {
     );
   }
   public agregarUsuario()
-  {
+  { console.log(this.usuarionuevo);
     this.usuarioService.agregarUsuario(this.usuarionuevo).subscribe(
       (resultado) =>
       {
@@ -509,11 +520,12 @@ export class PaquetesAbmComponent implements OnInit {
     this.listatipousuario = new Array<TipoUsuario>();
     this.tipousuarioService.listadeTipoUsuario().subscribe(
       (result) => {
-        const e = new TipoUsuario();
+        let e = new TipoUsuario();
         for (const a of result)
         {
           Object.assign(e, a);
           this.listatipousuario.push(e);
+          e = new TipoUsuario();
         }
       },
       (error) =>

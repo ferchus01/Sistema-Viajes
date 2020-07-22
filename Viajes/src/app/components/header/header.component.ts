@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { UsuarioService } from 'src/app/services/usuario.service';
 import { Usuario } from 'src/app/models/usuario';
 import { Router } from '@angular/router';
+import { TipoUsuario } from 'src/app/models/tipo-usuario';
 
 @Component({
   selector: 'app-header',
@@ -26,6 +27,9 @@ export class HeaderComponent implements OnInit {
         this.usuarioService.usuariologIn = resultado.status === 1;
         this.usuarioService.usuarioLogeado = new Usuario();
         Object.assign( this.usuarioService.usuarioLogeado, resultado);
+        const r = new TipoUsuario();
+        Object.assign(r, resultado.tipoUsuario);
+        this.usuarioService.usuarioLogeado.tipoUsuario = r;
         this.router.navigate(['/paquetesAbm']);
         this.usuarioLoageado = new Usuario();
         }
