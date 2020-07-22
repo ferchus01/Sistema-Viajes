@@ -35,7 +35,7 @@ export class ProveedorTransporteService {
       })
     };
     const body = JSON.stringify(proveedor);
-    return this.http.put(this.urlbase + proveedor.id, body , httpOptions);
+    return this.http.put(this.urlbase + proveedor._id, body , httpOptions);
   }
 
   public EliminarTransporte(id: string): Observable<any>{

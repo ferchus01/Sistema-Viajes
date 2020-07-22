@@ -35,7 +35,7 @@ export class FormapagoService {
       })
     };
     const body = JSON.stringify(frmpago);
-    return this.http.put(this.urlbase + frmpago.id, body , httpOptions);
+    return this.http.put(this.urlbase + frmpago._id, body , httpOptions);
   }
 
   public EliminarFormaPago(id: string): Observable<any>{

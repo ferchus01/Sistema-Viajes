@@ -24,20 +24,20 @@
         <div class="col-md-12 col-lg-12" *ngFor="let item of listaPaquetes" >
             <div class="card"  >
                 <div class="card-header titulocard "  >
-                    <h2 class="card-title ">{{item._destino}}</h2>
+                    <h2 class="card-title ">{{item.destino}}</h2>
                     
                 </div>
                 <div class="card-body" >
                     <div class="row no-gutters">
                         <div class="col-md-4">
-                            <img src="{{item._imagen}}" class="card-img" alt="...">
+                            <img src="{{item.imagen}}" class="card-img" alt="...">
                         </div>
                         
                         <div class="card-body col-md-8">
-                          <h4>Fecha de Salida: {{item._fechaS}} </h4>
-                          <h4>Fecha de Vuelta:{{item._fechaV}} </h4>
-                          <h4>Cantidad de Personas: {{item._cantPersonas}}</h4>
-                          <h2>Precio: {{item._precio}} $</h2> 
+                          <h4>Fecha de Salida: {{item.fechaS}} </h4>
+                          <h4>Fecha de Vuelta:{{item.fechaV}} </h4>
+                          <h4>Cantidad de Personas: {{item.cantPersonas}}</h4>
+                          <h2>Precio: {{item.precio}} $</h2> 
                           
                           <div class="card-footer">
                             <button type="button" class="btn btn-outline-success"  (click)="elegirPaquete(item);modal.open(reserva, { scrollable: true })" >Comprar</button>
@@ -54,7 +54,7 @@
 </div>
 <ng-template #mostrar let-modal >
   <div class="modal-header" >
-      <h4>{{paq._destino}}</h4>
+      <h4>{{paq.destino}}</h4>
       <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="modal.close()">
         <span aria-hidden="true">&times;</span>
       </button>
@@ -64,19 +64,19 @@
       <div class="card-body" >
           <div class="row no-gutters">
               <div class="col-md-6">
-                  <img src="{{paq._imagen}}" class="card-img" alt="...">
+                  <img src="{{paq.imagen}}" class="card-img" alt="...">
               </div>
               
               <div class="card-body col-md-6">
-                <h4>Fecha de Salida: {{paq._fechaS}} </h4>
-                <h4>Fecha de Vuelta:{{paq._fechaV}} </h4>
-                <h4>Cantidad de Personas: {{paq._cantPersonas}}</h4>
-                <h4>Alojamiento: {{paq._alojamiento}}</h4>
-                <h4>Transporte: {{paq._transporte}}</h4>
-                <h4>Estadia: {{paq._estadia}}</h4>
+                <h4>Fecha de Salida: {{paq.fechaS}} </h4>
+                <h4>Fecha de Vuelta:{{paq.fechaV}} </h4>
+                <h4>Cantidad de Personas: {{paq.cantPersonas}}</h4>
+                <h4>Alojamiento: {{paq.alojamiento}}</h4>
+                <h4>Transporte: {{paq.transporte}}</h4>
+                <h4>Estadia: {{paq.estadia}}</h4>
                 <h4>Descripcion: </h4>
-                <h4>{{paq._descripcion}}</h4>
-                <h2>Precio: {{paq._precio}} $</h2>                             
+                <h4>{{paq.descripcion}}</h4>
+                <h2>Precio: {{paq.precio}} $</h2>                             
               </div>
               
           </div>
@@ -100,35 +100,35 @@
   <div class="modal-body">
     <div class="form-group">
       <label for="inputDestino1">Nombre</label>
-      <input type="text" class="form-control" id="inputDestinoModel1" placeholder="Ingrese el Destino" name="destinoModel1" [(ngModel)]="resv._nomcliente">
+      <input type="text" class="form-control" id="inputDestinoModel1" placeholder="Ingrese el Destino" name="destinoModel1" [(ngModel)]="resv.nomcliente">
     </div>
     <div class="form-group">
       <label for="formImagen1">Apellido</label>
-      <input type="text" class="form-control" id="formImagenModel1" placeholder="Url de la imagen" name="imagenModel1" [(ngModel)]="resv._apecliente">
+      <input type="text" class="form-control" id="formImagenModel1" placeholder="Url de la imagen" name="imagenModel1" [(ngModel)]="resv.apecliente">
     </div>
     <div class="form-group">
       <label for="formPrecio1">Email</label>
-      <input type="text" class="form-control" id="formPrecioModel1" placeholder="Precio" name="precioModel1" [(ngModel)]="resv._email">
+      <input type="text" class="form-control" id="formPrecioModel1" placeholder="Precio" name="precioModel1" [(ngModel)]="resv.email">
     </div>
     <div class="form-group">
       <label for="formDe1">DNI</label>
-      <input type="text" class="form-control" id="formDeModel1" placeholder="Ingrese fecha de ida" name="idaModel1" [(ngModel)]="resv._dnicliente">
+      <input type="text" class="form-control" id="formDeModel1" placeholder="Ingrese fecha de ida" name="idaModel1" [(ngModel)]="resv.dnicliente">
     </div>
     <div class="form-group">
       <label for="formHasta1">Domicilio</label>
-      <input type="text" class="form-control" id="formHastaModel1" placeholder="Ingrese fecha de vuelta" name="vueltaModel1" [(ngModel)]="resv._domicilio">
+      <input type="text" class="form-control" id="formHastaModel1" placeholder="Ingrese fecha de vuelta" name="vueltaModel1" [(ngModel)]="resv.domicilio">
     </div>
     <div class="form-group">
       <label for="formAloj1">Codigo de Area</label>
-      <input type="number" class="form-control" id="formAlojModel1" placeholder="Codigo de Area" name="alojModel1" [(ngModel)]="resv._codArea">
+      <input type="number" class="form-control" id="formAlojModel1" placeholder="Codigo de Area" name="alojModel1" [(ngModel)]="resv.codArea">
     </div>
     <div class="form-group">
       <label for="formTrans1">Numero de Ticket</label>
-      <input type="number" class="form-control" id="formTransModel1" placeholder="Seleccione el tipo Transporte" name="transModel1" [(ngModel)]="resv._numTicket">
+      <input type="number" class="form-control" id="formTransModel1" placeholder="Seleccione el tipo Transporte" name="transModel1" [(ngModel)]="resv.numTicket">
     </div>
     <div class="form-group">
       <label for="formEstadia1">Numero de Telefono</label>
-      <input type="number" class="form-control" id="formEstadiaModel1" placeholder="Estadia" name="estadiaModel1" [(ngModel)]="resv._telcliente">
+      <input type="number" class="form-control" id="formEstadiaModel1" placeholder="Estadia" name="estadiaModel1" [(ngModel)]="resv.telcliente">
     </div>
 
   </div>

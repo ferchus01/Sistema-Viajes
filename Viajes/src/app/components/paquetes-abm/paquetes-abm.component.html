@@ -24,23 +24,23 @@
             <div class="col-md-12 col-lg-12"  >
               <div class="card" *ngFor="let item of listaPaquetes">
                 <div class="card-header titulocard "   >
-                    <h2 class="card-title ">{{item._destino}}</h2>
+                    <h2 class="card-title ">{{item.destino}}</h2>
                 </div>
                 <div class="card-body" >
                   <div class="row no-gutters">
                     <div class="col-md-4">
-                        <img src="{{item._imagen}}" class="card-img" alt="...">
+                        <img src="{{item.imagen}}" class="card-img" alt="...">
                     </div>
                       
                     <div class="card-body col-md-8">
-                      <h4>Alojamiento:{{item._alojamiento._nombre}}</h4>
-                      <h4>De:{{item._fechaS}} Hasta:{{item._fechaV}}</h4>
-                      <h4>Transporte:{{item._transporte._nombre}},{{item._transporte._tipo}}</h4>
+                      <h4>Alojamiento:{{item.alojamiento.nombre}}</h4>
+                      <h4>De:{{item.fechaS}} Hasta:{{item.fechaV}}</h4>
+                      <h4>Transporte:{{item.transporte.nombre}},{{item.transporte.tipo}}</h4>
                       <h4>Descripcion: </h4>
-                      <h5>{{item._descripcion}}</h5>
-                      <h4>Cantidad de Personas: {{item._cantPersonas}}</h4>
-                      <h4>Estadia:{{item._estadia}}</h4>
-                      <h3>Precio:{{item._precio}}</h3>
+                      <h5>{{item.descripcion}}</h5>
+                      <h4>Cantidad de Personas: {{item.cantPersonas}}</h4>
+                      <h4>Estadia:{{item.estadia}}</h4>
+                      <h3>Precio:{{item.precio}}</h3>
                       <div class="card-footer">
                       <button type="button" class="btn btn-outline-primary" (click)="elegirPaquete(item);modal.open(modPaquete,{scrollable:true})">Modificar</button>
                       <button type="button" class="btn btn-outline-danger" (click)="eliminarPaquete(item)">Eliminar</button>
@@ -97,8 +97,8 @@
                 <td>{{usuario.nombreusuario}}</td>
                 <td>{{usuario.password}}</td>
                 <td>{{usuario.email}}</td>
-                <td>{{usuario.numTelefono}}</td>
-                <td>{{usuario.tipoUsuario._descripcion}}</td>
+                <td>{{usuario.telefono}}</td>
+                <td>{{usuario.tipousuario.descripcion}}</td>
                 <td>
                   <button class="btn btn-outline-primary mr-2" type="button" (click)="seleccionarUsuario(usuario)"
                   ><i class="fas fa-edit"></i></button>
@@ -192,19 +192,19 @@
                   <div class="col-md-12 col-lg-12"  >
                     <div class="card"  *ngFor="let item of listapromocion">
                       <div class="card-header titulocard "   >
-                          <h2 class="card-title ">{{item._paqueteTuristico._destino}}</h2>
+                          <h2 class="card-title ">{{item.paqueteTuristico.destino}}</h2>
                       </div>
                       <div class="card-body" >
                         <div class="row no-gutters">
                           <div class="col-md-4">
-                              <img src="{{item._paqueteTuristico._imagen}}" class="card-img" alt="...">
+                              <img src="{{item.paqueteTuristico.imagen}}" class="card-img" alt="...">
                           </div>
                             
                           <div class="card-body col-md-8">
                             
-                            <h4>Descuento:{{item._descuento}}</h4>
-                            <h4>Dias de Regalo: {{item._diasDeRegalo}}</h4>
-                            <h4>Puntos de Regalo: {{item._puntosDeRegalo}}</h4>
+                            <h4>Descuento:{{item.descuento}}</h4>
+                            <h4>Dias de Regalo: {{item.diasDeRegalo}}</h4>
+                            <h4>Puntos de Regalo: {{item.puntosDeRegalo}}</h4>
             
                             <div class="card-footer">
                             <button type="button" class="btn btn-outline-primary" (click)="selecionarPromociones(item);modal.open(modificarPromocion,{scrollable:true})">Modificar</button>
@@ -326,7 +326,7 @@
       <div class="form-group">
         <label for="inputDestino">Destino</label>
         <input type="text" class="form-control" id="inputDestinoModel" placeholder="Ingrese el Destino" 
-        name="destinoModel" [(ngModel)]="paqmod._destino" #destinoModel="ngModel" required>
+        name="destinoModel" [(ngModel)]="paqmod.destino" #destinoModel="ngModel" required>
       </div>
       <div *ngIf="destinoModel.invalid && (destinoModel.dirty || destinoModel.touched)" class="alert alert-danger">
         <div *ngIf="destinoModel.errors.required">
@@ -340,7 +340,7 @@
       <div class="form-group">
         <label for="formPrecio">Precio</label>
         <input type="number" class="form-control" id="formPrecioModel" placeholder="Precio" 
-        name="precioModel" [(ngModel)]="paqmod._precio" #precioModel="ngModel" required>
+        name="precioModel" [(ngModel)]="paqmod.precio" #precioModel="ngModel" required>
       </div>
       <div *ngIf="precioModel.invalid && (precioModel.dirty || precioModel.touched)" class="alert alert-danger">
         <div *ngIf="precioModel.errors.required">
@@ -350,7 +350,7 @@
       <div class="form-group">
         <label for="formDe">Desde</label>
         <input type="date" class="form-control" id="formDeModel" placeholder="Ingrese fecha de ida" 
-        name="idaModel" [(ngModel)]="paqmod._fechaS" #idaModel="ngModel" required>
+        name="idaModel" [(ngModel)]="paqmod.fechaS" #idaModel="ngModel" required>
       </div>
       <div *ngIf="idaModel.invalid && (idaModel.dirty || idaModel.touched)" class="alert alert-danger">
         <div *ngIf="idaModel.errors.required">
@@ -360,7 +360,7 @@
       <div class="form-group">
         <label for="formHasta">Hasta</label>
         <input type="date" class="form-control" id="formHastaModel" placeholder="Ingrese fecha de vuelta" 
-        name="vueltaModel" [(ngModel)]="paqmod._fechaV" #vueltaModel="ngModel" required>
+        name="vueltaModel" [(ngModel)]="paqmod.fechaV" #vueltaModel="ngModel" required>
       </div>
       <div *ngIf="vueltaModel.invalid && (vueltaModel.dirty || vueltaModel.touched)" class="alert alert-danger">
         <div *ngIf="vueltaModel.errors.required">
@@ -369,20 +369,20 @@
       </div> 
       <div class="form-group col-12">
         <label for="formAloj" class="col-4">Alojamiento</label>
-        <select name="selectaloj" [(ngModel)]="paqmod._alojamiento" class="col-12" class="form-control">
-          <option *ngFor="let alojamiento of listaAlojamiento " class="form-control" [ngValue]="alojamiento">{{alojamiento._nombre}} </option>
+        <select name="selectaloj" [(ngModel)]="paqmod.alojamiento" class="col-12" class="form-control">
+          <option *ngFor="let alojamiento of listaAlojamiento " class="form-control" [ngValue]="alojamiento">{{alojamiento.nombre}} </option>
         </select>
       </div>
       <div class="form-group col-12">
         <label for="formTrans" class="col-4">Transporte</label>
-        <select name="selecttrans" [(ngModel)]="paqmod._transporte" class="col-12" class="form-control">
-          <option *ngFor="let transporte of listaTransporte" [ngValue]="transporte">{{transporte._nombre}} </option>
+        <select name="selecttrans" [(ngModel)]="paqmod.transporte" class="col-12" class="form-control">
+          <option *ngFor="let transporte of listaTransporte" [ngValue]="transporte">{{transporte.nombre}} </option>
         </select>
       </div>
       <div class="form-group">
         <label for="formEstadia">Estadia</label>
         <input type="number" class="form-control" id="formEstadiaModel" placeholder="Estadia" 
-        name="estadiaModel" [(ngModel)]="paqmod._estadia" #estadiaModel="ngModel" required>
+        name="estadiaModel" [(ngModel)]="paqmod.estadia" #estadiaModel="ngModel" required>
       </div>
       <div *ngIf="estadiaModel.invalid && (estadiaModel.dirty || estadiaModel.touched)" class="alert alert-danger">
         <div *ngIf="estadiaModel.errors.required">
@@ -392,7 +392,7 @@
       <div class="form-group">
         <label for="formCant">Cant Personas</label>
         <input type="number" class="form-control" id="formCantModel" placeholder="Cantidad de Personas" 
-        name="cantModel" [(ngModel)]="paqmod._cantPersonas" #cantModel="ngModel" required>
+        name="cantModel" [(ngModel)]="paqmod.cantPersonas" #cantModel="ngModel" required>
       </div>
       <div *ngIf="cantModel.invalid && (cantModel.dirty || cantModel.touched)" class="alert alert-danger">
         <div *ngIf="cantModel.errors.required">
@@ -402,7 +402,7 @@
       <div class="form-group">
         <label for="formDes">Descripcion</label>
         <input type="text" class="form-control" id="formDesModel" placeholder="Descripcion"
-        name="desModel" [(ngModel)]="paqmod._descripcion" #desModel="ngModel" required>
+        name="desModel" [(ngModel)]="paqmod.descripcion" #desModel="ngModel" required>
       </div>
       <div *ngIf="desModel.invalid && (desModel.dirty || desModel.touched)" class="alert alert-danger">
         <div *ngIf="desModel.errors.required">
@@ -432,7 +432,7 @@
       <div class="form-group">
         <label for="formUsu1">Nombre</label>
         <input type="text" class="form-control" id="formUsuModel1" placeholder="Nombre de Transporte" name="transporteModel1"
-          [(ngModel)]="transportemd._nombre" #transporteModel1="ngModel" required>
+          [(ngModel)]="transportemd.nombre" #transporteModel1="ngModel" required>
       </div>
       <div *ngIf="transporteModel1.invalid && (transporteModel1.dirty || transporteModel1.touched)" class="alert alert-danger">
         <div *ngIf="transporteModel1.errors.required">
@@ -442,7 +442,7 @@
       <div class="form-group">
         <label for="formContra1">Tipo</label>
         <input type="text" class="form-control" id="formContraModel1" placeholder="Ingrese tipo"
-          name="tipoModel1" [(ngModel)]="transportemd._tipo" #tipoModel1="ngModel" required>
+          name="tipoModel1" [(ngModel)]="transportemd.tipo" #tipoModel1="ngModel" required>
       </div>
       <div *ngIf="tipoModel1.invalid && (tipoModel1.dirty || tipoModel1.touched)" class="alert alert-danger">
         <div *ngIf="tipoModel1.errors.required">
@@ -454,12 +454,12 @@
         <label class="custom-file-label" for="customFileLang">Seleccionar una Imagen</label>
       </div>
       <div>
-        <br><img src="{{transportemd._imagen}}" class="card-img" alt="..." height="500px" ><br> 
+        <br><img src="{{transportemd.imagen}}" class="card-img" alt="..." height="500px" ><br> 
       </div>
       <div class="form-group">
         <label for="formContra1">Descripcion</label>
         <input type="text" class="form-control" id="formContraModel1" placeholder="Ingrese descripcion"
-          name="descripcion" [(ngModel)]="transportemd._descripcion" #descripcion="ngModel" required>
+          name="descripcion" [(ngModel)]="transportemd.descripcion" #descripcion="ngModel" required>
       </div>
       <div *ngIf="descripcion.invalid && (descripcion.dirty || descripcion.touched)" class="alert alert-danger">
         <div *ngIf="descripcion.errors.required">
@@ -469,7 +469,7 @@
     </form>  
   </div>
   <div class="modal-footer">
-    <button type="button" class="btn btn-outline-success" (click)="modificarTransporte()" [disabled]="(!modifTransporte.form.valid)">Modificar</button>
+    <button type="button" class="btn btn-outline-success" (click)="modificarTransporte(); modal.close()" [disabled]="(!modifTransporte.form.valid)">Modificar</button>
     <button type="button" class="btn btn-outline-danger" (click)="limpiarModal('mod-transporte')">Cancelar</button>
   </div>
 </ng-template>
@@ -486,7 +486,7 @@
       <div class="form-group">
         <label for="formUsu1">Nombre</label>
         <input type="text" class="form-control" id="formUsuModel1" placeholder="Nombre de Transporte" name="usuModel1"
-          [(ngModel)]="alojamientomd._nombre" #alojamientoModel1="ngModel" required>
+          [(ngModel)]="alojamientomd.nombre" #alojamientoModel1="ngModel" required>
       </div>
       <div *ngIf="alojamientoModel1.invalid && (alojamientoModel1.dirty || alojamientoModel1.touched)" class="alert alert-danger">
         <div *ngIf="alojamientoModel1.errors.required">
@@ -496,7 +496,7 @@
       <div class="form-group">
         <label for="formContra1">Ubicacion</label>
         <input type="text" class="form-control" id="formContraModel1" placeholder="Ingrese Ubicacion"
-          name="ubicacion" [(ngModel)]="alojamientomd._ubicacion" #ubicacion="ngModel" required>
+          name="ubicacion" [(ngModel)]="alojamientomd.ubicacion" #ubicacion="ngModel" required>
       </div>
       <div *ngIf="ubicacion.invalid && (ubicacion.dirty || ubicacion.touched)" class="alert alert-danger">
         <div *ngIf="ubicacion.errors.required">
@@ -506,7 +506,7 @@
       <div class="form-group">
         <label for="formContra1">Tipo</label>
         <input type="text" class="form-control" id="formContraModel1" placeholder="Ingrese tipo de alojamiento"
-          name="contraModel1" [(ngModel)]="alojamientomd._tipo" #tipoAloj="ngModel" required>
+          name="contraModel1" [(ngModel)]="alojamientomd.tipo" #tipoAloj="ngModel" required>
       </div>
       <div *ngIf="tipoAloj.invalid && (tipoAloj.dirty || tipoAloj.touched)" class="alert alert-danger">
         <div *ngIf="tipoAloj.errors.required">
@@ -518,12 +518,12 @@
         <label class="custom-file-label" for="customFileLang">Seleccionar una Imagen</label>
       </div>
       <div>
-        <br><img src="{{alojamientomd._imagen}}" class="card-img" alt="..." height="500px" ><br> 
+        <br><img src="{{alojamientomd.imagen}}" class="card-img" alt="..." height="500px" ><br> 
       </div>
       <div class="form-group">
         <label for="formContra1">Descripcion</label>
         <input type="text" class="form-control" id="formContraModel1" placeholder="Ingrese descripcion"
-          name="descripcion" [(ngModel)]="alojamientomd._descripcion" #descripcionAloj="ngModel" required>
+          name="descripcion" [(ngModel)]="alojamientomd.descripcion" #descripcionAloj="ngModel" required>
       </div>
       <div *ngIf="descripcionAloj.invalid && (descripcionAloj.dirty || descripcionAloj.touched)" class="alert alert-danger">
         <div *ngIf="descripcionAloj.errors.required">
@@ -533,7 +533,7 @@
       <div class="form-group">
         <label for="formContra1">Cantidad de personas</label>
         <input type="number" class="form-control" id="formContraModel1" placeholder="Ingrese cantidad de personas"
-          name="cantPersonas" [(ngModel)]="alojamientomd._cantpersonas" #cantPersonas="ngModel" required>
+          name="cantPersonas" [(ngModel)]="alojamientomd.cantpersonas" #cantPersonas="ngModel" required>
       </div>
       <div *ngIf="cantPersonas.invalid && (cantPersonas.dirty || cantPersonas.touched)" class="alert alert-danger">
         <div *ngIf="cantPersonas.errors.required">
@@ -547,6 +547,7 @@
     <button type="button" class="btn btn-outline-danger" (click)="limpiarModal('mod-alojamiento')">Cancelar</button>
   </div>
 </ng-template>
+
 <ng-template #crearPromocion let-modal>
   <div class="modal-header">
     <h4>Agregar Promocion</h4>
@@ -559,7 +560,7 @@
     <div class="form-group">
       <label for="formUsu1">Descuento</label>
       <input type="number" class="form-control" id="formUsuModel1" placeholder="Ingrese Descuento" name="usuModel1"
-        [(ngModel)]="promocionnuevo._descuento" #descuento="ngModel" required>
+        [(ngModel)]="promocionnuevo.descuento" #descuento="ngModel" required>
     </div>
     <div *ngIf="descuento.invalid && (descuento.dirty || descuento.touched)" class="alert alert-danger">
       <div *ngIf="descuento.errors.required">
@@ -569,7 +570,7 @@
     <div class="form-group">
       <label for="formContra1">Dias de regalo</label>
       <input type="number" class="form-control" id="formContraModel1" placeholder="Ingrese dias de regalo"
-        name="ubicacion" [(ngModel)]="promocionnuevo._diasDeRegalo" #regalo="ngModel" required>
+        name="ubicacion" [(ngModel)]="promocionnuevo.diasDeRegalo" #regalo="ngModel" required>
     </div>
     <div *ngIf="regalo.invalid && (regalo.dirty || regalo.touched)" class="alert alert-danger">
       <div *ngIf="regalo.errors.required">
@@ -579,7 +580,7 @@
     <div class="form-group">
       <label for="formContra1">Puntos de regalo</label>
       <input type="number" class="form-control" id="formContraModel1" placeholder="Ingrese puntos de regalo"
-        name="contraModel1" [(ngModel)]="promocionnuevo._puntosDeRegalo" #puntos="ngModel" required>
+        name="contraModel1" [(ngModel)]="promocionnuevo.puntosDeRegalo" #puntos="ngModel" required>
     </div>
     <div *ngIf="puntos.invalid && (puntos.dirty || puntos.touched)" class="alert alert-danger">
       <div *ngIf="puntos.errors.required">
@@ -588,8 +589,8 @@
     </div>
     <div class="form-group col-12">
       <label for="formAloj1" class="col-4">Paquetes turisticos</label>
-      <select name="paquetes" [(ngModel)]="promocionnuevo._paqueteTuristico" class="col-12" class="form-control">
-        <option *ngFor="let paquete of listaPaquetes " class="form-control" [ngValue]="paquete">{{paquete._descripcion}} </option>
+      <select name="paquetes" [(ngModel)]="promocionnuevo.paqueteTuristico" class="col-12" class="form-control">
+        <option *ngFor="let paquete of listaPaquetes " class="form-control" [ngValue]="paquete">{{paquete.descripcion}} </option>
       </select>
     </div>
   </form>  
@@ -614,7 +615,7 @@
       <div class="form-group">
         <label for="inputDestino1">Destino</label>
         <input type="text" class="form-control" id="inputDestinoModel1" placeholder="Ingrese el Destino" 
-          name="destinoModel1" [(ngModel)]="paq._destino" #destinoModel1="ngModel" required>
+          name="destinoModel1" [(ngModel)]="paq.destino" #destinoModel1="ngModel" required>
       </div>
       <div *ngIf="destinoModel1.invalid && (destinoModel1.dirty || destinoModel1.touched)" class="alert alert-danger">
         <div *ngIf="destinoModel1.errors.required">
@@ -626,12 +627,12 @@
         <label class="custom-file-label" for="customFileLang">Seleccionar una Imagen</label>
       </div>
       <div>
-        <br><img src="{{paq._imagen}}" class="card-img" alt="..." height="500px" ><br> 
+        <br><img src="{{paq.imagen}}" class="card-img" alt="..." height="500px" ><br> 
       </div>
       <div class="form-group">
         <label for="formPrecio1">Precio</label>
         <input type="number" class="form-control" id="formPrecioModel1" placeholder="Precio"
-        name="precioModel1" [(ngModel)]="paq._precio" #precioModel1="ngModel" required>
+        name="precioModel1" [(ngModel)]="paq.precio" #precioModel1="ngModel" required>
       </div>
       <div *ngIf="precioModel1.invalid && (precioModel1.dirty || precioModel1.touched)" class="alert alert-danger">
         <div *ngIf="precioModel1.errors.required">
@@ -641,7 +642,7 @@
       <div class="form-group">
         <label for="formDe1">Desde</label>
         <input type="date" class="form-control" id="formDeModel1" placeholder="Ingrese fecha de ida" 
-        name="idaModel1" [(ngModel)]="paq._fechaS" #idaModel1="ngModel" required>
+        name="idaModel1" [(ngModel)]="paq.fechaS" #idaModel1="ngModel" required>
       </div>
       <div *ngIf="idaModel1.invalid && (idaModel1.dirty || idaModel1.touched)" class="alert alert-danger">
         <div *ngIf="idaModel1.errors.required">
@@ -651,7 +652,7 @@
       <div class="form-group">
         <label for="formHasta1">Hasta</label>
         <input type="date" class="form-control" id="formHastaModel1" placeholder="Ingrese fecha de vuelta" 
-        name="vueltaModel1" [(ngModel)]="paq._fechaV" #vueltaModel1="ngModel" required >
+        name="vueltaModel1" [(ngModel)]="paq.fechaV" #vueltaModel1="ngModel" required >
       </div>
       <div *ngIf="vueltaModel1.invalid && (vueltaModel1.dirty || vueltaModel1.touched)" class="alert alert-danger">
         <div *ngIf="vueltaModel1.errors.required">
@@ -660,20 +661,20 @@
       </div> 
       <div class="form-group col-12">
         <label for="formAloj1" class="col-4">Alojamiento</label>
-        <select name="alojamientoalta" [(ngModel)]="paq._alojamiento" class="col-12" class="form-control">
+        <select name="alojamientoalta" [(ngModel)]="paq.alojamiento" class="col-12" class="form-control">
           <option *ngFor="let alojamiento of listaAlojamiento " class="form-control" [ngValue]="alojamiento">{{alojamiento.nombre}} </option>
         </select>
       </div>
       <div class="form-group col-12">
         <label for="formTrans1" class="col-4">Transporte</label>
-        <select name="transportealta" [(ngModel)]="paq._transporte" class="col-12" class="form-control">
+        <select name="transportealta" [(ngModel)]="paq.transporte" class="col-12" class="form-control">
           <option *ngFor="let transporte of listaTransporte" [ngValue]="transporte">{{transporte.nombre}} </option>
         </select>
       </div>
       <div class="form-group">
         <label for="formEstadia1">Estadia</label>
         <input type="number" class="form-control" id="formEstadiaModel1" placeholder="Estadia"
-        name="estadiaModel1" [(ngModel)]="paq._estadia" #estadiaModel1="ngModel" required>
+        name="estadiaModel1" [(ngModel)]="paq.estadia" #estadiaModel1="ngModel" required>
       </div>
       <div *ngIf="estadiaModel1.invalid && (estadiaModel1.dirty || estadiaModel1.touched)" class="alert alert-danger">
         <div *ngIf="estadiaModel1.errors.required">
@@ -683,7 +684,7 @@
       <div class="form-group">
         <label for="formCant">Cant Personas</label>
         <input type="number" class="form-control" id="formCantModel1" placeholder="Cantidad de Personas" 
-        name="cantModel" [(ngModel)]="paq._cantPersonas" #cantModel="ngModel" required>
+        name="cantModel" [(ngModel)]="paq.cantPersonas" #cantModel="ngModel" required>
       </div>
       <div *ngIf="cantModel.invalid && (cantModel.dirty || cantModel.touched)" class="alert alert-danger">
         <div *ngIf="cantModel.errors.required">
@@ -693,7 +694,7 @@
       <div class="form-group">
         <label for="formDes1">Descripcion</label>
         <input type="text" class="form-control" id="formDesModel1" placeholder="Descripcion" 
-        name="desModel1" [(ngModel)]="paq._descripcion" #desModel1="ngModel" minlength="10" required>
+        name="desModel1" [(ngModel)]="paq.descripcion" #desModel1="ngModel" minlength="10" required>
       </div>
       <div *ngIf="desModel1.invalid && (desModel1.dirty || desModel1.touched)" class="alert alert-danger">
         <div *ngIf="desModel1.errors.required">
@@ -706,7 +707,7 @@
     </form>     
   </div>
   <div class="modal-footer">
-      <button type="button" class="btn btn-outline-success" [disabled]="!crearpaquete.form.valid" (click)="agregarPaquete();modal.close()">Guardar Cambios</button>
+      <button type="button" class="btn btn-outline-success" [disabled]="!crearpaquete.form.valid" (click)="agregarPaquete();limpiarModal('mod-paquete')">Guardar Cambios</button>
       <button type="button" class="btn btn-outline-danger" (click)="limpiarModal('nuevo-paquete')">Cancelar</button>
   </div>
 </ng-template>
@@ -765,8 +766,8 @@
       </div>
       <div class="form-group">
         <label for="exampleFormControlSelect1" >Perfil:</label>
-        <select class="form-control" id="exampleFormControlSelect1" name="categoriaModel2" [(ngModel)]="usuarionuevo.tipoUsuario" #categoriaModel2="ngModel"  required>
-          <option *ngFor="let item of listatipousuario" [ngValue]="item">{{item._descripcion}}</option>
+        <select class="form-control" id="exampleFormControlSelect1" name="categoriaModel2" [(ngModel)]="usuarionuevo.tipousuario" #categoriaModel2="ngModel"  required>
+          <option *ngFor="let item of listatipousuario" [ngValue]="item">{{item.descripcion}}</option>
         </select>
       </div>    
     </form>  
@@ -789,7 +790,7 @@
       <div class="form-group">
         <label for="formUsu1">Nombre</label>
         <input type="text" class="form-control" id="formUsuModel1" placeholder="Nombre de Transporte" name="usuModel1"
-          [(ngModel)]="transportenuevo._nombre" #transporteModel1="ngModel" required>
+          [(ngModel)]="transportenuevo.nombre" #transporteModel1="ngModel" required>
       </div>
       <div *ngIf="transporteModel1.invalid && (transporteModel1.dirty || transporteModel1.touched)" class="alert alert-danger">
         <div *ngIf="transporteModel1.errors.required">
@@ -799,7 +800,7 @@
       <div class="form-group">
         <label for="formContra1">Tipo</label>
         <input type="text" class="form-control" id="formContraModel1" placeholder="Ingrese tipo"
-          name="contraModel1" [(ngModel)]="transportenuevo._tipo" #tipoModel1="ngModel" required>
+          name="contraModel1" [(ngModel)]="transportenuevo.tipo" #tipoModel1="ngModel" required>
       </div>
       <div *ngIf="tipoModel1.invalid && (tipoModel1.dirty || tipoModel1.touched)" class="alert alert-danger">
         <div *ngIf="tipoModel1.errors.required">
@@ -811,12 +812,12 @@
         <label class="custom-file-label" for="customFileLang">Seleccionar una Imagen</label>
       </div>
       <div>
-        <br><img src="{{transportenuevo._imagen}}" class="card-img" alt="..." height="500px" ><br> 
+        <br><img src="{{transportenuevo.imagen}}" class="card-img" alt="..." height="500px" ><br> 
       </div>
       <div class="form-group">
         <label for="formContra1">Descripcion</label>
         <input type="text" class="form-control" id="formContraModel1" placeholder="Ingrese descripcion"
-          name="descripcion" [(ngModel)]="transportenuevo._descripcion" #descripcion="ngModel" required>
+          name="descripcion" [(ngModel)]="transportenuevo.descripcion" #descripcion="ngModel" required>
       </div>
       <div *ngIf="descripcion.invalid && (descripcion.dirty || descripcion.touched)" class="alert alert-danger">
         <div *ngIf="descripcion.errors.required">
@@ -844,7 +845,7 @@
       <div class="form-group">
         <label for="formUsu1">Nombre</label>
         <input type="text" class="form-control" id="formUsuModel1" placeholder="Nombre de Transporte" name="usuModel1"
-          [(ngModel)]="alojamientonuevo._nombre" #alojamientoModel1="ngModel" required>
+          [(ngModel)]="alojamientonuevo.nombre" #alojamientoModel1="ngModel" required>
       </div>
       <div *ngIf="alojamientoModel1.invalid && (alojamientoModel1.dirty || alojamientoModel1.touched)" class="alert alert-danger">
         <div *ngIf="alojamientoModel1.errors.required">
@@ -854,7 +855,7 @@
       <div class="form-group">
         <label for="formContra1">Ubicacion</label>
         <input type="text" class="form-control" id="formContraModel1" placeholder="Ingrese Ubicacion"
-          name="ubicacion" [(ngModel)]="alojamientonuevo._ubicacion" #ubicacion="ngModel" required>
+          name="ubicacion" [(ngModel)]="alojamientonuevo.ubicacion" #ubicacion="ngModel" required>
       </div>
       <div *ngIf="ubicacion.invalid && (ubicacion.dirty || ubicacion.touched)" class="alert alert-danger">
         <div *ngIf="ubicacion.errors.required">
@@ -864,7 +865,7 @@
       <div class="form-group">
         <label for="formContra1">Tipo</label>
         <input type="text" class="form-control" id="formContraModel1" placeholder="Ingrese tipo de alojamiento"
-          name="contraModel1" [(ngModel)]="alojamientonuevo._tipo" #tipoAloj="ngModel" required>
+          name="contraModel1" [(ngModel)]="alojamientonuevo.tipo" #tipoAloj="ngModel" required>
       </div>
       <div *ngIf="tipoAloj.invalid && (tipoAloj.dirty || tipoAloj.touched)" class="alert alert-danger">
         <div *ngIf="tipoAloj.errors.required">
@@ -876,12 +877,12 @@
         <label class="custom-file-label" for="customFileLang">Seleccionar una Imagen</label>
       </div>
       <div>
-        <br><img src="{{alojamientonuevo._imagen}}" class="card-img" alt="..." height="500px" ><br> 
+        <br><img src="{{alojamientonuevo.imagen}}" class="card-img" alt="..." height="500px" ><br> 
       </div>
       <div class="form-group">
         <label for="formContra1">Descripcion</label>
         <input type="text" class="form-control" id="formContraModel1" placeholder="Ingrese descripcion"
-          name="descripcion" [(ngModel)]="alojamientonuevo._descripcion" #descripcionAloj="ngModel" required>
+          name="descripcion" [(ngModel)]="alojamientonuevo.descripcion" #descripcionAloj="ngModel" required>
       </div>
       <div *ngIf="descripcionAloj.invalid && (descripcionAloj.dirty || descripcionAloj.touched)" class="alert alert-danger">
         <div *ngIf="descripcionAloj.errors.required">
@@ -891,7 +892,7 @@
       <div class="form-group">
         <label for="formContra1">Cantidad de personas</label>
         <input type="number" class="form-control" id="formContraModel1" placeholder="Ingrese cantidad de personas"
-          name="cantPersonas" [(ngModel)]="alojamientonuevo._cantpersonas" #cantPersonas="ngModel" required>
+          name="cantPersonas" [(ngModel)]="alojamientonuevo.cantpersonas" #cantPersonas="ngModel" required>
       </div>
       <div *ngIf="cantPersonas.invalid && (cantPersonas.dirty || cantPersonas.touched)" class="alert alert-danger">
         <div *ngIf="cantPersonas.errors.required">
@@ -902,7 +903,7 @@
   </div>
 
   <div class="modal-footer">
-    <button type="button" class="btn btn-outline-success" (click)="agregarAlojamiento()" [disabled]="(!newAlojamiento.form.valid)">Agregar</button>
+    <button type="button" class="btn btn-outline-success" (click)="agregarAlojamiento(); limpiarModal('nuevo-alojamiento')" [disabled]="(!newAlojamiento.form.valid)">Agregar</button>
     <button type="button" class="btn btn-outline-danger" (click)="limpiarModal('nuevo-alojamiento')">Cancelar</button>
   </div>
 </ng-template>
@@ -916,43 +917,43 @@
   </div>
   <div class="modal-body">
     <form #modifPromocion="ngForm">
-    <div class="form-group">
-      <label for="formUsu1">Descuento</label>
-      <input type="number" class="form-control" id="formUsuModel1" placeholder="Ingrese Descuento" name="usuModel1"
-        [(ngModel)]="promocionmd._descuento" #descuento="ngModel" required>
-    </div>
-    <div *ngIf="descuento.invalid && (descuento.dirty || descuento.touched)" class="alert alert-danger">
-      <div *ngIf="descuento.errors.required">
-        Descuento es requerido.
+      <div class="form-group">
+        <label for="formUsu1">Descuento</label>
+        <input type="number" class="form-control" id="formUsuModel1" placeholder="Ingrese Descuento" name="usuModel1"
+          [(ngModel)]="promocionmd.descuento" #descuento="ngModel" required>
       </div>
-    </div>
-    <div class="form-group">
-      <label for="formContra1">Dias de regalo</label>
-      <input type="number" class="form-control" id="formContraModel1" placeholder="Ingrese dias de regalo"
-        name="ubicacion" [(ngModel)]="promocionmd._diasDeRegalo" #regalo="ngModel" required>
-    </div>
-    <div *ngIf="regalo.invalid && (regalo.dirty || regalo.touched)" class="alert alert-danger">
-      <div *ngIf="regalo.errors.required">
-        El tipo de alojamiento es requerido.
+      <div *ngIf="descuento.invalid && (descuento.dirty || descuento.touched)" class="alert alert-danger">
+        <div *ngIf="descuento.errors.required">
+          Descuento es requerido.
+        </div>
       </div>
-    </div>
-    <div class="form-group">
-      <label for="formContra1">Puntos de regalo</label>
-      <input type="number" class="form-control" id="formContraModel1" placeholder="Ingrese puntos de regalo"
-        name="contraModel1" [(ngModel)]="promocionmd._diasDeRegalo" #puntos="ngModel" required>
-    </div>
-    <div *ngIf="puntos.invalid && (puntos.dirty || puntos.touched)" class="alert alert-danger">
-      <div *ngIf="puntos.errors.required">
-        Los puntos de regalo son requerido.
+      <div class="form-group">
+        <label for="formContra1">Dias de regalo</label>
+        <input type="number" class="form-control" id="formContraModel1" placeholder="Ingrese dias de regalo"
+          name="ubicacion" [(ngModel)]="promocionmd.diasDeRegalo" #regalo="ngModel" required>
       </div>
-    </div>
-    <div class="form-group col-12">
-      <label for="formAloj1" class="col-4">Paquetes turisticos</label>
-      <select name="paquetes" [(ngModel)]="promocionmd._paqueteTuristico" class="col-12" class="form-control">
-        <option *ngFor="let paquete of listaPaquetes " class="form-control" [ngValue]="paquete">{{paquete.destino}} </option>
-      </select>
-    </div>
-  </form>  
+      <div *ngIf="regalo.invalid && (regalo.dirty || regalo.touched)" class="alert alert-danger">
+        <div *ngIf="regalo.errors.required">
+          El tipo de alojamiento es requerido.
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="formContra1">Puntos de regalo</label>
+        <input type="number" class="form-control" id="formContraModel1" placeholder="Ingrese puntos de regalo"
+          name="contraModel1" [(ngModel)]="promocionmd.diasDeRegalo" #puntos="ngModel" required>
+      </div>
+      <div *ngIf="puntos.invalid && (puntos.dirty || puntos.touched)" class="alert alert-danger">
+        <div *ngIf="puntos.errors.required">
+          Los puntos de regalo son requerido.
+        </div>
+      </div>
+      <div class="form-group col-12">
+        <label for="formAloj1" class="col-4">Paquetes turisticos</label>
+        <select name="paquetes" [(ngModel)]="promocionmd.paqueteTuristico" class="col-12" class="form-control">
+          <option *ngFor="let paquete of listaPaquetes " class="form-control" [ngValue]="paquete">{{paquete.destino}} </option>
+        </select>
+      </div>
+    </form>  
   </div>
 
   <div class="modal-footer">

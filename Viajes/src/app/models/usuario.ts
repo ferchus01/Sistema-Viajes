@@ -1,18 +1,20 @@
 import { TipoUsuario } from './tipo-usuario';
 
 export class Usuario {
+
+    // tslint:disable-next-line: variable-name
     _id: string;
-    nombre:string;
+    nombre: string;
     apellido: string;
     dni: number;
     email: string;
-    numTelefono: number;
+    telefono: number;
     nombreusuario: string;
     password: string;
-    tipoUsuario: TipoUsuario;
+    tipousuario: TipoUsuario;
 
     constructor()
     {
-        this.tipoUsuario = new TipoUsuario();
+        this.tipousuario = new TipoUsuario();
     }
 }

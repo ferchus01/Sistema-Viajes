@@ -40,7 +40,7 @@ export class PaqueteService {
       headers: new HttpHeaders({
       })
     };
-    return this._http.delete(this.urlBase + paq.id, httpOptions);
+    return this._http.delete(this.urlBase + paq._id, httpOptions);
   }
   public modificar(paq: Paquete): Observable<any>{
     const httpOptions = {
@@ -49,6 +49,6 @@ export class PaqueteService {
       })
     };
     const body = JSON.stringify(paq);
-    return this._http.put(this.urlBase + paq.id, body , httpOptions);
+    return this._http.put(this.urlBase + paq._id, body , httpOptions);
   }
 }

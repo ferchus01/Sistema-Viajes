@@ -35,7 +35,7 @@ export class TipousuarioService {
       })
     };
     const body = JSON.stringify(tipos);
-    return this.http.put(this.urlbase + tipos.id, body , httpOptions);
+    return this.http.put(this.urlbase + tipos._id, body , httpOptions);
   }
 
   public EliminarTipoUsuario(id: string): Observable<any>{

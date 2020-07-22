@@ -35,7 +35,7 @@ export class TarjetaService {
       })
     };
     const body = JSON.stringify(tarjeta);
-    return this.http.put(this.urlbase + tarjeta.id, body , httpOptions);
+    return this.http.put(this.urlbase + tarjeta._id, body , httpOptions);
   }
 
   public EliminarTarjeta(id: string): Observable<any>{

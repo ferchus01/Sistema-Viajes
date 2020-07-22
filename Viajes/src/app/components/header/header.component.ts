@@ -28,8 +28,8 @@ export class HeaderComponent implements OnInit {
         this.usuarioService.usuarioLogeado = new Usuario();
         Object.assign( this.usuarioService.usuarioLogeado, resultado);
         const r = new TipoUsuario();
-        Object.assign(r, resultado.tipoUsuario);
-        this.usuarioService.usuarioLogeado.tipoUsuario = r;
+        Object.assign(r, resultado.tipousuario);
+        this.usuarioService.usuarioLogeado.tipousuario = r;
         this.router.navigate(['/paquetesAbm']);
         this.usuarioLoageado = new Usuario();
         }

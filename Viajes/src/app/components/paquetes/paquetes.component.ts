@@ -39,15 +39,9 @@ export class PaquetesComponent implements OnInit {
     let a = new Paquete();
     this.ps.actualizarT().subscribe(
       (result) => {
-      for (const i of result)
+      for (let i of result)
       {
         Object.assign(a, i);
-        const b = new ProveedorAlojamiento();
-        Object.assign( b, i.alojamiento);
-        a._alojamiento = b;
-        const c = new ProveedorTransporte();
-        Object.assign( c , i.transporte);
-        a._transporte = c;
         this.listaPaquetes.push(a);
         a = new Paquete();
       }
@@ -75,9 +69,9 @@ export class PaquetesComponent implements OnInit {
   }
   public agregarReserva(){
     const f = new Date();
-    this.resv._fecha = f;
-    this.resv._paquete = this.paq;
-    this.resv._estado = true;
+    this.resv.fecha = f;
+    this.resv.paquete = this.paq;
+    this.resv.estado = true;
     console.log(this.resv);
     this.rs.agregarResv(this.resv).subscribe(
       (result) => {

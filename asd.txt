@@ -10,7 +10,13 @@ npm install bootstrap --save
 npm install --save  angular-9-datatable
 npm install alife-file-to-base64 --save
 
-lista de promociones carga mal
-despues se creara modal de modificar usuario
+lista de promociones carga mal <-- arreglado
+despues se creara modal de modificar usuario 
 ya arreglamos lo de las imagenes de alojamiento y transporte
-y no trae fecha y paquetes cargados
+y no trae fecha y paquetes cargados <-- de donde? :v al modal de modificar o a la lista?
+
+---------------------------
+
+borramos getters y setters
+controlar la actualizacion de listas. por ejemplo. cuando modificamos un alojamiento 
+la lista de paquetes tambien c deben actualizar

@@ -35,7 +35,7 @@ export class PromocionService {
       })
     };
     const body = JSON.stringify(promocion);
-    return this.http.put(this.urlbase + promocion.id, body , httpOptions);
+    return this.http.put(this.urlbase + promocion._id, body , httpOptions);
   }
 
   public EliminarPromocion(id: string): Observable<any>{

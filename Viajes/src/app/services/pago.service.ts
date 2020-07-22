@@ -35,7 +35,7 @@ export class PagoService {
       })
     };
     const body = JSON.stringify(pago);
-    return this.http.put(this.urlbase + pago.id, body , httpOptions);
+    return this.http.put(this.urlbase + pago._id, body , httpOptions);
   }
 
   public EliminarPago(id: string): Observable<any>{

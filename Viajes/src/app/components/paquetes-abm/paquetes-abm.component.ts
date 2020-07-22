@@ -131,12 +131,6 @@ export class PaquetesAbmComponent implements OnInit {
       for (const i of result)
       {
         Object.assign(a, i);
-        const b = new ProveedorAlojamiento();
-        Object.assign( b, i.alojamiento);
-        a._alojamiento = b;
-        const c = new ProveedorTransporte();
-        Object.assign( c , i.transporte);
-        a._transporte = c;
         this.listaPaquetes.push(a);
         a = new Paquete();
       }
@@ -148,8 +142,8 @@ export class PaquetesAbmComponent implements OnInit {
   public elegirPaquete(paquete: Paquete){
     Object.assign( this.paqmod , paquete);
     console.log(paquete);
-    this.paqmod._transporte = this.listaTransporte.find((item: ProveedorTransporte)=> item.id === paquete._transporte.id);
-    this.paqmod._alojamiento = this.listaAlojamiento.find((item: ProveedorAlojamiento)=> item.id === paquete._alojamiento.id);
+    this.paqmod.transporte = this.listaTransporte.find((item: ProveedorTransporte) => item._id === paquete.transporte._id);
+    this.paqmod.alojamiento = this.listaAlojamiento.find((item: ProveedorAlojamiento) => item._id === paquete.alojamiento._id);
   }
 
   cargarimagenpaquete(files, a: string)
@@ -159,10 +153,10 @@ export class PaquetesAbmComponent implements OnInit {
     {
       if (a === 'paquetenuevo')
       {
-        this.paq._imagen = files[0].base64;
+        this.paq.imagen = files[0].base64;
       }
        else{
-        this.paqmod._imagen = files[0].base64;
+        this.paqmod.imagen = files[0].base64;
       }
     }
   }
@@ -195,11 +189,13 @@ export class PaquetesAbmComponent implements OnInit {
   }
 
   public modificarPaquete(){
+    console.log(this.paqmod);
     this.ps.modificar(this.paqmod).subscribe(
       (result) => {
         this.toastr.info('Paquete Modificado Correctamente', 'Confirmado');
         this.paqmod = new Paquete();
         this.actualizarTabla();
+        this.obtenerPromociones();
       },
       (error) => {
         this.toastr.error('no se pudo modificar el paquete', 'Error');
@@ -247,10 +243,10 @@ export class PaquetesAbmComponent implements OnInit {
     {
       if (a === 'transportenuevo')
       {
-        this.transportenuevo._imagen = files[0].base64;
+        this.transportenuevo.imagen = files[0].base64;
       }
        else{
-        this.transportemd._imagen = files[0].base64;
+        this.transportemd.imagen = files[0].base64;
       }
     }
   }
@@ -268,7 +264,7 @@ export class PaquetesAbmComponent implements OnInit {
   }
   public eliminarTransporte(transport: ProveedorTransporte)
   {
-    this.transporteService.EliminarTransporte(transport.id).subscribe(
+    this.transporteService.EliminarTransporte(transport._id).subscribe(
       (resultado) =>
       {
         this.toastr.success('alojamiento eliminado', 'operacion exitosa');
@@ -320,10 +316,10 @@ export class PaquetesAbmComponent implements OnInit {
     {
       if (a === 'alojamientonuevo')
       {
-        this.alojamientonuevo._imagen = files[0].base64;
+        this.alojamientonuevo.imagen = files[0].base64;
       }
       else{
-        this.alojamientomd._imagen = files[0].base64;
+        this.alojamientomd.imagen = files[0].base64;
       }
     }
   }
@@ -345,7 +341,7 @@ export class PaquetesAbmComponent implements OnInit {
   }
   public eliminarAlojamiento(alojamiento: ProveedorAlojamiento)
   {
-    this.alojamientoService.EliminarAlojamiento(alojamiento.id).subscribe(
+    this.alojamientoService.EliminarAlojamiento(alojamiento._id).subscribe(
       (resultado) =>
       {
         this.toastr.success('alojamiento eliminado', 'operacion exitosa');
@@ -389,7 +385,7 @@ export class PaquetesAbmComponent implements OnInit {
     );
   }
   public eliminarFormaPago(formaPago: Formapago){
-    this.formapagoService.EliminarFormaPago(formaPago.id).subscribe(
+    this.formapagoService.EliminarFormaPago(formaPago._id).subscribe(
       (resultado) =>
       {
         this.toastr.info('forma de pago eliminada', ' operacion exitosa');
@@ -406,13 +402,11 @@ export class PaquetesAbmComponent implements OnInit {
     this.listapromocion = new Array<Promocion>();
     this.promocionServicie.listadePromocion().subscribe(
       (result) => {
-        const a = new Promocion();
-        const b = new Paquete();
-        for (const r of result){
+        let a = new Promocion();
+        for (let r of result){
           Object.assign(a, r);
-          Object.assign(b, r.paquete);
-          a._paqueteTuristico = b;
           this.listapromocion.push(a);
+          a = new Promocion();
         }
       }
     );
@@ -439,7 +433,7 @@ export class PaquetesAbmComponent implements OnInit {
     );
   }
   public eliminarPromociones(promo: Promocion){
-    this.promocionServicie.EliminarPromocion(promo.id).subscribe(
+    this.promocionServicie.EliminarPromocion(promo._id).subscribe(
       (resultado) =>
       {
         this.toastr.info('Promocion eliminada', ' operacion exitosa');
@@ -450,6 +444,9 @@ export class PaquetesAbmComponent implements OnInit {
   public selecionarPromociones(promocion: Promocion)
   {
     Object.assign(this.promocionmd, promocion);
+
+    this.promocionmd.paqueteTuristico = this.listaPaquetes.find((item: Paquete) => item._id === promocion.paqueteTuristico._id);
+    console.log(this.promocionmd);
   }
 
   // ABM usuario
@@ -458,14 +455,12 @@ export class PaquetesAbmComponent implements OnInit {
     this.listausuario = new Array<Usuario>();
     this.usuarioService.listaUsuario().subscribe(
       (result) => {
-        const q = new Usuario();
-        const e = new TipoUsuario();
-        for (const a of result)
+        let q = new Usuario();
+        for (let a of result)
         {
           Object.assign(q, a);
-          Object.assign(e, a.tipousuario);
-          q.tipoUsuario = e;
           this.listausuario.push(q);
+          q = new Usuario();
         }
       },
       (error) =>
@@ -562,7 +557,7 @@ export class PaquetesAbmComponent implements OnInit {
   }
   public eliminarTipoUsuario(tipousuario: TipoUsuario)
   {
-    this.tipousuarioService.EliminarTipoUsuario(tipousuario.id).subscribe(
+    this.tipousuarioService.EliminarTipoUsuario(tipousuario._id).subscribe(
       (resultado) =>
       {
         this.toastr.success('usuario eliminado', 'operacion exitosa');
