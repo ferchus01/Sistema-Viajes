@@ -9,3 +9,8 @@ npm install ngx-toastr --save
 npm install bootstrap --save
 npm install --save  angular-9-datatable
 npm install alife-file-to-base64 --save
+
+lista de promociones carga mal
+despues se creara modal de modificar usuario
+ya arreglamos lo de las imagenes de alojamiento y transporte
+y no trae fecha y paquetes cargados

@@ -147,8 +147,8 @@ export class PaquetesAbmComponent implements OnInit {
   }
   public elegirPaquete(paquete: Paquete){
     Object.assign( this.paqmod , paquete);
-    this.paqmod._alojamiento = new ProveedorAlojamiento();
-    this.paqmod._transporte = new ProveedorTransporte();
+    // this.paqmod._alojamiento = new ProveedorAlojamiento();
+    // this.paqmod._transporte = new ProveedorTransporte();
   }
 
   cargarimagenpaquete(files, a:string)
@@ -407,19 +407,23 @@ export class PaquetesAbmComponent implements OnInit {
       }
     );
   }
+
   public agregarPromociones(){
     this.promocionServicie.agregarPromocion(this.promocionnuevo).subscribe(
       (resultado) =>
       {
         this.toastr.success('Promocion agregado', ' operacion exitosa');
+        this.obtenerPromociones();
       }
     );
   }
+
   public modificarPromociones(){
     this.promocionServicie.ModificarPromocion(this.promocionmd).subscribe(
       (result) =>
       {
         this.toastr.info('Promocion modificada', ' operacion exitosa');
+        this.obtenerPromociones();
       }
     );
   }
@@ -430,6 +434,7 @@ export class PaquetesAbmComponent implements OnInit {
         this.toastr.info('Promocion eliminada', ' operacion exitosa');
       }
     );
+    this.obtenerPromociones();
   }
   public selecionarPromociones(promocion: Promocion)
   {
