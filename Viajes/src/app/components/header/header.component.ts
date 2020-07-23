@@ -30,7 +30,12 @@ export class HeaderComponent implements OnInit {
         const r = new TipoUsuario();
         Object.assign(r, resultado.tipousuario);
         this.usuarioService.usuarioLogeado.tipousuario = r;
+        if(this.usuarioService.usuarioLogeado.tipousuario.descripcion === 'agente'){
         this.router.navigate(['/paquetesAbm']);
+        }
+        else{
+          this.router.navigate(['/paquetes']);
+        }
         this.usuarioLoageado = new Usuario();
         }
     );

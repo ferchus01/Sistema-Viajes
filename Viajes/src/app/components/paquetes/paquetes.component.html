@@ -17,39 +17,34 @@
       <span class="sr-only">Next</span>
     </a>
 </div>
-<div class="row ">
+<br>
+<div>
+  <div>
+    <h1>Promociones</h1>
+  </div>
+  <br>
     <div class="col-12 "  >
-      <div class="row">
-
-        <div class="col-md-12 col-lg-12" *ngFor="let item of listaPaquetes" >
-            <div class="card"  >
-                <div class="card-header titulocard "  >
-                    <h2 class="card-title ">{{item.destino}}</h2>
-                    
-                </div>
-                <div class="card-body" >
-                    <div class="row no-gutters">
-                        <div class="col-md-4">
-                            <img src="{{item.imagen}}" class="card-img" alt="...">
-                        </div>
-                        
-                        <div class="card-body col-md-8">
-                          <h4>Fecha de Salida: {{item.fechaS}} </h4>
-                          <h4>Fecha de Vuelta:{{item.fechaV}} </h4>
-                          <h4>Cantidad de Personas: {{item.cantPersonas}}</h4>
-                          <h2>Precio: {{item.precio}} $</h2> 
-                          
-                          <div class="card-footer">
-                            <button type="button" class="btn btn-outline-success"  (click)="elegirPaquete(item);modal.open(reserva, { scrollable: true })" >Comprar</button>
-                            <button type="button" class="btn btn-outline-primary" (click)="elegirPaquete(item);modal.open(mostrar,{ size : 'xl' })">Ver Mas</button>
-                          </div>
-                        </div>
-                        
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>    
+      
+    <div class="row">
+      <div class="col mb-3 col-12 col-sm-6 col-md-3" id="box1"
+        *ngFor="let item of listaPaquetes " >
+        <div class="card h-100" >
+          <img src="{{item.imagen}}" class="card-img-top" height="180" alt="..." >
+          <div class="card-body" >
+            <h5>Destino</h5>
+            <h4 class="card-title" >{{item.destino}}</h4>
+            
+          </div>
+          <div class="card-body" >
+            <h5>Precio: </h5>
+            <h4 class="card-title" >{{item.precio}} $</h4>
+            
+          </div>
+          <div class="card-footer">
+            <button type="button" class="btn btn-outline-success"  (click)="elegirPaquete(item);modal.open(reserva, { scrollable: true })" >Comprar</button>
+                  <button type="button" class="btn btn-outline-primary" (click)="elegirPaquete(item);modal.open(mostrar,{ size : 'xl' })">Ver Mas</button>
+          </div>
+        </div>   
     </div>
 </div>
 <ng-template #mostrar let-modal >
@@ -68,11 +63,11 @@
               </div>
               
               <div class="card-body col-md-6">
-                <h4>Fecha de Salida: {{paq.fechaS}} </h4>
-                <h4>Fecha de Vuelta:{{paq.fechaV}} </h4>
+                <h4>Fecha de Salida: {{paq.fechaS|date:'dd/MM/yy'}} </h4>
+                <h4>Fecha de Vuelta:{{paq.fechaV|date:'dd/MM/yy'}} </h4>
                 <h4>Cantidad de Personas: {{paq.cantPersonas}}</h4>
-                <h4>Alojamiento: {{paq.alojamiento}}</h4>
-                <h4>Transporte: {{paq.transporte}}</h4>
+                <h4>Alojamiento: {{paq.alojamiento.nombre}}</h4>
+                <h4>Transporte: {{paq.transporte.nombre}}</h4>
                 <h4>Estadia: {{paq.estadia}}</h4>
                 <h4>Descripcion: </h4>
                 <h4>{{paq.descripcion}}</h4>

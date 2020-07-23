@@ -80,7 +80,7 @@ export class PaquetesAbmComponent implements OnInit {
     private formapagoService: FormapagoService,
     private promocionServicie: PromocionService,
     private tipousuarioService: TipousuarioService,
-    private usuarioService: UsuarioService
+    public usuarioService: UsuarioService
     ) {
 
       // operaciones paquete
@@ -402,12 +402,13 @@ export class PaquetesAbmComponent implements OnInit {
     this.listapromocion = new Array<Promocion>();
     this.promocionServicie.listadePromocion().subscribe(
       (result) => {
-        let a = new Promocion();
-        for (let r of result){
-          Object.assign(a, r);
-          this.listapromocion.push(a);
-          a = new Promocion();
-        }
+        // let a = new Promocion();
+        // for (let r of result){
+        //   Object.assign(a, r);
+        //   this.listapromocion.push(a);
+        //   a = new Promocion();
+        // }
+        this.listapromocion=result;
       }
     );
   }
