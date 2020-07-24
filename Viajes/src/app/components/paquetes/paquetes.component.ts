@@ -9,6 +9,8 @@ import { ProveedorAlojamiento } from 'src/app/models/proveedor-alojamiento';
 import { ProveedorTransporte } from 'src/app/models/proveedor-transporte';
 import { Formapago } from 'src/app/models/formapago';
 import { FormapagoService } from 'src/app/services/formapago.service';
+import { UsuarioService } from 'src/app/services/usuario.service';
+import { isNgTemplate } from '@angular/compiler';
 
 @Component({
   selector: 'app-paquetes',
@@ -20,11 +22,13 @@ export class PaquetesComponent implements OnInit {
   resv: Reserva;
   listaPaquetes: Array<Paquete>;
   listadeFormaPago: Array<Formapago>;
+  listaReserva: Array<Reserva>;
   constructor(private ps: PaqueteService,
               public modal: NgbModal,
               private toastr: ToastrService,
               private rs: ReservaService,
-              private formaPagoService: FormapagoService) {
+              private formaPagoService: FormapagoService,
+              private usuarioService: UsuarioService) {
     this.resv = new Reserva();
     this.paq = new Paquete();
     this.listaPaquetes = new Array<Paquete>();
@@ -32,6 +36,21 @@ export class PaquetesComponent implements OnInit {
    }
 
   ngOnInit(): void {
+  }
+  public actualizarReserva(){
+    this.listaReserva = new Array<Reserva>();
+    let a = new Reserva();
+    this.rs.actualizarT().subscribe(
+      (result) => {
+      for (let i of result)
+      {
+
+        Object.assign(a, i);
+        this.listaReserva.push(a);
+        a = new Reserva();
+      }
+      }
+    );
   }
 
   public actualizarTabla(){
@@ -75,6 +94,7 @@ export class PaquetesComponent implements OnInit {
     this.resv.fecha = f;
     this.resv.paquete = this.paq;
     this.resv.estado = true;
+    this.resv.usuario = this.usuarioService.usuarioLogeado;
     console.log(this.resv);
     this.rs.agregarResv(this.resv).subscribe(
       (result) => {
@@ -116,6 +136,7 @@ export class PaquetesComponent implements OnInit {
     );
 
   }
+
 
   public modificarPaquete(){
     this.ps.modificar(this.paq).subscribe(

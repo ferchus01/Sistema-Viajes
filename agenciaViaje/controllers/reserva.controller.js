@@ -3,7 +3,7 @@ const Reserva = require('../models/reserva');
 const ReservaCtrl={};
 
 ReservaCtrl.getReserva = async(req,res)=>{
-    reserv = await Reserva.find().populate("promocion").populate("pago").populate("usuario").populate("paquete").populate("formapago").populate("tarjeta");
+    reserv = await Reserva.find().populate("promocion").populate("pago").populate("usuario").populate("paquete");
     res.json(reserv);
 }
 

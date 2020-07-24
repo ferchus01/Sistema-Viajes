@@ -21,6 +21,8 @@ import { TipoUsuario } from 'src/app/models/tipo-usuario';
 import { TagPlaceholder } from '@angular/compiler/src/i18n/i18n_ast';
 import { Pago } from 'src/app/models/pago';
 import { Usuario } from 'src/app/models/usuario';
+import { ReservaService } from 'src/app/services/reserva.service';
+import { Reserva } from 'src/app/models/reserva';
 
 @Component({
   selector: 'app-paquetes-abm',
@@ -71,6 +73,10 @@ export class PaquetesAbmComponent implements OnInit {
   usuariomd: Usuario;
   listausuario: Array<Usuario>;
 
+  // crud reserva
+  listaReserva: Array<Reserva>;
+  reservanueva: Reserva;
+  reservamod: Reserva;
   constructor(
     private ps: PaqueteService,
     public modal: NgbModal,
@@ -80,7 +86,8 @@ export class PaquetesAbmComponent implements OnInit {
     private formapagoService: FormapagoService,
     private promocionServicie: PromocionService,
     private tipousuarioService: TipousuarioService,
-    public usuarioService: UsuarioService
+    public usuarioService: UsuarioService,
+    private reservaService: ReservaService
     ) {
 
       // operaciones paquete
@@ -111,6 +118,11 @@ export class PaquetesAbmComponent implements OnInit {
     this.obtenerUsuarios();
     this.usuarionuevo = new Usuario();
     this.usuariomd = new Usuario();
+
+    // operacion reserva 
+
+    this.reservanueva = new Reserva ();
+    this.reservamod = new Reserva();
   }
 
   ngOnInit(): void {
@@ -598,18 +610,50 @@ export class PaquetesAbmComponent implements OnInit {
       // case '': return(this.listausuario.find((item: Usuario) => item.dni === this.usuariomd.dni) != null); break;
       case 'nuevo-usu-email': return(this.listausuario.find((item: Usuario) => item.email === this.usuarionuevo.email) != null); break;
       // case '': return(this.listausuario.find((item: Usuario) => item.email === this.usuariomd.email) != null); break;
+      // tslint:disable-next-line: max-line-length
       case 'nuevo-usu-telefono': return(this.listausuario.find((item: Usuario) => item.telefono === this.usuarionuevo.telefono) != null); break;
       // case '': return(this.listausuario.find((item: Usuario) => item.telefono === this.usuariomd.telefono) != null); break;
+      // tslint:disable-next-line: max-line-length
       case 'nuevo-usu-neimusu': return(this.listausuario.find((item: Usuario) => item.nombreusuario === this.usuarionuevo.nombreusuario) != null); break;
     }
   }
 
-  buscar(b: string):boolean{
+  buscar(b: string): boolean{
     switch(b){
       case 'alojamiento': return(this.listaAlojamiento.length == 0); break;
       case 'transporte': return(this.listaTransporte.length == 0); break;
       case 'paquete': return(this.listaPaquetes.length == 0); break;
     }
   }
+
+  //abm reserva
+  public actualizareserva(){
+    this.listaReserva = new Array<Reserva>();
+    let a = new Reserva();
+    this.reservaService.actualizarT().subscribe(
+      (result) => {
+      for (let i of result)
+      {
+        Object.assign(a, i);
+        this.listaReserva.push(a);
+        a = new Reserva();
+      }
+      }
+    );
+  }
+  public elegirReserva(reserva: Reserva){
+    Object.assign( this.reservamod , reserva);
+  }
+  public eliminarreserva(reserva: Reserva){
+    this.reservaService.EliminarReserva(reserva._id).subscribe(
+      (result) => {
+        this.toastr.success('Reserva eliminado Correctamente', 'Confirmado');
+      },
+      (error) => {
+        this.toastr.error('no se pudo eliminar la reserva', 'Error');
+      }
+    );
+  }
+
 }
 

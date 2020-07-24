@@ -31,4 +31,11 @@ export class ReservaService {
 
     return this._http.get(this.urlBase, httpOptions);
   }
+  public EliminarReserva(id: string): Observable<any>{
+    const httpOptions = {
+      headers: new HttpHeaders({
+      })
+    };
+    return this._http.delete(this.urlBase + id, httpOptions);
+  }
 }
