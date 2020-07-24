@@ -146,8 +146,7 @@ export class PaquetesAbmComponent implements OnInit {
     this.paqmod.alojamiento = this.listaAlojamiento.find((item: ProveedorAlojamiento) => item._id === paquete.alojamiento._id);
   }
 
-  cargarimagenpaquete(files, a: string)
-  {
+  cargarimagenpaquete(files, a: string){
 
     if (files != null)
     {
@@ -204,8 +203,7 @@ export class PaquetesAbmComponent implements OnInit {
   }
 
   // TRANSPORTE
-  public obtenerListaDeTransporte()
-  {
+  public obtenerListaDeTransporte(){
     this.listaTransporte = new Array<ProveedorTransporte>();
     this.transporteService.listaTransporte().subscribe(
       (result) => {
@@ -223,8 +221,7 @@ export class PaquetesAbmComponent implements OnInit {
       }
     );
   }
-  public agregarTransporte()
-  {
+  public agregarTransporte(){
     this.transporteService.agregarTransporte(this.transportenuevo).subscribe(
       (resultado) =>
       {
@@ -236,8 +233,7 @@ export class PaquetesAbmComponent implements OnInit {
     );
   }
 
-  cargarimagenTransporte(files, a: string)
-  {
+  cargarimagenTransporte(files, a: string){
 
     if (files != null)
     {
@@ -250,8 +246,7 @@ export class PaquetesAbmComponent implements OnInit {
       }
     }
   }
-  public modificarTransporte()
-  {
+  public modificarTransporte(){
     this.transporteService.ModificarTransporte(this.transportemd).subscribe(
       (resultado) =>
       {
@@ -262,8 +257,7 @@ export class PaquetesAbmComponent implements OnInit {
       }
     );
   }
-  public eliminarTransporte(transport: ProveedorTransporte)
-  {
+  public eliminarTransporte(transport: ProveedorTransporte){
     this.transporteService.EliminarTransporte(transport._id).subscribe(
       (resultado) =>
       {
@@ -273,13 +267,11 @@ export class PaquetesAbmComponent implements OnInit {
       }
     );
   }
-  public seleccionarTransporte(transporte: ProveedorAlojamiento)
-  {
+  public seleccionarTransporte(transporte: ProveedorAlojamiento){
     Object.assign(this.transportemd, transporte);
   }
   // ALOJAMIENTO
-  public obtenerListaDeAlojamiento()
-  {
+  public obtenerListaDeAlojamiento(){
     this.listaAlojamiento = new Array<ProveedorAlojamiento>();
     this.alojamientoService.listaPaProveedoresAlojamiento().subscribe(
       (result) => {
@@ -297,8 +289,7 @@ export class PaquetesAbmComponent implements OnInit {
       }
     );
   }
-  public agregarAlojamiento()
-  {
+  public agregarAlojamiento(){
     this.alojamientoService.agregarAlojamiento(this.alojamientonuevo).subscribe(
       (resultado) =>
       {
@@ -309,8 +300,7 @@ export class PaquetesAbmComponent implements OnInit {
       }
     );
   }
-  cargarimagenAlojamiento(files, a: string)
-  {
+  cargarimagenAlojamiento(files, a: string){
 
     if (files != null)
     {
@@ -323,12 +313,10 @@ export class PaquetesAbmComponent implements OnInit {
       }
     }
   }
-  public seleccionarAlojamiento(alojamiento: ProveedorAlojamiento)
-  {
+  public seleccionarAlojamiento(alojamiento: ProveedorAlojamiento){
     Object.assign(this.alojamientomd, alojamiento);
   }
-  public modificarAlojamiento()
-  {
+  public modificarAlojamiento(){
     this.alojamientoService.ModificarAlojamiento(this.alojamientomd).subscribe(
       (resultado) =>
       {
@@ -339,8 +327,7 @@ export class PaquetesAbmComponent implements OnInit {
       }
     );
   }
-  public eliminarAlojamiento(alojamiento: ProveedorAlojamiento)
-  {
+  public eliminarAlojamiento(alojamiento: ProveedorAlojamiento){
     this.alojamientoService.EliminarAlojamiento(alojamiento._id).subscribe(
       (resultado) =>
       {
@@ -352,8 +339,7 @@ export class PaquetesAbmComponent implements OnInit {
   }
 
   // ABM formapago
-  public obtenerFormaPago()
-  {
+  public obtenerFormaPago(){
     this.listaFormaPago = new Array<Formapago>();
     this.formapagoService.listadepago().subscribe(
       (result) => {
@@ -366,8 +352,7 @@ export class PaquetesAbmComponent implements OnInit {
       }
     );
   }
-  public agregarFormaPago()
-  {
+  public agregarFormaPago(){
     this.formapagoService.agregarFormaPago(this.formapagonuevo).subscribe(
       (resultado) =>
       {
@@ -375,8 +360,7 @@ export class PaquetesAbmComponent implements OnInit {
       }
     );
   }
-  public modificarFormaPago()
-  {
+  public modificarFormaPago(){
     this.formapagoService.ModificarFormaPago(this.formapagomd).subscribe(
       (result) =>
       {
@@ -392,8 +376,7 @@ export class PaquetesAbmComponent implements OnInit {
       }
     );
   }
-  public selecionarFormaPago(pago: Formapago)
-  {
+  public selecionarFormaPago(pago: Formapago){
     Object.assign(this.formapagomd, pago);
   }
 
@@ -442,8 +425,7 @@ export class PaquetesAbmComponent implements OnInit {
     );
     this.obtenerPromociones();
   }
-  public selecionarPromociones(promocion: Promocion)
-  {
+  public selecionarPromociones(promocion: Promocion){
     Object.assign(this.promocionmd, promocion);
 
     this.promocionmd.paqueteTuristico = this.listaPaquetes.find((item: Paquete) => item._id === promocion.paqueteTuristico._id);
@@ -451,8 +433,7 @@ export class PaquetesAbmComponent implements OnInit {
   }
 
   // ABM usuario
-  public obtenerUsuarios()
-  {
+  public obtenerUsuarios(){
     this.listausuario = new Array<Usuario>();
     this.usuarioService.listaUsuario().subscribe(
       (result) => {
@@ -470,8 +451,8 @@ export class PaquetesAbmComponent implements OnInit {
       }
     );
   }
-  public agregarUsuario()
-  { console.log(this.usuarionuevo);
+  public agregarUsuario(){ 
+    console.log(this.usuarionuevo);
     this.usuarioService.agregarUsuario(this.usuarionuevo).subscribe(
       (resultado) =>
       {
@@ -482,8 +463,7 @@ export class PaquetesAbmComponent implements OnInit {
       }
     );
   }
-  public modificarUsuario()
-  {
+  public modificarUsuario(){
     this.usuarioService.ModificarUsuario(this.usuariomd).subscribe(
       (resultado) =>
       {
@@ -494,8 +474,7 @@ export class PaquetesAbmComponent implements OnInit {
       }
     );
   }
-  public eliminarUsuario(usu: Usuario)
-  {
+  public eliminarUsuario(usu: Usuario){
     this.usuarioService.EliminarUsuario(usu._id).subscribe(
       (resultado) =>
       {
@@ -505,14 +484,12 @@ export class PaquetesAbmComponent implements OnInit {
       }
     );
   }
-  public seleccionarUsuario(usuario: Usuario)
-  {
+  public seleccionarUsuario(usuario: Usuario){
     Object.assign(this.usuariomd, usuario);
   }
 
   // abm tipoUsuario
-  public obtenerTipoUsuarios()
-  {
+  public obtenerTipoUsuarios(){
     this.listatipousuario = new Array<TipoUsuario>();
     this.tipousuarioService.listadeTipoUsuario().subscribe(
       (result) => {
@@ -530,8 +507,7 @@ export class PaquetesAbmComponent implements OnInit {
       }
     );
   }
-  public agregarTipoUsuario()
-  {
+  public agregarTipoUsuario(){
     this.tipousuarioService.agregarTipoUsuario(this.tipousuarionuevo).subscribe(
       (resultado) =>
       {
@@ -543,8 +519,7 @@ export class PaquetesAbmComponent implements OnInit {
       }
     );
   }
-  public modificarTipoUsuario()
-  {
+  public modificarTipoUsuario(){
     this.tipousuarioService.ModificarTipoUsuario(this.tipousuarionuevo).subscribe(
       (resultado) =>
       {
@@ -556,8 +531,7 @@ export class PaquetesAbmComponent implements OnInit {
       }
     );
   }
-  public eliminarTipoUsuario(tipousuario: TipoUsuario)
-  {
+  public eliminarTipoUsuario(tipousuario: TipoUsuario){
     this.tipousuarioService.EliminarTipoUsuario(tipousuario._id).subscribe(
       (resultado) =>
       {
@@ -568,8 +542,7 @@ export class PaquetesAbmComponent implements OnInit {
       }
     );
   }
-  public seleccionarTipoUsuario(tipousuario: TipoUsuario)
-  {
+  public seleccionarTipoUsuario(tipousuario: TipoUsuario){
     Object.assign(this.tipousuariomd, tipousuario);
   }
 
@@ -597,6 +570,26 @@ export class PaquetesAbmComponent implements OnInit {
       // case 'mod-': break;
     }
     this.modal.dismissAll();
+  }
+
+  buscarRepetidos(a: string):boolean{
+    switch(a){
+      case 'nuevo-usu-dni': return(this.listausuario.find((item: Usuario) => item.dni == this.usuarionuevo.dni) != null); break;
+      // case '': return(this.listausuario.find((item: Usuario) => item.dni === this.usuariomd.dni) != null); break;
+      case 'nuevo-usu-email': return(this.listausuario.find((item: Usuario) => item.email === this.usuarionuevo.email) != null); break;
+      // case '': return(this.listausuario.find((item: Usuario) => item.email === this.usuariomd.email) != null); break;
+      case 'nuevo-usu-telefono': return(this.listausuario.find((item: Usuario) => item.telefono === this.usuarionuevo.telefono) != null); break;
+      // case '': return(this.listausuario.find((item: Usuario) => item.telefono === this.usuariomd.telefono) != null); break;
+      case 'nuevo-usu-neimusu': return(this.listausuario.find((item: Usuario) => item.nombreusuario === this.usuarionuevo.nombreusuario) != null); break;
+    }
+  }
+
+  buscar(b: string):boolean{
+    switch(b){
+      case 'alojamiento': return(this.listaAlojamiento.length == 0); break;
+      case 'transporte': return(this.listaTransporte.length == 0); break;
+      case 'paquete': return(this.listaPaquetes.length == 0); break;
+    }
   }
 }
 

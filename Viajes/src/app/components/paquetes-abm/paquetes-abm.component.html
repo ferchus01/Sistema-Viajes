@@ -15,10 +15,9 @@
   </div>
   <div class="col-9">
     <div class="tab-content" id="v-pills-tabContent">
-      <!--Tabla Paquetes-->
-      <div class="tab-pane fade show active" id="v-pills-paquetes" role="tabpanel" aria-labelledby="v-pills-paquetes-tab">
+      <div class="tab-pane fade show active" id="v-pills-paquetes" role="tabpanel" aria-labelledby="v-pills-paquetes-tab"><!--Tabla Paquetes-->
         <div>
-           <button type="button" class="btn btn-outline-success" (click)="modal.open(crear,{size:'xl',scrollable:true})">Crear Paquete</button> 
+           <button type="button" class="btn btn-outline-success" [disabled]="(buscar('alojamiento') && buscar('transporte'))" (click)="modal.open(crear,{size:'xl',scrollable:true})">Crear Paquete</button> 
           </div>
           <br>
         <div class="row "> 
@@ -197,7 +196,7 @@
       <!-- Tabla Promociones -->
       <div class="tab-pane fade" id="v-pills-promociones" role="tabpanel" aria-labelledby="v-pills-promociones-tab">
         <div>
-          <button type="button" class="btn btn-outline-success" (click)="modal.open(crearPromocion,{scrollable:true})"> Crear Promocion</button>
+          <button type="button" class="btn btn-outline-success" [disabled]="(buscar('paquete'))" (click)="modal.open(crearPromocion,{scrollable:true})"> Crear Promocion</button>
         </div>
         <br>
               <div class="col-12 "  >
@@ -331,7 +330,6 @@
 </div>
 
 <!--MODALS MODIFICAR-->
-
 <ng-template #modiPaquete let-modal><!--Modificar paquete-->
   <div class="modal-header">
     <h4>Modificar</h4>
@@ -481,42 +479,45 @@
               <br>
               <br>
               <img src="{{transportemd.imagen}}" class="card-img" alt="..." height="500px" ><br> 
-               
             </div>
             <div class="col-1"></div>
             <div class="card-body col-md-6">
               <div class="form-group">
-                <label for="formUsu1">Nombre</label>
-                <input type="text" class="form-control" id="formUsuModel1" placeholder="Nombre de Transporte" name="transporteModel1"
-                  [(ngModel)]="transportemd.nombre" #transporteModel1="ngModel" required>
+                <label for="inputDescuento">Descuento</label>
+                <input type="number" class="form-control" id="formTransporteModel" placeholder="Ingrese Descuento" name="usuModel1"
+                  [(ngModel)]="promocionmd.descuento" #descuento="ngModel" required>
               </div>
-              <div *ngIf="transporteModel1.invalid && (transporteModel1.dirty || transporteModel1.touched)" class="alert alert-danger">
-                <div *ngIf="transporteModel1.errors.required">
-                  Nombre de Transporte es requerido.
+              <div *ngIf="descuento.invalid && (descuento.dirty || descuento.touched)" class="alert alert-danger">
+                <div *ngIf="descuento.errors.required">
+                  Descuento es requerido.
                 </div>
               </div>
               <div class="form-group">
-                <label for="formContra1">Tipo</label>
-                <input type="text" class="form-control" id="formContraModel1" placeholder="Ingrese tipo"
-                  name="tipoModel1" [(ngModel)]="transportemd.tipo" #tipoModel1="ngModel" required>
+                <label for="inputRegalo">Dias de regalo</label>
+                <input type="number" class="form-control" id="formTransporteModel" placeholder="Ingrese dias de regalo"
+                  name="regalo" [(ngModel)]="promocionmd.diasDeRegalo" #regalo="ngModel" required>
               </div>
-              <div *ngIf="tipoModel1.invalid && (tipoModel1.dirty || tipoModel1.touched)" class="alert alert-danger">
-                <div *ngIf="tipoModel1.errors.required">
-                  El tipo es requerido.
+              <div *ngIf="regalo.invalid && (regalo.dirty || regalo.touched)" class="alert alert-danger">
+                <div *ngIf="regalo.errors.required">
+                  El tipo de alojamiento es requerido.
                 </div>
               </div>
-              
-              
               <div class="form-group">
-                <label for="formContra1">Descripcion</label>
-                <input type="text" class="form-control" id="formContraModel1" placeholder="Ingrese descripcion"
-                  name="descripcion" [(ngModel)]="transportemd.descripcion" #descripcion="ngModel" required>
+                <label for="inputDias">Puntos de regalo</label>
+                <input type="number" class="form-control" id="formTransporteModel" placeholder="Ingrese puntos de regalo"
+                  name="puntosModel" [(ngModel)]="promocionmd.diasDeRegalo" #puntosModel="ngModel" required>
               </div>
-              <div *ngIf="descripcion.invalid && (descripcion.dirty || descripcion.touched)" class="alert alert-danger">
-                <div *ngIf="descripcion.errors.required">
-                  La descripcion es requerida.
+              <div *ngIf="puntosModel.invalid && (puntosModel.dirty || puntosModel.touched)" class="alert alert-danger">
+                <div *ngIf="puntosModel.errors.required">
+                  Los puntos de regalo son requerido.
                 </div>
-              </div>   
+              </div>
+              <div class="form-group col-12">
+                <label for="inputTuristico" class="col-4">Paquetes turisticos</label>
+                <select name="paquetes" [(ngModel)]="promocionmd.paqueteTuristico" class="col-12" class="form-control">
+                  <option *ngFor="let paquete of listaPaquetes " class="form-control" [ngValue]="paquete">{{paquete.destino}} </option>
+                </select>
+              </div> 
             </div>
           </div>
         </div>
@@ -556,53 +557,53 @@
             <div class="col-1"></div>
             <div class="card-body col-md-6">
               <div class="form-group">
-                <label for="formUsu1">Nombre</label>
-                <input type="text" class="form-control" id="formUsuModel1" placeholder="Nombre de Transporte" name="usuModel1"
-                  [(ngModel)]="alojamientomd.nombre" #alojamientoModel1="ngModel" required>
+                <label for="inputNombre1">Nombre</label>
+                <input type="text" class="form-control" id="formaloAlojamientoModel" placeholder="Nombre del Alojamiento" name="nombreModel"
+                  [(ngModel)]="alojamientomd.nombre" #nombreModel="ngModel" required>
               </div>
-              <div *ngIf="alojamientoModel1.invalid && (alojamientoModel1.dirty || alojamientoModel1.touched)" class="alert alert-danger">
-                <div *ngIf="alojamientoModel1.errors.required">
+              <div *ngIf="nombreModel.invalid && (nombreModel.dirty || nombreModel.touched)" class="alert alert-danger">
+                <div *ngIf="nombreModel.errors.required">
                   Nombre de Alojamiento es requerido.
                 </div>
               </div>
               <div class="form-group">
-                <label for="formContra1">Ubicacion</label>
-                <input type="text" class="form-control" id="formContraModel1" placeholder="Ingrese Ubicacion"
-                  name="ubicacion" [(ngModel)]="alojamientomd.ubicacion" #ubicacion="ngModel" required>
+                <label for="inputUbicacion1">Ubicacion</label>
+                <input type="text" class="form-control" id="formaloAlojamientoModel" placeholder="Ingrese Ubicacion"
+                  name="ubicacionModel" [(ngModel)]="alojamientomd.ubicacion" #ubicacionModel="ngModel" required>
               </div>
-              <div *ngIf="ubicacion.invalid && (ubicacion.dirty || ubicacion.touched)" class="alert alert-danger">
-                <div *ngIf="ubicacion.errors.required">
+              <div *ngIf="ubicacionModel.invalid && (ubicacionModel.dirty || ubicacionModel.touched)" class="alert alert-danger">
+                <div *ngIf="ubicacionModel.errors.required">
                   El tipo de alojamiento es requerido.
                 </div>
               </div>
               <div class="form-group">
-                <label for="formContra1">Tipo</label>
-                <input type="text" class="form-control" id="formContraModel1" placeholder="Ingrese tipo de alojamiento"
-                  name="contraModel1" [(ngModel)]="alojamientomd.tipo" #tipoAloj="ngModel" required>
+                <label for="inputTipo1">Tipo</label>
+                <input type="text" class="form-control" id="formaloAlojamientoModel" placeholder="Ingrese tipo de alojamiento"
+                  name="tipoModel" [(ngModel)]="alojamientomd.tipo" #tipoModel="ngModel" required>
               </div>
-              <div *ngIf="tipoAloj.invalid && (tipoAloj.dirty || tipoAloj.touched)" class="alert alert-danger">
-                <div *ngIf="tipoAloj.errors.required">
+              <div *ngIf="tipoModel.invalid && (tipoModel.dirty || tipoModel.touched)" class="alert alert-danger">
+                <div *ngIf="tipoModel.errors.required">
                   El tipo de alojamiento es requerido.
                 </div>
               </div>
                            
               <div class="form-group">
-                <label for="formContra1">Descripcion</label>
-                <input type="text" class="form-control" id="formContraModel1" placeholder="Ingrese descripcion"
-                  name="descripcion" [(ngModel)]="alojamientomd.descripcion" #descripcionAloj="ngModel" required>
+                <label for="inputDescripcion1">Descripcion</label>
+                <input type="text" class="form-control" id="formaloAlojamientoModel" placeholder="Ingrese descripcion"
+                  name="descripcionModel" [(ngModel)]="alojamientomd.descripcion" #descripcionModel="ngModel" required>
               </div>
-              <div *ngIf="descripcionAloj.invalid && (descripcionAloj.dirty || descripcionAloj.touched)" class="alert alert-danger">
-                <div *ngIf="descripcionAloj.errors.required">
+              <div *ngIf="descripcionModel.invalid && (descripcionModel.dirty || descripcionModel.touched)" class="alert alert-danger">
+                <div *ngIf="descripcionModel.errors.required">
                   La descripcion es requerida.
                 </div>
               </div>     
               <div class="form-group">
-                <label for="formContra1">Cantidad de personas</label>
-                <input type="number" class="form-control" id="formContraModel1" placeholder="Ingrese cantidad de personas"
-                  name="cantPersonas" [(ngModel)]="alojamientomd.cantpersonas" #cantPersonas="ngModel" required>
+                <label for="inputCantidad1">Cantidad de personas</label>
+                <input type="number" class="form-control" id="formaloAlojamientoModel" placeholder="Ingrese cantidad de personas"
+                  name="cantPersonasModel" [(ngModel)]="alojamientomd.cantpersonas" #cantPersonasModel="ngModel" required>
               </div>
-              <div *ngIf="cantPersonas.invalid && (cantPersonas.dirty || cantPersonas.touched)" class="alert alert-danger">
-                <div *ngIf="cantPersonas.errors.required">
+              <div *ngIf="cantPersonasModel.invalid && (cantPersonasModel.dirty || cantPersonasModel.touched)" class="alert alert-danger">
+                <div *ngIf="cantPersonasModel.errors.required">
                   La cantidad de personas es requerida.
                 </div>
               </div>   
@@ -673,7 +674,6 @@
 </ng-template>
 
 <!--MODALS AGREGAR-->
-
 <ng-template #crearPromocion let-modal><!--Crear Promocion-->
   <div class="modal-header">
     <h4>Agregar Promocion</h4>
@@ -683,43 +683,43 @@
   </div>
   <div class="modal-body">
     <form #newPromocion="ngForm">
-    <div class="form-group">
-      <label for="formUsu1">Descuento</label>
-      <input type="number" class="form-control" id="formUsuModel1" placeholder="Ingrese Descuento" name="usuModel1"
-        [(ngModel)]="promocionnuevo.descuento" #descuento="ngModel" required>
-    </div>
-    <div *ngIf="descuento.invalid && (descuento.dirty || descuento.touched)" class="alert alert-danger">
-      <div *ngIf="descuento.errors.required">
-        Descuento es requerido.
+      <div class="form-group">
+        <label for="inputDescuentoPromocion1">Descuento</label>
+        <input type="number" class="form-control" id="formPromocionModel1" placeholder="Ingrese Descuento" name="descuentoPromo"
+          [(ngModel)]="promocionnuevo.descuento" #descuentoPromo="ngModel" required>
       </div>
-    </div>
-    <div class="form-group">
-      <label for="formContra1">Dias de regalo</label>
-      <input type="number" class="form-control" id="formContraModel1" placeholder="Ingrese dias de regalo"
-        name="ubicacion" [(ngModel)]="promocionnuevo.diasDeRegalo" #regalo="ngModel" required>
-    </div>
-    <div *ngIf="regalo.invalid && (regalo.dirty || regalo.touched)" class="alert alert-danger">
-      <div *ngIf="regalo.errors.required">
-        El tipo de alojamiento es requerido.
+      <div *ngIf="descuentoPromo.invalid && (descuentoPromo.dirty || descuentoPromo.touched)" class="alert alert-danger">
+        <div *ngIf="descuentoPromo.errors.required">
+          Descuento es requerido.
+        </div>
       </div>
-    </div>
-    <div class="form-group">
-      <label for="formContra1">Puntos de regalo</label>
-      <input type="number" class="form-control" id="formContraModel1" placeholder="Ingrese puntos de regalo"
-        name="contraModel1" [(ngModel)]="promocionnuevo.puntosDeRegalo" #puntos="ngModel" required>
-    </div>
-    <div *ngIf="puntos.invalid && (puntos.dirty || puntos.touched)" class="alert alert-danger">
-      <div *ngIf="puntos.errors.required">
-        Los puntos de regalo son requerido.
+      <div class="form-group">
+        <label for="formRegaloPromocion1">Dias de regalo</label>
+        <input type="number" class="form-control" id="formPromocionModel1" placeholder="Ingrese dias de regalo"
+          name="regaloPromo" [(ngModel)]="promocionnuevo.diasDeRegalo" #regaloPromo="ngModel" required>
       </div>
-    </div>
-    <div class="form-group col-12">
-      <label for="formAloj1" class="col-4">Paquetes turisticos</label>
-      <select name="paquetes" [(ngModel)]="promocionnuevo.paqueteTuristico" class="col-12" class="form-control">
-        <option *ngFor="let paquete of listaPaquetes " class="form-control" [ngValue]="paquete">{{paquete.descripcion}} </option>
-      </select>
-    </div>
-  </form>  
+      <div *ngIf="regaloPromo.invalid && (regaloPromo.dirty || regaloPromo.touched)" class="alert alert-danger">
+        <div *ngIf="regaloPromo.errors.required">
+          El tipo de alojamiento es requerido.
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="inputPuntosPromocion1">Puntos de regalo</label>
+        <input type="number" class="form-control" id="formPromocionModel1" placeholder="Ingrese puntos de regalo"
+          name="puntosPromo" [(ngModel)]="promocionnuevo.puntosDeRegalo" #puntosPromo="ngModel" required>
+      </div>
+      <div *ngIf="puntosPromo.invalid && (puntosPromo.dirty || puntosPromo.touched)" class="alert alert-danger">
+        <div *ngIf="puntosPromo.errors.required">
+          Los puntos de regalo son requerido.
+        </div>
+      </div>
+      <div class="form-group col-12">
+        <label for="inputPaquetePromocion1" class="col-4">Paquetes turisticos</label>
+        <select name="paquetes" [(ngModel)]="promocionnuevo.paqueteTuristico" class="col-12" class="form-control">
+          <option *ngFor="let paquete of listaPaquetes " class="form-control" [ngValue]="paquete">{{paquete.descripcion}} </option>
+        </select>
+      </div>
+    </form>  
   </div>
 
   <div class="modal-footer">
@@ -863,18 +863,18 @@
   <div class="modal-body">
     <form #crearusu="ngForm">
       <div class="form-group">
-        <label for="formUsu1">Nombre</label>
-        <input type="text" class="form-control" id="formUsuModel1" placeholder="Ingrese su Nombre" name="usuModel1"
-          [(ngModel)]="usuarionuevo.nombreusuario" #usuModel1="ngModel" required>
+        <label for="inputNombre1">Nombre</label>
+        <input type="text" class="form-control" id="formUsuModel1" placeholder="Ingrese su Nombre" name="usuNombre"
+          [(ngModel)]="usuarionuevo.nombreusuario" #usuNombre="ngModel" required>
       </div>
-      <div *ngIf="usuModel1.invalid && (usuModel1.dirty || usuModel1.touched)" class="alert alert-danger">
-        <div *ngIf="usuModel1.errors.required">
+      <div *ngIf="usuNombre.invalid && (usuNombre.dirty || usuNombre.touched)" class="alert alert-danger">
+        <div *ngIf="usuNombre.errors.required">
           Nombre es requerido.
         </div>
       </div>
       <div class="form-group">
-        <label for="formUsu1">Apellido</label>
-        <input type="text" class="form-control" id="formUsuModel1" placeholder="Ingrese su apellido" name="usuModel1"
+        <label for="inputApellido1">Apellido</label>
+        <input type="text" class="form-control" id="formUsuModel1" placeholder="Ingrese su apellido" name="usuApellido"
           [(ngModel)]="usuarionuevo.apellido" #usuApellido="ngModel" required>
       </div>
       <div *ngIf="usuApellido.invalid && (usuApellido.dirty || usuApellido.touched)" class="alert alert-danger">
@@ -883,18 +883,65 @@
         </div>
       </div>
       <div class="form-group">
-        <label for="formUsu1">DNI</label>
-        <input type="text" class="form-control" id="formUsuModel1" placeholder="Ingrese su DNI" name="usuModel1"
-          [(ngModel)]="usuarionuevo.dni" #usuDni="ngModel" required>
+        <label for="inputNeim1">Nombre de usuario</label>
+        <input type="text" class="form-control" id="formUsuModel1" placeholder="ingrese el nombre de usuario" name="usuNeim"
+          [(ngModel)]="usuarionuevo.nombreusuario" #usuNeim="ngModel" required>
+      </div>
+      <div *ngIf="usuNeim.invalid && (usuNeim.dirty || usuNeim.touched)" class="alert alert-danger">
+        <div *ngIf="usuNeim.errors.required">
+          El Sobrenombre es requerido.
+        </div>
+      </div>
+      <div *ngIf="buscarRepetidos('nuevo-usu-neimusu')" class=" alert alert-danger">
+        El Sobrenombre del usuario ya existe
+      </div>
+      <div class="form-group">
+        <label for="inputDni1">DNI</label>
+        <input type="text" class="form-control" id="formUsuModel1" placeholder="Ingrese su DNI" name="usuDni"
+          [(ngModel)]="usuarionuevo.dni" #usuDni="ngModel" minlength="7" maxlength="8" required onkeypress='return event.charCode >= 48 && event.charCode <= 57'>
       </div>
       <div *ngIf="usuDni.invalid && (usuDni.dirty || usuDni.touched)" class="alert alert-danger">
         <div *ngIf="usuDni.errors.required">
           DNI es requerido.
         </div>
+        <div *ngIf="usuDni.errors.minlength">
+          El DNI tiene 8 digitos.
+        </div>
+      </div>
+      <div *ngIf="buscarRepetidos('nuevo-usu-dni')" class=" alert alert-danger">
+        El DNI del usuario ya existe
       </div>
       <div class="form-group">
-        <label for="formContra1">Contraseña</label>
-        <input type="password" class="form-control" id="formContraModel1" placeholder="Ingrese Contraseña"
+        <label for="inputEmail1">Email</label>
+        <input type="email" class="form-control" id="formUsuModel1" placeholder="example@gmail.com" name="usuEmail"
+          [(ngModel)]="usuarionuevo.email" #usuEmail="ngModel" required pattern="[a-zA-Z0-9_]+([.][a-zA-Z0-9_]+)*@[a-zA-Z0-9_]+([.][a-zA-Z0-9_]+)*[.][a-zA-Z]{1,5}">
+      </div>
+      <div *ngIf="usuEmail.invalid && (usuEmail.dirty || usuEmail.touched)" class="alert alert-danger">
+        <div *ngIf="usuEmail.errors.required">
+          El Email es requerido.
+        </div>
+      </div>
+      <div *ngIf="buscarRepetidos('nuevo-usu-email')" class=" alert alert-danger">
+        El Email del usuario ya existe
+      </div>
+      <div class="form-group">
+        <label for="inputTelefono1">Telefono</label>
+        <input type="text" class="form-control" id="formUsuModel1" placeholder="Ingrese numero telefonico" name="usuTelefono"
+          [(ngModel)]="usuarionuevo.telefono" #usuTelefono="ngModel" minlength="7" maxlength="8" required onkeypress='return event.charCode >= 48 && event.charCode <= 57'>
+      </div>
+      <div *ngIf="usuTelefono.invalid && (usuTelefono.dirty || usuTelefono.touched)" class="alert alert-danger">
+        <div *ngIf="usuTelefono.errors.required">
+          El Email es requerido.
+        </div><div *ngIf="usuTelefono.errors.minlength">
+          El numero telefonico tiene 8 digitos
+        </div>
+      </div>
+      <div *ngIf="buscarRepetidos('nuevo-usu-telefono')" class=" alert alert-danger">
+        El Telefono del usuario ya existe
+      </div>
+      <div class="form-group">
+        <label for="inputContraseña">Contraseña</label>
+        <input type="password" class="form-control" id="formUsuModel1" placeholder="Ingrese Contraseña"
           name="contraModel1" [(ngModel)]="usuarionuevo.password" #contraModel1="ngModel" minlength="8" required>
       </div>
       <div *ngIf="contraModel1.invalid && (contraModel1.dirty || contraModel1.touched)" class="alert alert-danger">
@@ -911,10 +958,13 @@
           <option *ngFor="let item of listatipousuario" [ngValue]="item">{{item.descripcion}}</option>
         </select>
       </div>    
+      <div [hidden]="categoriaModel2.valid || categoriaModel2.pristine" class="alert alertdanger">
+        La Categoria es requerida
+      </div>
     </form>  
   </div>
   <div class="modal-footer">
-    <button type="button" class="btn btn-outline-success" (click)="agregarUsuario();limpiarModal('nuevo-usuario')" [disabled]="(!crearusu.form.valid)">Registrar Usuario</button>
+    <button type="button" class="btn btn-outline-success" (click)="agregarUsuario();limpiarModal('nuevo-usuario')" [disabled]="(!crearusu.form.valid || buscarRepetidos('nuevo-usu-dni') || buscarRepetidos('nuevo-usu-email') || buscarRepetidos('nuevo-usu-neimusu') || buscarRepetidos('nuevo-usu-telefono'))">Registrar Usuario</button>
     <button type="button" class="btn btn-outline-danger" (click)="limpiarModal('nuevo-usuario')">Cancelar</button>
   </div>
 </ng-template>
@@ -946,33 +996,39 @@
             <div class="col-1"></div>
             <div class="card-body col-md-6">
               <div class="form-group">
-                <label for="formUsu1">Nombre</label>
-                <input type="text" class="form-control" id="formUsuModel1" placeholder="Nombre de Transporte" name="usuModel1"
-                  [(ngModel)]="transportenuevo.nombre" #transporteModel1="ngModel" required>
+                <label for="inputNombreTransp1">Nombre</label>
+                <input type="text" class="form-control" id="formTransporteModel1" placeholder="Nombre de Transporte" name="transpNombre1"
+                  [(ngModel)]="transportenuevo.nombre" #transpNombre1="ngModel" required>
               </div>
-              <div *ngIf="transporteModel1.invalid && (transporteModel1.dirty || transporteModel1.touched)" class="alert alert-danger">
-                <div *ngIf="transporteModel1.errors.required">
+              <div *ngIf="transpNombre1.invalid && (transpNombre1.dirty || transpNombre1.touched)" class="alert alert-danger">
+                <div *ngIf="transpNombre1.errors.required">
                   Nombre de Transporte es requerido.
                 </div>
               </div>
               <div class="form-group">
-                <label for="formContra1">Tipo</label>
-                <input type="text" class="form-control" id="formContraModel1" placeholder="Ingrese tipo"
-                  name="contraModel1" [(ngModel)]="transportenuevo.tipo" #tipoModel1="ngModel" required>
+                <label for="inputTipoTransp1">Tipo</label>
+                <input type="text" class="form-control" id="formTransporteModel1" placeholder="Ingrese tipo"
+                  name="transpTipo1" [(ngModel)]="transportenuevo.tipo" #transpTipo1="ngModel" required>
               </div>
-              <div *ngIf="tipoModel1.invalid && (tipoModel1.dirty || tipoModel1.touched)" class="alert alert-danger">
-                <div *ngIf="tipoModel1.errors.required">
+              <div *ngIf="transpTipo1.invalid && (transpTipo1.dirty || transpTipo1.touched)" class="alert alert-danger">
+                <div *ngIf="transpTipo1.errors.required">
                   El tipo es requerido.
                 </div>
               </div>
-              
-              <div class="form-group">
-                <label for="formContra1">Descripcion</label>
-                <input type="text" class="form-control" id="formContraModel1" placeholder="Ingrese descripcion"
-                  name="descripcion" [(ngModel)]="transportenuevo.descripcion" #descripcion="ngModel" required>
+              <div class="custom-file">
+                <input type="file" class="custom-file-input" id="customFileLang" accept="image/x-png,image/gif,image/jpeg" lang="es" name="qweeqw" alife-file-to-base64 (onFileChanged)="cargarimagenTransporte($event, 'transportenuevo')">
+                <label class="custom-file-label" for="customFileLang">Seleccionar una Imagen</label>
               </div>
-              <div *ngIf="descripcion.invalid && (descripcion.dirty || descripcion.touched)" class="alert alert-danger">
-                <div *ngIf="descripcion.errors.required">
+              <div>
+                <br><img src="{{transportenuevo.imagen}}" class="card-img" alt="..." height="500px" ><br> 
+              </div>
+              <div class="form-group">
+                <label for="inputDescripcionTransp1">Descripcion</label>
+                <input type="text" class="form-control" id="formTransporteModel1" placeholder="Ingrese descripcion"
+                  name="transpDesc1" [(ngModel)]="transportenuevo.descripcion" #transpDesc1="ngModel" required>
+              </div>
+              <div *ngIf="transpDesc1.invalid && (transpDesc1.dirty || transpDesc1.touched)" class="alert alert-danger">
+                <div *ngIf="transpDesc1.errors.required">
                   La descripcion es requerida.
                 </div>
               </div>     
@@ -996,7 +1052,6 @@
       <span aria-hidden="true">&times;</span>
     </button>
   </div>
-
   <div class="modal-body">
     <form #newAlojamiento="ngForm">
       <div class="card">
@@ -1016,40 +1071,46 @@
             <div class="col-1"></div>
             <div class="card-body col-md-6">
               <div class="form-group">
-                <label for="formUsu1">Nombre</label>
-                <input type="text" class="form-control" id="formUsuModel1" placeholder="Nombre de Transporte" name="usuModel1"
-                  [(ngModel)]="alojamientonuevo.nombre" #alojamientoModel1="ngModel" required>
+                <label for="formNombreAlojamiento1">Nombre</label>
+                <input type="text" class="form-control" id="formAlojamientoModel1" placeholder="Nombre de Transporte" name="alojNombre"
+                  [(ngModel)]="alojamientonuevo.nombre" #alojNombre="ngModel" required>
               </div>
-              <div *ngIf="alojamientoModel1.invalid && (alojamientoModel1.dirty || alojamientoModel1.touched)" class="alert alert-danger">
-                <div *ngIf="alojamientoModel1.errors.required">
+              <div *ngIf="alojNombre.invalid && (alojNombre.dirty || alojNombre.touched)" class="alert alert-danger">
+                <div *ngIf="alojNombre.errors.required">
                   Nombre de Alojamiento es requerido.
                 </div>
               </div>
               <div class="form-group">
-                <label for="formContra1">Ubicacion</label>
-                <input type="text" class="form-control" id="formContraModel1" placeholder="Ingrese Ubicacion"
-                  name="ubicacion" [(ngModel)]="alojamientonuevo.ubicacion" #ubicacion="ngModel" required>
+                <label for="formUbicacionAlojamiento1">Ubicacion</label>
+                <input type="text" class="form-control" id="formAlojamientoModel1" placeholder="Ingrese Ubicacion"
+                  name="alojUbicacion" [(ngModel)]="alojamientonuevo.ubicacion" #alojUbicacion="ngModel" required>
               </div>
-              <div *ngIf="ubicacion.invalid && (ubicacion.dirty || ubicacion.touched)" class="alert alert-danger">
-                <div *ngIf="ubicacion.errors.required">
+              <div *ngIf="alojUbicacion.invalid && (alojUbicacion.dirty || alojUbicacion.touched)" class="alert alert-danger">
+                <div *ngIf="alojUbicacion.errors.required">
                   El tipo de alojamiento es requerido.
                 </div>
               </div>
               <div class="form-group">
-                <label for="formContra1">Tipo</label>
-                <input type="text" class="form-control" id="formContraModel1" placeholder="Ingrese tipo de alojamiento"
-                  name="contraModel1" [(ngModel)]="alojamientonuevo.tipo" #tipoAloj="ngModel" required>
+                <label for="formTipoAlojamiento1">Tipo</label>
+                <input type="text" class="form-control" id="formAlojamientoModel1" placeholder="Ingrese tipo de alojamiento"
+                  name="tipoAloj" [(ngModel)]="alojamientonuevo.tipo" #tipoAloj="ngModel" required>
               </div>
               <div *ngIf="tipoAloj.invalid && (tipoAloj.dirty || tipoAloj.touched)" class="alert alert-danger">
                 <div *ngIf="tipoAloj.errors.required">
                   El tipo de alojamiento es requerido.
                 </div>
               </div>
-              
+              <div class="custom-file">
+                <input type="file" class="custom-file-input" id="customFileLang" accept="image/x-png,image/gif,image/jpeg" lang="es" name="qweeqw" alife-file-to-base64 (onFileChanged)="cargarimagenAlojamiento($event, 'alojamientonuevo')">
+                <label class="custom-file-label" for="customFileLang">Seleccionar una Imagen</label>
+              </div>
+              <div>
+                <br><img src="{{alojamientonuevo.imagen}}" class="card-img" alt="..." height="500px" ><br> 
+              </div>
               <div class="form-group">
-                <label for="formContra1">Descripcion</label>
-                <input type="text" class="form-control" id="formContraModel1" placeholder="Ingrese descripcion"
-                  name="descripcion" [(ngModel)]="alojamientonuevo.descripcion" #descripcionAloj="ngModel" required>
+                <label for="formDescripcionAlojamiento1">Descripcion</label>
+                <input type="text" class="form-control" id="formAlojamientoModel1" placeholder="Ingrese descripcion"
+                  name="descripcionAloj" [(ngModel)]="alojamientonuevo.descripcion" #descripcionAloj="ngModel" required>
               </div>
               <div *ngIf="descripcionAloj.invalid && (descripcionAloj.dirty || descripcionAloj.touched)" class="alert alert-danger">
                 <div *ngIf="descripcionAloj.errors.required">
@@ -1057,15 +1118,15 @@
                 </div>
               </div>     
               <div class="form-group">
-                <label for="formContra1">Cantidad de personas</label>
-                <input type="number" class="form-control" id="formContraModel1" placeholder="Ingrese cantidad de personas"
-                  name="cantPersonas" [(ngModel)]="alojamientonuevo.cantpersonas" #cantPersonas="ngModel" required>
+                <label for="formCantAlojamiento1">Cantidad de personas</label>
+                <input type="number" class="form-control" id="formAlojamientoModel1" placeholder="Ingrese cantidad de personas"
+                  name="cantPersonasAloj" [(ngModel)]="alojamientonuevo.cantpersonas" #cantPersonasAloj="ngModel" required>
               </div>
-              <div *ngIf="cantPersonas.invalid && (cantPersonas.dirty || cantPersonas.touched)" class="alert alert-danger">
-                <div *ngIf="cantPersonas.errors.required">
+              <div *ngIf="cantPersonasAloj.invalid && (cantPersonasAloj.dirty || cantPersonasAloj.touched)" class="alert alert-danger">
+                <div *ngIf="cantPersonasAloj.errors.required">
                   La cantidad de personas es requerida.
                 </div>
-              </div>     
+              </div> 
             </div>
           </div>
         </div>
