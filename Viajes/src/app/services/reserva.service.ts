@@ -38,4 +38,13 @@ export class ReservaService {
     };
     return this._http.delete(this.urlBase + id, httpOptions);
   }
+  public modificarReserva(rev: Reserva): Observable<any>{
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json'
+      })
+    };
+    const body = JSON.stringify(rev);
+    return this._http.put(this.urlBase + rev._id, body , httpOptions);
+  }
 }

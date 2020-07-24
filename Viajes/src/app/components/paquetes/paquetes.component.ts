@@ -23,6 +23,7 @@ export class PaquetesComponent implements OnInit {
   listaPaquetes: Array<Paquete>;
   listadeFormaPago: Array<Formapago>;
   listaReserva: Array<Reserva>;
+  reservamd: Reserva;
   busqueda: string;
   constructor(private ps: PaqueteService,
               public modal: NgbModal,
@@ -34,6 +35,8 @@ export class PaquetesComponent implements OnInit {
     this.paq = new Paquete();
     this.listaPaquetes = new Array<Paquete>();
     this.actualizarTabla();
+    this.reservamd = new Reserva();
+    this.actualizarReserva();
    }
 
   ngOnInit(): void {
@@ -109,7 +112,12 @@ export class PaquetesComponent implements OnInit {
       }
       );
   }
-  public buscarpaqueteporDestino()
+  public elegirReserva(reserva: Reserva)
+  {
+    Object.assign(this.reservamd, reserva);
+    this.reservamd.paquete = this.listaPaquetes.find((item: Paquete) => item._id === reserva.paquete._id);
+  }
+   public buscarpaqueteporDestino()
   {
     this.ps.busqueda(this.busqueda).subscribe(
     (result) => {
@@ -134,6 +142,16 @@ export class PaquetesComponent implements OnInit {
       }
     }
     );
+  }
+  public modificarReserva()
+  {
+    this.rs.modificarReserva(this.reservamd).subscribe(
+    (result)=>{
+      this.toastr.success('Reserva  modificada Correctamente', 'Confirmado');
+      this.reservamd = new Reserva();
+      this.actualizarReserva();
+    }
+  )
   }
   public agregarPaquete(){
     this.ps.agregarAsis(this.paq).subscribe(

@@ -35,3 +35,4 @@ este metodo actualizara la lista de paquetes segun el criterio de busqueda y cua
 
 ahora los metodos eliminar de los demas abm se borran en cascada
 es decir .... que si borra un alojamiento, el paquete que depende de el. tambien sera borrado
+modificar reserve agregada
