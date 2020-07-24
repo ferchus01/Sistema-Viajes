@@ -10,6 +10,7 @@ import {catchError} from 'rxjs/operators';
 export class PaqueteService {
 
   urlBase = 'http://localhost:3000/api/paquete/';
+  paquetesbuscado = new Array<Paquete>();
   // tslint:disable-next-line: variable-name
   constructor(private _http: HttpClient) { }
 
@@ -51,4 +52,11 @@ export class PaqueteService {
     const body = JSON.stringify(paq);
     return this._http.put(this.urlBase + paq._id, body , httpOptions);
   }
+  public busqueda(a: string): Observable<any>
+  {
+    const httpOptions = {
+      headers: new HttpHeaders({})
+  };
+    return this._http.post(this.urlBase + 'buscar/' + a , httpOptions);
+}
 }

@@ -119,10 +119,11 @@ export class PaquetesAbmComponent implements OnInit {
     this.usuarionuevo = new Usuario();
     this.usuariomd = new Usuario();
 
-    // operacion reserva 
+    // operacion reserva
 
     this.reservanueva = new Reserva ();
     this.reservamod = new Reserva();
+    this.actualizareserva();
   }
 
   ngOnInit(): void {
@@ -354,7 +355,6 @@ export class PaquetesAbmComponent implements OnInit {
     this.alojamientoService.EliminarAlojamiento(alojamiento._id).subscribe(
       (resultado) =>
       {
- 
         let a = this.listaPaquetes.find((item: Paquete) => item.alojamiento._id === alojamiento._id);
         if (a)
         {
@@ -363,7 +363,6 @@ export class PaquetesAbmComponent implements OnInit {
         this.toastr.success('alojamiento eliminado', 'operacion exitosa');
         this.obtenerListaDeAlojamiento();
         this.actualizarTabla();
-      
       }
     );
   }
@@ -483,7 +482,7 @@ export class PaquetesAbmComponent implements OnInit {
       }
     );
   }
-  public agregarUsuario(){ 
+  public agregarUsuario(){
     console.log(this.usuarionuevo);
     this.usuarioService.agregarUsuario(this.usuarionuevo).subscribe(
       (resultado) =>
@@ -604,7 +603,7 @@ export class PaquetesAbmComponent implements OnInit {
     this.modal.dismissAll();
   }
 
-  buscarRepetidos(a: string):boolean{
+  buscarRepetidos(a: string): boolean{
     switch(a){
       case 'nuevo-usu-dni': return(this.listausuario.find((item: Usuario) => item.dni == this.usuarionuevo.dni) != null); break;
       // case '': return(this.listausuario.find((item: Usuario) => item.dni === this.usuariomd.dni) != null); break;
@@ -619,14 +618,14 @@ export class PaquetesAbmComponent implements OnInit {
   }
 
   buscar(b: string): boolean{
-    switch(b){
+    switch (b){
       case 'alojamiento': return(this.listaAlojamiento.length == 0); break;
       case 'transporte': return(this.listaTransporte.length == 0); break;
       case 'paquete': return(this.listaPaquetes.length == 0); break;
     }
   }
 
-  //abm reserva
+  // abm reserva
   public actualizareserva(){
     this.listaReserva = new Array<Reserva>();
     let a = new Reserva();

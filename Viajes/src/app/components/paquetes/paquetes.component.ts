@@ -23,6 +23,7 @@ export class PaquetesComponent implements OnInit {
   listaPaquetes: Array<Paquete>;
   listadeFormaPago: Array<Formapago>;
   listaReserva: Array<Reserva>;
+  busqueda: string;
   constructor(private ps: PaqueteService,
               public modal: NgbModal,
               private toastr: ToastrService,
@@ -108,7 +109,32 @@ export class PaquetesComponent implements OnInit {
       }
       );
   }
-
+  public buscarpaqueteporDestino()
+  {
+    this.ps.busqueda(this.busqueda).subscribe(
+    (result) => {
+      let a = new Paquete();
+      if (result.length == 0)
+      {
+        this.toastr.info('encontro ningun paquete con ese destino', ' vuelva a intentarlo');
+        this.actualizarTabla();
+      }
+      else{
+        for (let i of result)
+        {
+          Object.assign(a, i);
+          if (this.ps.paquetesbuscado == null)
+          {
+            this.ps.paquetesbuscado = new Array<Paquete>();
+          }
+          this.ps.paquetesbuscado.push(a);
+          a = new Paquete();
+        }
+        Object.assign(this.listaPaquetes, this.ps.paquetesbuscado);
+      }
+    }
+    );
+  }
   public agregarPaquete(){
     this.ps.agregarAsis(this.paq).subscribe(
       (result) => {

@@ -29,4 +29,8 @@ PaqueteCtrl.editPaquete = async (req, res) => {
         'status': 'Paquete Modificado'
     })
 }
+PaqueteCtrl.buscarPaquete = async (req, res) => {
+paquet = await Paquete.find({destino: req.params.id}).populate("transporte").populate("alojamiento");
+    res.json(paquet);
+}
 module.exports=PaqueteCtrl;

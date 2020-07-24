@@ -7,7 +7,7 @@ const PaqueteCtrl = require('./../controllers/paquete.controller');
 // definiendo rutas
 router.get('/', PaqueteCtrl.getPaquete);
 router.post('/', PaqueteCtrl.crearPaquete);
-
+router.post('/buscar/:id', PaqueteCtrl.buscarPaquete);
 router.put('/:id', PaqueteCtrl.editPaquete);
 router.delete('/:id', PaqueteCtrl.deletePaquete);
 
