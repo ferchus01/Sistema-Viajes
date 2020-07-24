@@ -42,13 +42,15 @@ export class PaquetesComponent implements OnInit {
       for (let i of result)
       {
         Object.assign(a, i);
-        this.listaPaquetes.push(a);
+        if(a.alojamiento != null && a.transporte != null)
+        {
+          this.listaPaquetes.push(a);
+        }
+       
         a = new Paquete();
       }
       }
     );
-    // this.toastr.success('paquetes Cargados','Confirmado')
-    console.log(this.listaPaquetes);
   }
   public cargarFormaPago()
   {
@@ -59,6 +61,7 @@ export class PaquetesComponent implements OnInit {
         {
           const a = new Formapago();
           Object.assign(a, r);
+          
           this.listadeFormaPago.push(a);
         }
       }

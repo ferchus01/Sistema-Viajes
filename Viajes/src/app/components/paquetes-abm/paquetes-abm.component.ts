@@ -128,7 +128,7 @@ export class PaquetesAbmComponent implements OnInit {
     let a = new Paquete();
     this.ps.actualizarT().subscribe(
       (result) => {
-      for (const i of result)
+      for (let i of result)
       {
         Object.assign(a, i);
         this.listaPaquetes.push(a);
@@ -136,8 +136,6 @@ export class PaquetesAbmComponent implements OnInit {
       }
       }
     );
-    // this.toastr.success('paquetes Cargados','Confirmado')
-    console.log(this.listaPaquetes);
   }
   public elegirPaquete(paquete: Paquete){
     Object.assign( this.paqmod , paquete);
@@ -177,8 +175,14 @@ export class PaquetesAbmComponent implements OnInit {
   public eliminarPaquete(paquete: Paquete){
     this.ps.EliminarA(paquete).subscribe(
       (result) => {
+        let a = this.listapromocion.find((item: Promocion) => item.paqueteTuristico._id === paquete._id);
+        if (a)
+        {
+          this.eliminarPromociones(a);
+        }
         this.toastr.success('Paquete Eliminado Correctamente', 'Confirmado');
         this.actualizarTabla();
+        this.obtenerPromociones();
       },
       (error) => {
         this.toastr.error('no se pudo eliminar el paquete', 'Error');
@@ -253,6 +257,7 @@ export class PaquetesAbmComponent implements OnInit {
         this.toastr.success('alojamiento modificado', 'operacion exitosa');
         this.obtenerListaDeTransporte();
         this.actualizarTabla();
+        this.obtenerPromociones();
         this.transportemd = new ProveedorTransporte();
       }
     );
@@ -261,6 +266,11 @@ export class PaquetesAbmComponent implements OnInit {
     this.transporteService.EliminarTransporte(transport._id).subscribe(
       (resultado) =>
       {
+        let a = this.listaPaquetes.find((item: Paquete) => item.transporte._id === transport._id);
+        if (a)
+        {
+          this.eliminarPaquete(a);
+        }
         this.toastr.success('alojamiento eliminado', 'operacion exitosa');
         this.obtenerListaDeTransporte();
         this.actualizarTabla();
@@ -323,6 +333,7 @@ export class PaquetesAbmComponent implements OnInit {
         this.toastr.success('alojamiento modificado', 'operacion exitosa');
         this.obtenerListaDeAlojamiento();
         this.actualizarTabla();
+        this.obtenerPromociones();
         this.alojamientomd = new ProveedorAlojamiento();
       }
     );
@@ -331,9 +342,16 @@ export class PaquetesAbmComponent implements OnInit {
     this.alojamientoService.EliminarAlojamiento(alojamiento._id).subscribe(
       (resultado) =>
       {
+ 
+        let a = this.listaPaquetes.find((item: Paquete) => item.alojamiento._id === alojamiento._id);
+        if (a)
+        {
+          this.eliminarPaquete(a);
+        }
         this.toastr.success('alojamiento eliminado', 'operacion exitosa');
         this.obtenerListaDeAlojamiento();
         this.actualizarTabla();
+      
       }
     );
   }
@@ -385,13 +403,15 @@ export class PaquetesAbmComponent implements OnInit {
     this.listapromocion = new Array<Promocion>();
     this.promocionServicie.listadePromocion().subscribe(
       (result) => {
-        // let a = new Promocion();
-        // for (let r of result){
-        //   Object.assign(a, r);
-        //   this.listapromocion.push(a);
-        //   a = new Promocion();
-        // }
-        this.listapromocion=result;
+        let a = new Promocion();
+        for (let r of result){
+          Object.assign(a, r);
+          if (a.paqueteTuristico != null)
+          {
+            this.listapromocion.push(a);
+          }
+          a = new Promocion();
+        }
       }
     );
   }

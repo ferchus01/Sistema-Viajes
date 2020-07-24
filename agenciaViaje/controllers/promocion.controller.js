@@ -3,7 +3,7 @@ const Promocion = require('../models/promocion');
 const PromocionCtrl={};
 
 PromocionCtrl.getPromocion = async(req,res)=>{
-    promo = await Promocion.find().populate("paqueteTuristico");
+    promo = await Promocion.find().populate("paqueteTuristico").populate("transporte").populate("alojamiento");
     res.json(promo);
 }
 

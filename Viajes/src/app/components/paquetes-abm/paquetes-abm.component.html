@@ -17,7 +17,7 @@
     <div class="tab-content" id="v-pills-tabContent">
       <div class="tab-pane fade show active" id="v-pills-paquetes" role="tabpanel" aria-labelledby="v-pills-paquetes-tab"><!--Tabla Paquetes-->
         <div>
-           <button type="button" class="btn btn-outline-success" [disabled]="(buscar('alojamiento') && buscar('transporte'))" (click)="modal.open(crear,{size:'xl',scrollable:true})">Crear Paquete</button> 
+           <button type="button" class="btn btn-outline-success" [disabled]="(buscar('alojamiento') || buscar('transporte'))" (click)="modal.open(crear,{size:'xl',scrollable:true})">Crear Paquete</button> 
           </div>
           <br>
         <div class="row "> 
@@ -483,41 +483,35 @@
             <div class="col-1"></div>
             <div class="card-body col-md-6">
               <div class="form-group">
-                <label for="inputDescuento">Descuento</label>
+                <label for="inputDescuento">Descripcion</label>
                 <input type="number" class="form-control" id="formTransporteModel" placeholder="Ingrese Descuento" name="usuModel1"
-                  [(ngModel)]="promocionmd.descuento" #descuento="ngModel" required>
+                  [(ngModel)]="transportemd.descripcion" #descuento="ngModel" required>
               </div>
               <div *ngIf="descuento.invalid && (descuento.dirty || descuento.touched)" class="alert alert-danger">
                 <div *ngIf="descuento.errors.required">
-                  Descuento es requerido.
+                La descripcion es requerido.
                 </div>
               </div>
               <div class="form-group">
-                <label for="inputRegalo">Dias de regalo</label>
+                <label for="inputRegalo">nombre de transporte</label>
                 <input type="number" class="form-control" id="formTransporteModel" placeholder="Ingrese dias de regalo"
-                  name="regalo" [(ngModel)]="promocionmd.diasDeRegalo" #regalo="ngModel" required>
+                  name="regalo" [(ngModel)]="transportemd.nombre" #regalo="ngModel" required>
               </div>
               <div *ngIf="regalo.invalid && (regalo.dirty || regalo.touched)" class="alert alert-danger">
                 <div *ngIf="regalo.errors.required">
-                  El tipo de alojamiento es requerido.
+                  El nombre del transporte es requerido.
                 </div>
               </div>
               <div class="form-group">
-                <label for="inputDias">Puntos de regalo</label>
+                <label for="inputDias">tipo</label>
                 <input type="number" class="form-control" id="formTransporteModel" placeholder="Ingrese puntos de regalo"
-                  name="puntosModel" [(ngModel)]="promocionmd.diasDeRegalo" #puntosModel="ngModel" required>
+                  name="puntosModel" [(ngModel)]="transportemd.tipo" #puntosModel="ngModel" required>
               </div>
               <div *ngIf="puntosModel.invalid && (puntosModel.dirty || puntosModel.touched)" class="alert alert-danger">
                 <div *ngIf="puntosModel.errors.required">
-                  Los puntos de regalo son requerido.
+                  el tipo de transporte es requerido.
                 </div>
               </div>
-              <div class="form-group col-12">
-                <label for="inputTuristico" class="col-4">Paquetes turisticos</label>
-                <select name="paquetes" [(ngModel)]="promocionmd.paqueteTuristico" class="col-12" class="form-control">
-                  <option *ngFor="let paquete of listaPaquetes " class="form-control" [ngValue]="paquete">{{paquete.destino}} </option>
-                </select>
-              </div> 
             </div>
           </div>
         </div>
@@ -1015,13 +1009,6 @@
                   El tipo es requerido.
                 </div>
               </div>
-              <div class="custom-file">
-                <input type="file" class="custom-file-input" id="customFileLang" accept="image/x-png,image/gif,image/jpeg" lang="es" name="qweeqw" alife-file-to-base64 (onFileChanged)="cargarimagenTransporte($event, 'transportenuevo')">
-                <label class="custom-file-label" for="customFileLang">Seleccionar una Imagen</label>
-              </div>
-              <div>
-                <br><img src="{{transportenuevo.imagen}}" class="card-img" alt="..." height="500px" ><br> 
-              </div>
               <div class="form-group">
                 <label for="inputDescripcionTransp1">Descripcion</label>
                 <input type="text" class="form-control" id="formTransporteModel1" placeholder="Ingrese descripcion"
@@ -1099,13 +1086,6 @@
                 <div *ngIf="tipoAloj.errors.required">
                   El tipo de alojamiento es requerido.
                 </div>
-              </div>
-              <div class="custom-file">
-                <input type="file" class="custom-file-input" id="customFileLang" accept="image/x-png,image/gif,image/jpeg" lang="es" name="qweeqw" alife-file-to-base64 (onFileChanged)="cargarimagenAlojamiento($event, 'alojamientonuevo')">
-                <label class="custom-file-label" for="customFileLang">Seleccionar una Imagen</label>
-              </div>
-              <div>
-                <br><img src="{{alojamientonuevo.imagen}}" class="card-img" alt="..." height="500px" ><br> 
               </div>
               <div class="form-group">
                 <label for="formDescripcionAlojamiento1">Descripcion</label>
