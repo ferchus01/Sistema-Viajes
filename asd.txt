@@ -26,3 +26,12 @@ la lista de paquetes tambien c deben actualizar
 las validaciones agregadas
 agrege los campos email, dni, telefono y nombre de usuario y ya estan validados y tambien se evita la redundancia de datos
 se cambiaron la mayoria de los nombres de los IDs y FORM de los labels y div de paquetes-abm
+
+
+---------------------------------
+se creo el metodo buscar.Lo unico que tienen que hacer es bindear el atributo "busqueda" y llamar al metodo. 
+no lo probamos pero.... confiamos que funciona xdxd
+este metodo actualizara la lista de paquetes segun el criterio de busqueda y cuando no haya nada escrito. mostrara la lista completa
+
+ahora los metodos eliminar de los demas abm se borran en cascada
+es decir .... que si borra un alojamiento, el paquete que depende de el. tambien sera borrado
