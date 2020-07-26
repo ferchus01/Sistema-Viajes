@@ -748,7 +748,7 @@
     <form #modifPromocion="ngForm">
       <div class="form-group">
         <label for="formUsu1">Descuento</label>
-        <input type="number" class="form-control" id="formUsuModel1" placeholder="Ingrese Descuento" name="usuModel1"
+        <input type="number" class="form-control" id="formPromocionModel" placeholder="Ingrese Descuento" name="usuModel1"
           [(ngModel)]="promocionmd.descuento" #descuento="ngModel" required>
       </div>
       <div *ngIf="descuento.invalid && (descuento.dirty || descuento.touched)" class="alert alert-danger">
@@ -758,7 +758,7 @@
       </div>
       <div class="form-group">
         <label for="formContra1">Dias de regalo</label>
-        <input type="number" class="form-control" id="formContraModel1" placeholder="Ingrese dias de regalo"
+        <input type="number" class="form-control" id="formPromocionModel" placeholder="Ingrese dias de regalo"
           name="ubicacion" [(ngModel)]="promocionmd.diasDeRegalo" #regalo="ngModel" required>
       </div>
       <div *ngIf="regalo.invalid && (regalo.dirty || regalo.touched)" class="alert alert-danger">
@@ -768,7 +768,7 @@
       </div>
       <div class="form-group">
         <label for="formContra1">Puntos de regalo</label>
-        <input type="number" class="form-control" id="formContraModel1" placeholder="Ingrese puntos de regalo"
+        <input type="number" class="form-control" id="formPromocionModel" placeholder="Ingrese puntos de regalo"
           name="contraModel1" [(ngModel)]="promocionmd.puntosDeRegalo" #puntos="ngModel" required>
       </div>
       <div *ngIf="puntos.invalid && (puntos.dirty || puntos.touched)" class="alert alert-danger">
@@ -1000,7 +1000,7 @@
     <form #crearusu="ngForm">
       <div class="form-group">
         <label for="inputNombre1">Nombre</label>
-        <input type="text" class="form-control" id="formUsuModel1" placeholder="Ingrese su Nombre" name="usuNombre"
+        <input type="text" class="form-control" id="formUsuNombreModel1" placeholder="Ingrese su Nombre" name="usuNombre"
           [(ngModel)]="usuarionuevo.nombreusuario" #usuNombre="ngModel" required>
       </div>
       <div *ngIf="usuNombre.invalid && (usuNombre.dirty || usuNombre.touched)" class="alert alert-danger">
@@ -1010,7 +1010,7 @@
       </div>
       <div class="form-group">
         <label for="inputApellido1">Apellido</label>
-        <input type="text" class="form-control" id="formUsuModel1" placeholder="Ingrese su apellido" name="usuApellido"
+        <input type="text" class="form-control" id="formUsuApeModel1" placeholder="Ingrese su apellido" name="usuApellido"
           [(ngModel)]="usuarionuevo.apellido" #usuApellido="ngModel" required>
       </div>
       <div *ngIf="usuApellido.invalid && (usuApellido.dirty || usuApellido.touched)" class="alert alert-danger">
@@ -1020,8 +1020,13 @@
       </div>
       <div class="form-group">
         <label for="inputNeim1">Nombre de usuario</label>
+<<<<<<< HEAD
         <input type="text" class="form-control" id="formUsuModel1" placeholder="ingrese el nombre de usuario"
           name="usuNeim" [(ngModel)]="usuarionuevo.nombreusuario" #usuNeim="ngModel" required>
+=======
+        <input type="text" class="form-control" id="formUsuNeimModel1" placeholder="ingrese el nombre de usuario" name="usuNeim"
+          [(ngModel)]="usuarionuevo.nombreusuario" #usuNeim="ngModel" required>
+>>>>>>> 5dc6e117dab20dc328560031abfd2ac72d78af94
       </div>
       <div *ngIf="usuNeim.invalid && (usuNeim.dirty || usuNeim.touched)" class="alert alert-danger">
         <div *ngIf="usuNeim.errors.required">
@@ -1033,9 +1038,14 @@
       </div>
       <div class="form-group">
         <label for="inputDni1">DNI</label>
+<<<<<<< HEAD
         <input type="text" class="form-control" id="formUsuModel1" placeholder="Ingrese su DNI" name="usuDni"
           [(ngModel)]="usuarionuevo.dni" #usuDni="ngModel" minlength="7" maxlength="8" required
           onkeypress='return event.charCode >= 48 && event.charCode <= 57'>
+=======
+        <input type="text" class="form-control" id="formUsuDniModel1" placeholder="Ingrese su DNI" name="usuDni"
+          [(ngModel)]="usuarionuevo.dni" #usuDni="ngModel" minlength="7" maxlength="8" required onkeypress='return event.charCode >= 48 && event.charCode <= 57'>
+>>>>>>> 5dc6e117dab20dc328560031abfd2ac72d78af94
       </div>
       <div *ngIf="usuDni.invalid && (usuDni.dirty || usuDni.touched)" class="alert alert-danger">
         <div *ngIf="usuDni.errors.required">
@@ -1050,13 +1060,21 @@
       </div>
       <div class="form-group">
         <label for="inputEmail1">Email</label>
+<<<<<<< HEAD
         <input type="email" class="form-control" id="formUsuModel1" placeholder="example@gmail.com" name="usuEmail"
           [(ngModel)]="usuarionuevo.email" #usuEmail="ngModel" required
           pattern="[a-zA-Z0-9_]+([.][a-zA-Z0-9_]+)*@[a-zA-Z0-9_]+([.][a-zA-Z0-9_]+)*[.][a-zA-Z]{1,5}">
+=======
+        <input type="email" class="form-control" id="formUsuEmailModel1" placeholder="example@gmail.com" name="usuEmail"
+          [(ngModel)]="usuarionuevo.email" #usuEmail="ngModel" required pattern="[a-zA-Z0-9_]+([.][a-zA-Z0-9_]+)*@[a-zA-Z0-9_]+([.][a-zA-Z0-9_]+)*[.][a-zA-Z]{1,5}">
+>>>>>>> 5dc6e117dab20dc328560031abfd2ac72d78af94
       </div>
       <div *ngIf="usuEmail.invalid && (usuEmail.dirty || usuEmail.touched)" class="alert alert-danger">
         <div *ngIf="usuEmail.errors.required">
           El Email es requerido.
+        </div>
+        <div *ngIf="usuEmail.errors.pattern">
+          example@gmail.com
         </div>
       </div>
       <div *ngIf="buscarRepetidos('nuevo-usu-email')" class=" alert alert-danger">
@@ -1064,9 +1082,14 @@
       </div>
       <div class="form-group">
         <label for="inputTelefono1">Telefono</label>
+<<<<<<< HEAD
         <input type="text" class="form-control" id="formUsuModel1" placeholder="Ingrese numero telefonico"
           name="usuTelefono" [(ngModel)]="usuarionuevo.telefono" #usuTelefono="ngModel" minlength="7" maxlength="8"
           required onkeypress='return event.charCode >= 48 && event.charCode <= 57'>
+=======
+        <input type="text" class="form-control" id="formUsuTelModel1" placeholder="Ingrese numero telefonico" name="usuTelefono"
+          [(ngModel)]="usuarionuevo.telefono" #usuTelefono="ngModel" minlength="7" maxlength="8" required onkeypress='return event.charCode >= 48 && event.charCode <= 57'>
+>>>>>>> 5dc6e117dab20dc328560031abfd2ac72d78af94
       </div>
       <div *ngIf="usuTelefono.invalid && (usuTelefono.dirty || usuTelefono.touched)" class="alert alert-danger">
         <div *ngIf="usuTelefono.errors.required">
@@ -1081,7 +1104,7 @@
       </div>
       <div class="form-group">
         <label for="inputContraseña">Contraseña</label>
-        <input type="password" class="form-control" id="formUsuModel1" placeholder="Ingrese Contraseña"
+        <input type="password" class="form-control" id="formUsuContraModel1" placeholder="Ingrese Contraseña"
           name="contraModel1" [(ngModel)]="usuarionuevo.password" #contraModel1="ngModel" minlength="8" required>
       </div>
       <div *ngIf="contraModel1.invalid && (contraModel1.dirty || contraModel1.touched)" class="alert alert-danger">
