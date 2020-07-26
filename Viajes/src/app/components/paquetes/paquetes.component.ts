@@ -11,6 +11,8 @@ import { Formapago } from 'src/app/models/formapago';
 import { FormapagoService } from 'src/app/services/formapago.service';
 import { UsuarioService } from 'src/app/services/usuario.service';
 import { isNgTemplate } from '@angular/compiler';
+import { Promocion } from 'src/app/models/promocion';
+import { PromocionService } from 'src/app/services/promocion.service';
 
 @Component({
   selector: 'app-paquetes',
@@ -18,6 +20,11 @@ import { isNgTemplate } from '@angular/compiler';
   styleUrls: ['./paquetes.component.css']
 })
 export class PaquetesComponent implements OnInit {
+  porcentaje:number;
+  precioPersona:number;
+  precioFinal:number;
+  prom: Promocion;
+  listapromocion: Array<Promocion>;
   paq: Paquete;
   resv: Reserva;
   listaPaquetes: Array<Paquete>;
@@ -30,13 +37,17 @@ export class PaquetesComponent implements OnInit {
               private toastr: ToastrService,
               private rs: ReservaService,
               private formaPagoService: FormapagoService,
-              private usuarioService: UsuarioService) {
+              private usuarioService: UsuarioService,
+              private promocionService: PromocionService) {
+    this.prom = new Promocion();
+    this.listapromocion = new Array<Promocion>();     
     this.resv = new Reserva();
     this.paq = new Paquete();
     this.listaPaquetes = new Array<Paquete>();
     this.actualizarTabla();
     this.reservamd = new Reserva();
     this.actualizarReserva();
+    this.obtenerPromociones()
    }
 
   ngOnInit(): void {
@@ -153,48 +164,32 @@ export class PaquetesComponent implements OnInit {
     }
   )
   }
-  public agregarPaquete(){
-    this.ps.agregarAsis(this.paq).subscribe(
-      (result) => {
-        this.toastr.success('Paquete Creado Correctamente', 'Confirmado');
-        this.paq = new Paquete();
-        this.actualizarTabla();
-      },
-      (error) => {
-        this.toastr.error('no se pudo crear un paquete', 'Error');
-        console.log(error);
-      }
-      );
-  }
 
-  public eliminarPaquete(paquete: Paquete){
-    this.ps.EliminarA(paquete).subscribe(
+  /*promociones*/
+  public obtenerPromociones(){
+    this.listapromocion = new Array<Promocion>();
+    this.promocionService.listadePromocion().subscribe(
       (result) => {
-        this.toastr.success('Paquete Eliminado Correctamente', 'Confirmado');
-        this.actualizarTabla();
-      },
-      (error) => {
-        this.toastr.error('no se pudo eliminar el paquete', 'Error');
-        console.log(error);
+        let a = new Promocion();
+        for (let r of result){
+          Object.assign(a, r);
+          if (a.paqueteTuristico != null)
+          {
+            this.listapromocion.push(a);
+          }
+          a = new Promocion();
+        }
       }
     );
-
   }
 
+  public seleccionarPromociones(promocion: Promocion){
+    Object.assign(this.prom, promocion);
 
-  public modificarPaquete(){
-    this.ps.modificar(this.paq).subscribe(
-      (result) => {
-        this.toastr.info('Paquete Modificado Correctamente', 'Confirmado');
-        this.paq = new Paquete();
-        this.actualizarTabla();
-      },
-      (error) => {
-        this.toastr.error('no se pudo modificar el paquete', 'Error');
-        console.log(error);
-      }
-    );
-
+    this.prom.paqueteTuristico = this.listaPaquetes.find((item: Paquete) => item._id === promocion.paqueteTuristico._id);
+    this.porcentaje = (this.prom.descuento * this.prom.paqueteTuristico.precio) / 100;
+    this.precioPersona = this.prom.paqueteTuristico.precio - this.porcentaje;
+    this.precioFinal = this.prom.paqueteTuristico.cantPersonas * this.precioPersona;
   }
 
 }
