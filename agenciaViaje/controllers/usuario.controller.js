@@ -55,7 +55,8 @@ UsuarioCtrl.loginUsuario = async (req, res)=>{
                 message: "success",
                 nombreusuario: user.nombreusuario,
                 tipousuario:{
-                descripcion: user.tipousuario.descripcion
+                descripcion: user.tipousuario.descripcion,
+                _id : user.tipousuario._id
                 },
                 _id: user._id
                     });

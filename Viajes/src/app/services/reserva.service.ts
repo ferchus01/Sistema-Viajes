@@ -2,16 +2,18 @@ import { Injectable } from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {observable, Observable} from 'rxjs';
 import { Reserva } from '../models/reserva';
-
+import {Tarjeta} from '../models/tarjeta'
 @Injectable({
   providedIn: 'root'
 })
 export class ReservaService {
 
   urlBase = 'http://localhost:3000/api/reserva/';
-
+  
   // tslint:disable-next-line: variable-name
-  constructor(private _http: HttpClient) { }
+  constructor(private _http: HttpClient) { 
+  
+  }
 
   public agregarResv(rev: Reserva): Observable<any>{
     const httpOptions = {

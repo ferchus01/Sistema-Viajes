@@ -168,33 +168,37 @@
             (click)="modal.open(crearAlojamiento,{size:'xl',scrollable:true})">Agregar Alojamiento</button>
         </div>
         <br>
-        <div class="col-12 ">
-          <div class="row">
-            <div class="col-md-6 col-lg-12">
-              <div class="card" *ngFor="let item of listaAlojamiento">
-                <img src="{{item.imagen}}" class="card-img-top" height="200" alt="...">
-                <div class="card-body col-md-8">
 
-                  <h4>Ubicacion: {{item.ubicacion}}</h4>
-                  <h4>Tipo: {{item.tipo}}</h4>
+        <div class="row">
+            <div class="col-md-12 col-lg-12">
+                <div class="card mb-3" *ngFor="let item of listaAlojamiento">
+                  <div class="row no-gutters">
+                    <div class="col-md-4">
+                      <img src="{{item.imagen}}" class="card-img-top" height="200" alt="...">
+                    </div>
 
-                  <h4>Descripcion: {{item.descripcion}}</h4>
-                  <h4>Cantidad de Personas: {{item.cantpersonas}}</h4>
+                    <div class="card-body col-md-8">
 
+                      <h4>Ubicacion: {{item.ubicacion}}</h4>
+                      <h4>Tipo: {{item.tipo}}</h4>
+    
+                      <h4>Descripcion: {{item.descripcion}}</h4>
+                      <h4>Cantidad de Personas: {{item.cantpersonas}}</h4>
+    
+    
 
-                </div>
-                <div class="card-footer">
+                    </div>
+                  </div>
+                  <div class="card-footer">
                   <button type="button" class="btn btn-outline-primary"
                     (click)="seleccionarAlojamiento(item);modal.open(modAlojamiento,{size:'xl',scrollable:true})">Modificar</button>
                   <button type="button" class="btn btn-outline-danger"
                     (click)="eliminarAlojamiento(item)">Eliminar</button>
                 </div>
-              </div>
+                </div>
 
             </div>
-
           </div>
-        </div>
       </div>
 
       <div class="tab-pane fade" id="v-pills-transportes" role="tabpanel" aria-labelledby="v-pills-transportes-tab">
@@ -310,13 +314,10 @@
       </div>
 
       <!--Tabla reservas-->
-      <!-- <div class="tab-pane fade" id="v-pills-reservas" role="tabpanel" aria-labelledby="v-pills-reservas-tab">
-        <div>
-          <button class="btn btn-outline-success" type="button" (click)="modal.open(registrarPago)">Reserva</button>
-          
-        </div>
+      <div class="tab-pane fade" id="v-pills-reservas" role="tabpanel" aria-labelledby="v-pills-reservas-tab">
+        
         <div class="table-responsive">
-          <table class="table table-striped" [mfData]="" #mf="mfDataTable" [mfRowsOnPage]="5">
+          <table class="table table-striped" [mfData]="listaReserva" #mf="mfDataTable" [mfRowsOnPage]="5">
             <thead>
               <tr>
                 <th style="width: 10%">
@@ -327,9 +328,6 @@
                 </th>
                 <th style="width: 15%">
                   <mfDefaultSorter by="empresa">Email</mfDefaultSorter>
-                </th>
-                <th style="width: 15%">
-                  <mfDefaultSorter by="texto">Estado</mfDefaultSorter>
                 </th>
                 <th style="width: 15%">
                   <mfDefaultSorter by="texto">Fecha</mfDefaultSorter>
@@ -350,55 +348,38 @@
                   <mfDefaultSorter by="texto">Forma de Pago</mfDefaultSorter>
                 </th>
                 <th style="width: 15%">
-                  <mfDefaultSorter by="texto">Num Ticket</mfDefaultSorter>
-                </th>
-                <th style="width: 15%">
                   <mfDefaultSorter by="texto">Telefono</mfDefaultSorter>
                 </th>
                 <th style="width: 15%">
                   <mfDefaultSorter by="texto">Paquete</mfDefaultSorter>
                 </th>
-                <th style="width: 15%">
-                  <mfDefaultSorter by="texto">Promocion</mfDefaultSorter>
-                </th>
-                <th style="width: 15%">
-                  <mfDefaultSorter by="texto">Nombre Usuario</mfDefaultSorter>
-                </th>
-                <th style="width: 15%">
-                  <mfDefaultSorter by="texto">Pago</mfDefaultSorter>
-                </th>
-                <th style="width: 15%">
-                  <mfDefaultSorter by="texto">Forma de Pago</mfDefaultSorter>
-                </th>
-                <th style="width: 25%">
-                  <mfDefaultSorter by="fecha">Acciones</mfDefaultSorter>
-                </th>
+    
+            
+                
               </tr>
             </thead>
             <tbody>
-              <tr *ngFor="let pago of listaPagos">
-                <td>{{pago.afiliado.dni}}</td>
-                <td>{{pago.monto}} $</td>
-                <td>{{pago.fecha|date:'dd/MM/yy'}}</td>
-                <td>{{pago.formapago}}</td>
-                <td>{{pago.formapago}}</td>
-                <td>{{pago.formapago}}</td>
-                <td>{{pago.formapago}}</td>
-                <td>{{pago.formapago}}</td>
-                <td>{{pago.formapago}}</td>
-                <td>{{pago.formapago}}</td>
-                <td>{{pago.formapago}}</td>
-                <td>{{pago.formapago}}</td>
-                <td>{{pago.formapago}}</td>
-                <td>
-                  <button class="btn btn-outline-primary" type="button" (click)="modal.open(modificarPago,{scrollable:true});elegirPago(pago)">Modificar</button> 
-                  <button class="btn btn-outline-danger" type="button"(click)="eliminarPago(pago)"><i class="fas fa-trash-alt"></i> Eliminar</button>
-                </td>
+              <tr *ngFor="let res of listaReserva">
+                <td>{{res.dnicliente}}</td>
+                <td>{{res.apecliente}},{{res.nomcliente}}</td>
+                <td>{{res.email}}</td>
+                <td>{{res.fecha |date:'dd/MM/yy'}}</td>
+                <td>{{res.domicilio}}</td>
+                <td>{{res.codArea}}</td>
+                <td>{{res.usuario.nombreusuario}}</td>
+                <td>{{res.pago.cuotas}}</td>
+                <td>{{res.formapago.descripcion}}</td>
+                <td>{{res.telcliente}}</td>
+                <td>{{res.paquete.destino}}</td>
+                
+                
               </tr>
             </tbody>
           </table>
         </div>
-      </div> -->
+
+      </div>
+
     </div>
   </div>
 </div>

@@ -10,7 +10,8 @@ import { FormapagoService } from 'src/app/services/formapago.service';
 import { UsuarioService } from 'src/app/services/usuario.service';
 import { ToastrService } from 'ngx-toastr';
 import { isNgTemplate } from '@angular/compiler';
-
+import { Tarjeta} from 'src/app/models/tarjeta';
+import {TarjetaService } from 'src/app/services/tarjeta.service'
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
@@ -25,12 +26,14 @@ export class HomeComponent implements OnInit {
   listaPaquetes: Array<Paquete>;
   listadeFormaPago: Array<Formapago>;
   listaReserva: Array<Reserva>;
+  tarjeta: Tarjeta;
   constructor(private ps: PaqueteService,
     public modal: NgbModal,
     private rs: ReservaService,
     private toastr: ToastrService,
     private formaPagoService: FormapagoService,
-    private usuarioService: UsuarioService) {
+    private usuarioService: UsuarioService,
+    public tarjetaService : TarjetaService) {
       this.resv = new Reserva();
       this.paq = new Paquete();
       this.listadeFormaPago= new Array<Formapago>();
@@ -60,6 +63,7 @@ this.cargarFormaPago();
   public elegirPaquete(paquete: Paquete){
     Object.assign( this.paq , paquete);
     this.precioFinal = this.paq.cantPersonas * this.paq.precio;
+    this.resv.pago.total=this.paq.precio;
   }
 
   /*Reserva*/
@@ -78,14 +82,21 @@ this.cargarFormaPago();
       }
     );
   }
-
   public agregarReserva(){
     const f = new Date();
     this.resv.fecha = f;
     this.resv.paquete = this.paq;
     this.resv.estado = true;
-    this.resv.usuario = this.usuarioService.usuarioLogeado;
-    console.log(this.resv);
+    this.resv.pago.fecha=f;
+    this.resv.pago.estado = true;
+    if(this.usuarioService.usuariologIn==true)
+    {
+      Object.assign(this.resv.usuario , this.usuarioService.usuarioLogeado);
+    }
+    else
+    {
+      this.resv.usuario= undefined;
+    }
     this.rs.agregarResv(this.resv).subscribe(
       (result) => {
         this.toastr.success('Reservado Correctamente', 'Confirmado');
@@ -111,20 +122,36 @@ this.cargarFormaPago();
       else{
         this.listaPaquetes=new Array<Paquete>();
         Object.assign(this.listaPaquetes,result);
-        // for (let i of result)
-        // {
-        //   Object.assign(a, i);
-        //   if (this.ps.paquetesbuscado == null)
-        //   {
-        //     this.ps.paquetesbuscado = new Array<Paquete>();
-        //   }
-        //   this.ps.paquetesbuscado.push(a);
-        //   a = new Paquete();
-        // }
-        // Object.assign(this.listaPaquetes, this.ps.paquetesbuscado);
+ 
       }
     }
     );
   }
-  
+  calcularInteres(num:number, prec:number){
+    
+    
+    if(num<=6)
+    {
+      this.resv.pago.interes=0;
+      this.resv.pago.total= prec;
+    }
+    else{
+      if (num==9) {
+        this.resv.pago.interes=31;
+        this.resv.pago.total= (prec*this.resv.pago.interes)/100 + prec;
+      }
+      else{
+        this.resv.pago.interes=41;
+        this.resv.pago.total= (prec*this.resv.pago.interes)/100 + prec;
+      }
+    }
+  }
+  public limpiarmodal(a : string)
+  {
+    switch(a)
+    {
+      case 'tarjeta': this.tarjeta= new Tarjeta(); break;
+      case 'reserva' : this.resv= new Reserva();break;
+    }
+  }
 }

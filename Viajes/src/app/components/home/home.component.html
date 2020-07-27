@@ -395,15 +395,15 @@
             </select>
           </div>
           <div class="form-group">
-            <button class="btn btn-outline-success" (click)="modal.open(Pago)" >Tipo de Pago</button>
-            <button class="btn btn-outline-primary" (click)="modal.open(Tarj)">Ingresar Tarjeta</button>
+            <button class="btn btn-outline-success" (click)="modal.open(Pago)" *ngIf="resv.formapago.descripcion=='Tarjeta de Credito'">Tipo de Pago</button>
+            <button class="btn btn-outline-primary" (click)="modal.open(tarj);limpiarmodal('tarjeta')" *ngIf="resv.formapago.descripcion=='Tarjeta de Credito' || resv.formapago.descripcion=='Tarjeta de Debito'" data-dismiss="modal"  >Ingresar Tarjeta</button>
           </div>
         </div>
 
         <div class="modal-footer">
 
-          <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-          <button type="button" class="btn btn-primary" (click)="agregarReserva()">reservar</button>
+          <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="limpiarmodal('reserva')" >Cerrar </button>
+          <button type="button" class="btn btn-primary" (click)="agregarReserva(); limpiarmodal('reserva')"  data-dismiss="modal">reservar</button>
         </div>
       </div>
     </div>
@@ -421,7 +421,7 @@
   <div class="modal-body">
     <div class="form-group">
       <label for="inputPaquetePromocion1" class="col-4">Cuotas:</label>
-      <select name="cuo" id=cuota class="col-8" class="form-control" [(ngModel)]="cuo">
+      <select name="cuo" id=cuota class="col-8" class="form-control" [(ngModel)]="resv.pago.cuotas" (ngModelChange)="calcularInteres(resv.pago.cuotas,paq.precio)">
         <option value="0">Seleccione una Opcion</option>
         <option value="1">1</option>
         <option value="3">3</option>
@@ -433,15 +433,13 @@
 
     <div class="form-group">
       <label >Interes:</label>
-      <label *ngIf="cuo==0 || cuo==1 || cuo==3 || cuo==6">0,00%</label> 
-      <label *ngIf="cuo==9">31,00%</label>    
-      <label *ngIf="cuo==12">41,00%</label>     
+      <label >{{resv.pago.interes}},00%</label> 
+           
     </div>
     <div class="form-group">
       <label >Total:</label>
-      <label *ngIf="cuo==0 || cuo==1 || cuo==3 || cuo==6">{{paq.precio}}</label>
-      <label *ngIf="cuo==9">{{(paq.precio*31)/100 + paq.precio}}</label>
-      <label *ngIf="cuo==12">{{(paq.precio*41)/100 + paq.precio}}</label>
+      <label >{{resv.pago.total}} $</label>
+      
     </div>
   </div>
   <div class="modal-footer">
@@ -449,7 +447,8 @@
     <button type="button" class="btn btn-primary" (click)="modal.close()">Agregar Pago</button>
   </div>
 </ng-template>
-<ng-template #Tarj let-modal>
+
+<ng-template #tarj let-modal>
   <div class="modal-header">
     <h4>Tarjeta</h4>
     <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="modal.close()">
@@ -458,24 +457,24 @@
   </div>
   <div class="modal-body">
     <div class="form-group">
-      <label for="">Nombre Completo del Titular</label>
-      <input type="text" class="form-control" id="inputDs" placeholder="Ingrese su nombre completo" name="ds">
+      <label for="inputDs">Nombre Completo del Titular</label>
+      <input type="text" class="form-control" id="inputDs" placeholder="Ingrese su nombre completo" name="ds"  [(ngModel)]="tarjeta.titularTarjeta">
     </div>
     <div class="form-group">
       <label for="inputDsad">DNI del Titular</label>
-      <input type="number" class="form-control" id="inputDsad" placeholder="Ingrese DNI" name="dsad">
+      <input type="number" class="form-control" id="inputDsad" placeholder="Ingrese DNI" name="dsad" [(ngModel)]="tarjeta.dniTitular">
     </div>
     <div class="form-group">
       <label for="inputAsd">Num. de Tarjeta</label>
-      <input type="number" class="form-control" id="inputAsd" placeholder="Ingrese numero de Tarjeta" name="asd">
+      <input type="number" class="form-control" id="inputAsd" placeholder="Ingrese numero de Tarjeta" name="asd" [(ngModel)]="tarjeta.numero">
     </div>
     <div class="form-group">
       <label for="inputWqd">Vencimiento</label>
-      <input type="date" class="form-control" id="inputWqd" placeholder="Ingrese Vencimiento" name="wqd">
+      <input type="date" class="form-control" id="inputWqd" placeholder="Ingrese Vencimiento" name="wqd" [(ngModel)]="tarjeta.vencimiento">
     </div>
   </div>
   <div class="modal-footer">
-    <button type="button" class="btn btn-secondary" (click)="modal.close()">Cerrar</button>
-    <button type="button" class="btn btn-primary" (click)="modal.close()">Agregar Tarjeta</button>
+    <button type="button" class="btn btn-secondary" (click)="modal.close();limpiarmodal('tarjeta') ">Cerrar</button>
+    <button type="button" class="btn btn-primary" (click)="modal.close()" data-toggle="modal" data-target="#reserva" >Agregar Tarjeta</button>
   </div>
 </ng-template>
