@@ -24,17 +24,16 @@ export class Reserva {
     formapago: Formapago;
    constructor()
    {
-      this.promocion = new Promocion();
+    //  this.promocion = new Promocion();
      //    this.promocion.id = 'aa';
-     this.usuario = new Usuario();
+      this.usuario = new Usuario();
      //    this.usuario._id = 'aa';
       this.pago = new Pago();
      //    this.pago.id = 'aa';
       this.formapago = new Formapago();
      //    this.formadePago.id = 'aa';
-       this.paquete = new Paquete();
-       this.pago.cuotas=0;
-       this.pago.interes=0;
+      this.pago.cuotas = 0;
+      this.pago.interes = 0;
      //    this.paquete.id=' sefsdf';
    }
 }

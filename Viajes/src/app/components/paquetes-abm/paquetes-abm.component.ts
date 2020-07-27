@@ -120,7 +120,7 @@ export class PaquetesAbmComponent implements OnInit {
     this.usuariomd = new Usuario();
 
     // operacion reserva
-    this.listaReserva=new Array<Reserva>();
+    this.listaReserva = new Array<Reserva>();
     this.reservanueva = new Reserva ();
     this.reservamod = new Reserva();
     this.actualizareserva();
@@ -631,7 +631,7 @@ export class PaquetesAbmComponent implements OnInit {
     let a = new Reserva();
     this.reservaService.actualizarT().subscribe(
       (result) => {
-        Object.assign(this.listaReserva,result);
+        Object.assign(this.listaReserva, result);
       // for (let i of result)
       // {
       //   Object.assign(a, i);

@@ -22,9 +22,7 @@
   </div>
   <div class="col-9" style="background-color: #e4e5ea;">
     <div class="tab-content" id="v-pills-tabContent">
-      <div class="tab-pane fade show active" id="v-pills-paquetes" role="tabpanel"
-        aria-labelledby="v-pills-paquetes-tab">
-        <!--Tabla Paquetes-->
+      <div class="tab-pane fade show active" id="v-pills-paquetes" role="tabpanel"aria-labelledby="v-pills-paquetes-tab"><!--Tabla Paquetes-->
         <div>
           <button type="button" class="btn btn-outline-success"
             [disabled]="(buscar('alojamiento') || buscar('transporte'))"
@@ -97,8 +95,7 @@
         </div>
       </div>
 
-      <div class="tab-pane fade" id="v-pills-usuarios" role="tabpanel" aria-labelledby="v-pills-usuarios-tab">
-        <!--Tabla Usuarios-->
+      <div class="tab-pane fade" id="v-pills-usuarios" role="tabpanel" aria-labelledby="v-pills-usuarios-tab"><!--Tabla Usuarios-->
         <div>
           <button class="btn btn-outline-success" type="button"
             (click)="modal.open(registrarUsu,{scrollable:true})">Agregar Usuario</button>
@@ -161,48 +158,55 @@
         </div>
       </div>
 
-      <div class="tab-pane fade" id="v-pills-alojamiento" role="tabpanel" aria-labelledby="v-pills-alojamiento-tab">
-        <!--Tabla Alojamientos-->
+      <!-- Tabla Alojamiento -->
+      <div class="tab-pane fade" id="v-pills-alojamiento" role="tabpanel" aria-labelledby="v-pills-alojamiento">
         <div>
           <button class="btn btn-outline-success" type="button"
-            (click)="modal.open(crearAlojamiento,{size:'xl',scrollable:true})">Agregar Alojamiento</button>
+            (click)="modal.open(crearAlojamiento,{scrollable:true})">Crear Alojamiento</button>
         </div>
-        <br>
-
-        <div class="row">
-            <div class="col-md-12 col-lg-12">
-                <div class="card mb-3" *ngFor="let item of listaAlojamiento">
-                  <div class="row no-gutters">
-                    <div class="col-md-4">
-                      <img src="{{item.imagen}}" class="card-img-top" height="200" alt="...">
-                    </div>
-
-                    <div class="card-body col-md-8">
-
-                      <h4>Ubicacion: {{item.ubicacion}}</h4>
-                      <h4>Tipo: {{item.tipo}}</h4>
-    
-                      <h4>Descripcion: {{item.descripcion}}</h4>
-                      <h4>Cantidad de Personas: {{item.cantpersonas}}</h4>
-    
-    
-
-                    </div>
-                  </div>
-                  <div class="card-footer">
-                  <button type="button" class="btn btn-outline-primary"
-                    (click)="seleccionarAlojamiento(item);modal.open(modAlojamiento,{size:'xl',scrollable:true})">Modificar</button>
-                  <button type="button" class="btn btn-outline-danger"
-                    (click)="eliminarAlojamiento(item)">Eliminar</button>
-                </div>
-                </div>
-
-            </div>
-          </div>
+        <div class="table-responsive">
+          <table class="table table-striped" [mfData]="listaAlojamiento" #mf="mfDataTable" [mfRowsOnPage]="5">
+            <thead>
+              <tr>
+                <th style="width: 10%">
+                  <mfDefaultSorter by="de">Imagen</mfDefaultSorter>
+                </th>
+                <th style="width: 20%">
+                  <mfDefaultSorter by="para">Tipo</mfDefaultSorter>
+                </th>
+                <th style="width: 15%">
+                  <mfDefaultSorter by="empresa">Ubicacion</mfDefaultSorter>
+                </th>
+                <th style="width: 15%">
+                  <mfDefaultSorter by="texto">Descripcion</mfDefaultSorter>
+                </th>
+                <th style="width: 15%">
+                  <mfDefaultSorter by="texto">Cantidad De Personas</mfDefaultSorter>
+                </th>
+                <th style="width: 15%">
+                  <mfDefaultSorter by="texto">Acciones</mfDefaultSorter>
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let item of listaAlojamiento">
+                <td><img src="{{item.imagen}}" class="card-img-top" height="50" width="50" alt="..."></td>
+                <td>{{item.tipo}}</td>
+                <td>{{item.ubicacion}}</td>
+                <td>{{item.descripcion}}</td>
+                <td>{{item.cantpersonas}}</td>
+                <td><button type="button" class="btn btn-outline-info mr-3"
+                  (click)="seleccionarAlojamiento(item);modal.open(modAlojamiento,{size:'xl',scrollable:true})"><i
+                  class="fas fa-edit"></i></button>
+                <button type="button" class="btn btn-outline-danger"
+                  (click)="eliminarAlojamiento(item)"><i class="fas fa-trash-alt"></i></button></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
       </div>
 
-      <div class="tab-pane fade" id="v-pills-transportes" role="tabpanel" aria-labelledby="v-pills-transportes-tab">
-        <!-- Tabla Transportes -->
+      <div class="tab-pane fade" id="v-pills-transportes" role="tabpanel" aria-labelledby="v-pills-transportes-tab"><!-- Tabla Transportes -->
         <div>
           <button class="btn btn-outline-success" type="button"
             (click)="modal.open(crearTransporte,{size:'xl',scrollable:true})">Agregar Transporte</button>
@@ -218,11 +222,9 @@
 
                     <div class="card-body col-md-8">
                       <h2 class="card-title ">{{tran.nombre}}</h2>
-                      <h4>Tipo:{{tran.tipo}}</h4>
+                      <p> Tipo: {{tran.tipo}}</p>
 
-                      <h4>Descripcion: {{tran.descripcion}}</h4>
-
-
+                      <p>Descripcion: {{tran.descripcion}}</p>
                     </div>
                   </div>
                   <div class="card-footer">
@@ -237,8 +239,7 @@
           </div>
       </div>
 
-      <!-- Tabla Promociones -->
-      <div class="tab-pane fade" id="v-pills-promociones" role="tabpanel" aria-labelledby="v-pills-promociones-tab">
+      <div class="tab-pane fade" id="v-pills-promociones" role="tabpanel" aria-labelledby="v-pills-promociones-tab"><!-- Tabla Promociones -->
         <div>
           <button type="button" class="btn btn-outline-success" [disabled]="(buscar('paquete'))"
             (click)="modal.open(crearPromocion,{scrollable:true})"> Crear Promocion</button>
@@ -313,9 +314,7 @@
         </div>
       </div>
 
-      <!--Tabla reservas-->
-      <div class="tab-pane fade" id="v-pills-reservas" role="tabpanel" aria-labelledby="v-pills-reservas-tab">
-        
+      <div class="tab-pane fade" id="v-pills-reservas" role="tabpanel" aria-labelledby="v-pills-reservas-tab"><!--Tabla reservas-->
         <div class="table-responsive">
           <table class="table table-striped" [mfData]="listaReserva" #mf="mfDataTable" [mfRowsOnPage]="5">
             <thead>
@@ -366,8 +365,8 @@
                 <td>{{res.fecha |date:'dd/MM/yy'}}</td>
                 <td>{{res.domicilio}}</td>
                 <td>{{res.codArea}}</td>
-                <td>{{res.usuario.nombreusuario}}</td>
-                <td>{{res.pago.cuotas}}</td>
+                <td> <p *ngIf="res.usuario">{{res.usuario.nombreusuario}}</p><p *ngIf="!res.usuario">esta reserva no posee una cuenta</p></td>
+                <td>{{res.pago.total}}</td>
                 <td>{{res.formapago.descripcion}}</td>
                 <td>{{res.telcliente}}</td>
                 <td>{{res.paquete.destino}}</td>
@@ -379,14 +378,12 @@
         </div>
 
       </div>
-
     </div>
   </div>
 </div>
 
 <!--MODALS MODIFICAR-->
-<ng-template #modiPaquete let-modal>
-  <!--Modificar paquete-->
+<ng-template #modiPaquete let-modal><!--Modificar paquete-->
   <div class="modal-header">
     <h4>Modificar</h4>
     <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="limpiarModal('mod-paquete')">
@@ -520,8 +517,7 @@
   </div>
 </ng-template>
 
-<ng-template #modiTransporte let-modal>
-  <!--Modificar transporte-->
+<ng-template #modiTransporte let-modal><!--Modificar transporte-->
   <div class="modal-header">
     <h4>Modificar transporte</h4>
     <button type="button" class="close" data-dismiss="modal" aria-label="Close"
@@ -552,7 +548,7 @@
               <div class="form-group">
                 <label for="inputDescuento">Descripcion</label>
                 <input type="number" class="form-control" id="formTransporteModel" placeholder="Ingrese Descuento"
-                  name="usuModel1" [(ngModel)]="transportemd.descripcion" #descuento="ngModel" required>
+                  name="descuento" [(ngModel)]="transportemd.descripcion" #descuento="ngModel" required>
               </div>
               <div *ngIf="descuento.invalid && (descuento.dirty || descuento.touched)" class="alert alert-danger">
                 <div *ngIf="descuento.errors.required">
@@ -594,8 +590,7 @@
   </div>
 </ng-template>
 
-<ng-template #modAlojamiento let-modal>
-  <!--Modificar alojamiento-->
+<ng-template #modAlojamiento let-modal><!--Modificar alojamiento-->
   <div class="modal-header">
     <h4>Modificar Alojamiento</h4>
     <button type="button" class="close" data-dismiss="modal" aria-label="Close"
@@ -693,8 +688,7 @@
   </div>
 </ng-template>
 
-<ng-template #modificarPromocion let-modal>
-  <!--Modificar Promocion-->
+<ng-template #modificarPromocion let-modal><!--Modificar Promocion-->
   <div class="modal-header">
     <h4>Modificar Promocion</h4>
     <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="limpiarModal('mod-promocion')">
@@ -751,8 +745,7 @@
 </ng-template>
 
 <!--MODALS AGREGAR-->
-<ng-template #crearPromocion let-modal>
-  <!--Crear Promocion-->
+<ng-template #crearPromocion let-modal><!--Crear Promocion-->
   <div class="modal-header">
     <h4>Agregar Promocion</h4>
     <button type="button" class="close" data-dismiss="modal" aria-label="Close"
@@ -780,7 +773,7 @@
       </div>
       <div *ngIf="regaloPromo.invalid && (regaloPromo.dirty || regaloPromo.touched)" class="alert alert-danger">
         <div *ngIf="regaloPromo.errors.required">
-          El tipo de alojamiento es requerido.
+          El Descuento es requerido.
         </div>
       </div>
       <div class="form-group">
@@ -810,8 +803,7 @@
   </div>
 </ng-template>
 
-<ng-template #crear let-modal>
-  <!--Agregar paquete-->
+<ng-template #crear let-modal><!--Agregar paquete-->
   <div class="modal-header">
     <h4>Crear</h4>
     <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="limpiarModal('nuevo-paquete')">
@@ -842,16 +834,17 @@
               <div class="form-group">
                 <label for="inputDestino1">Destino</label>
                 <input type="text" class="form-control" id="inputDestinoModel1" placeholder="Ingrese el Destino"
-                  name="destinoModel1" [(ngModel)]="paq.destino" #destinoModel1="ngModel" required>
+                  name="destinoModel1" [(ngModel)]="paq.destino" #destinoModel1="ngModel" minlength="4" required>
               </div>
               <div *ngIf="destinoModel1.invalid && (destinoModel1.dirty || destinoModel1.touched)"
                 class="alert alert-danger">
                 <div *ngIf="destinoModel1.errors.required">
                   El Destino es requerido.
                 </div>
+                <div *ngIf="destinoModel1.errors.minlength">
+                  Debe tener minimo 4 letras.
+                </div>
               </div>
-
-
               <div class="form-group">
                 <label for="formPrecio1">Precio</label>
                 <input type="number" class="form-control" id="formPrecioModel1" placeholder="Precio" name="precioModel1"
@@ -881,7 +874,7 @@
               <div *ngIf="vueltaModel1.invalid && (vueltaModel1.dirty || vueltaModel1.touched)"
                 class="alert alert-danger">
                 <div *ngIf="vueltaModel1.errors.required">
-                  Este campo tambien es requerido.
+                  Este campo es requerido.
                 </div>
               </div>
               <div class="form-group col-12">
@@ -929,7 +922,7 @@
                   Este campo es requerido.
                 </div>
                 <div *ngIf="desModel1.errors.minlength">
-                  Escriba una descripcion de al menos 10 letras.
+                  Escriba una descripcion.
                 </div>
               </div>
             </div>
@@ -945,8 +938,7 @@
   </div>
 </ng-template>
 
-<ng-template #registrarUsu let-modal>
-  <!--Agregar Usuario -->
+<ng-template #registrarUsu let-modal><!--Agregar Usuario -->
   <div class="modal-header">
     <h4>Registro Usuario</h4>
     <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="limpiarModal('nuevo-usuario')">
@@ -958,31 +950,40 @@
       <div class="form-group">
         <label for="inputNombre1">Nombre</label>
         <input type="text" class="form-control" id="formUsuNombreModel1" placeholder="Ingrese su Nombre" name="usuNombre"
-          [(ngModel)]="usuarionuevo.nombreusuario" #usuNombre="ngModel" required>
+          [(ngModel)]="usuarionuevo.nombreusuario" #usuNombre="ngModel" minlength="3" required>
       </div>
       <div *ngIf="usuNombre.invalid && (usuNombre.dirty || usuNombre.touched)" class="alert alert-danger">
         <div *ngIf="usuNombre.errors.required">
           Nombre es requerido.
         </div>
+        <div *ngIf="usuNombre.errors.minlength">
+          Debe tener minimo 3 letras.
+        </div>
       </div>
       <div class="form-group">
         <label for="inputApellido1">Apellido</label>
         <input type="text" class="form-control" id="formUsuApeModel1" placeholder="Ingrese su apellido" name="usuApellido"
-          [(ngModel)]="usuarionuevo.apellido" #usuApellido="ngModel" required>
+          [(ngModel)]="usuarionuevo.apellido" #usuApellido="ngModel" minlength="4" required>
       </div>
       <div *ngIf="usuApellido.invalid && (usuApellido.dirty || usuApellido.touched)" class="alert alert-danger">
         <div *ngIf="usuApellido.errors.required">
           Apellido es requerido.
         </div>
+        <div *ngIf="usuApellido.errors.minlength">
+          Debe tener minimo 4 letras.
+        </div>
       </div>
       <div class="form-group">
         <label for="inputNeim1">Nombre de usuario</label>
         <input type="text" class="form-control" id="formUsuModel1" placeholder="ingrese el nombre de usuario"
-          name="usuNeim" [(ngModel)]="usuarionuevo.nombreusuario" #usuNeim="ngModel" required>
+          name="usuNeim" [(ngModel)]="usuarionuevo.nombreusuario" #usuNeim="ngModel" minlength="4" required>
       </div>
       <div *ngIf="usuNeim.invalid && (usuNeim.dirty || usuNeim.touched)" class="alert alert-danger">
         <div *ngIf="usuNeim.errors.required">
           El Sobrenombre es requerido.
+        </div>
+        <div *ngIf="usuNeim.errors.minlength">
+          Debe tener minimo 4 letras.
         </div>
       </div>
       <div *ngIf="buscarRepetidos('nuevo-usu-neimusu')" class=" alert alert-danger">
@@ -1025,7 +1026,7 @@
       <div class="form-group">
         <label for="inputTelefono1">Telefono</label>
         <input type="text" class="form-control" id="formUsuModel1" placeholder="Ingrese numero telefonico"
-          name="usuTelefono" [(ngModel)]="usuarionuevo.telefono" #usuTelefono="ngModel" minlength="7" maxlength="8"
+          name="usuTelefono" [(ngModel)]="usuarionuevo.telefono" #usuTelefono="ngModel" minlength="9" maxlength="10"
           required onkeypress='return event.charCode >= 48 && event.charCode <= 57'>
       </div>
       <div *ngIf="usuTelefono.invalid && (usuTelefono.dirty || usuTelefono.touched)" class="alert alert-danger">
@@ -1033,7 +1034,7 @@
           El Email es requerido.
         </div>
         <div *ngIf="usuTelefono.errors.minlength">
-          El numero telefonico tiene 8 digitos
+          El numero telefonico tiene 10 digitos
         </div>
       </div>
       <div *ngIf="buscarRepetidos('nuevo-usu-telefono')" class=" alert alert-danger">
@@ -1072,8 +1073,7 @@
   </div>
 </ng-template>
 
-<ng-template #crearTransporte let-modal>
-  <!--Agregar transporte -->
+<ng-template #crearTransporte let-modal><!--Agregar transporte -->
   <div class="modal-header">
     <h4>Crear transporte</h4>
     <button type="button" class="close" data-dismiss="modal" aria-label="Close"
@@ -1105,12 +1105,15 @@
               <div class="form-group">
                 <label for="inputNombreTransp1">Nombre</label>
                 <input type="text" class="form-control" id="formTransporteModel1" placeholder="Nombre de Transporte"
-                  name="transpNombre1" [(ngModel)]="transportenuevo.nombre" #transpNombre1="ngModel" required>
+                  name="transpNombre1" [(ngModel)]="transportenuevo.nombre" #transpNombre1="ngModel" minlength="4" required>
               </div>
               <div *ngIf="transpNombre1.invalid && (transpNombre1.dirty || transpNombre1.touched)"
                 class="alert alert-danger">
                 <div *ngIf="transpNombre1.errors.required">
                   Nombre de Transporte es requerido.
+                </div>
+                <div *ngIf="transpNombre1.errors.minlength">
+                  Debe tener minimo 4 letras.
                 </div>
               </div>
               <div class="form-group">
@@ -1126,11 +1129,14 @@
               <div class="form-group">
                 <label for="inputDescripcionTransp1">Descripcion</label>
                 <input type="text" class="form-control" id="formTransporteModel1" placeholder="Ingrese descripcion"
-                  name="transpDesc1" [(ngModel)]="transportenuevo.descripcion" #transpDesc1="ngModel" required>
+                  name="transpDesc1" [(ngModel)]="transportenuevo.descripcion" #transpDesc1="ngModel" minlength="10" required>
               </div>
               <div *ngIf="transpDesc1.invalid && (transpDesc1.dirty || transpDesc1.touched)" class="alert alert-danger">
                 <div *ngIf="transpDesc1.errors.required">
                   La descripcion es requerida.
+                </div>
+                <div *ngIf="transpDesc1.errors.minlength">
+                  Debe escribir una descripcion medio-detallada.
                 </div>
               </div>
             </div>
@@ -1147,8 +1153,7 @@
   </div>
 </ng-template>
 
-<ng-template #crearAlojamiento let-modal>
-  <!--Agregar alojamiento -->
+<ng-template #crearAlojamiento let-modal><!--Agregar alojamiento -->
   <div class="modal-header">
     <h4>Agregar Alojamiento</h4>
     <button type="button" class="close" data-dismiss="modal" aria-label="Close"
@@ -1179,22 +1184,28 @@
               <div class="form-group">
                 <label for="formNombreAlojamiento1">Nombre</label>
                 <input type="text" class="form-control" id="formAlojamientoModel1" placeholder="Nombre de Transporte"
-                  name="alojNombre" [(ngModel)]="alojamientonuevo.nombre" #alojNombre="ngModel" required>
+                  name="alojNombre" [(ngModel)]="alojamientonuevo.nombre" #alojNombre="ngModel" minlength="4" required>
               </div>
               <div *ngIf="alojNombre.invalid && (alojNombre.dirty || alojNombre.touched)" class="alert alert-danger">
                 <div *ngIf="alojNombre.errors.required">
                   Nombre de Alojamiento es requerido.
                 </div>
+                <div *ngIf="alojNombre.errors.minlength">
+                  Debe tener minimo 4 letras.
+                </div>
               </div>
               <div class="form-group">
                 <label for="formUbicacionAlojamiento1">Ubicacion</label>
                 <input type="text" class="form-control" id="formAlojamientoModel1" placeholder="Ingrese Ubicacion"
-                  name="alojUbicacion" [(ngModel)]="alojamientonuevo.ubicacion" #alojUbicacion="ngModel" required>
+                  name="alojUbicacion" [(ngModel)]="alojamientonuevo.ubicacion" #alojUbicacion="ngModel" minlength="4" required>
               </div>
               <div *ngIf="alojUbicacion.invalid && (alojUbicacion.dirty || alojUbicacion.touched)"
                 class="alert alert-danger">
                 <div *ngIf="alojUbicacion.errors.required">
                   El tipo de alojamiento es requerido.
+                </div>
+                <div *ngIf="alojUbicacion.errors.minlength">
+                  Debe tener minimo 4 letras.
                 </div>
               </div>
               <div class="form-group">
@@ -1211,12 +1222,15 @@
               <div class="form-group">
                 <label for="formDescripcionAlojamiento1">Descripcion</label>
                 <input type="text" class="form-control" id="formAlojamientoModel1" placeholder="Ingrese descripcion"
-                  name="descripcionAloj" [(ngModel)]="alojamientonuevo.descripcion" #descripcionAloj="ngModel" required>
+                  name="descripcionAloj" [(ngModel)]="alojamientonuevo.descripcion" #descripcionAloj="ngModel" minlength="10" required>
               </div>
               <div *ngIf="descripcionAloj.invalid && (descripcionAloj.dirty || descripcionAloj.touched)"
                 class="alert alert-danger">
                 <div *ngIf="descripcionAloj.errors.required">
                   La descripcion es requerida.
+                </div>
+                <div *ngIf="descripcionAloj.errors.minlength">
+                  Debe escribir una descripcion.(10 letras)
                 </div>
               </div>
               <div class="form-group">

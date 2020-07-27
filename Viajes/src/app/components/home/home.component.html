@@ -46,17 +46,16 @@
             alt="falabella-ar4FinanciacinCMRNuevo"></a></div>
     </div>
   </div>
-  <div>
-
-
-    <div class="searchbar">
-      <input class="search_input" type="text" placeholder="Buscar" [(ngModel)]="busqueda">
-      <a (click)="buscarpaqueteporDestino()" class="search_icon" ><i class="fas fa-search"></i></a>
-  </div>
+ 
+  
 
 
   <!-- PAQUETES -->
   <div _ngcontent-xfh-c4="" class="offers-row">
+    <div class="searchbar ml-5">
+      <input class="search_input" type="text" placeholder="Buscar" [(ngModel)]="busqueda">
+      <a (click)="buscarpaqueteporDestino()" class="search_icon" ><i class="fas fa-search"></i></a>
+    </div>
     <div _ngcontent-xfh-c4="" class="card-carousel">
       <swiper _ngcontent-xfh-c4="">
         <div class="swiper-content">
@@ -100,6 +99,10 @@
     </div>
   </div>
 
+<div>
+
+  </div>
+  
   <!-- Otro Anuncio xd-->
   <div id="BANNERS_MKT" class="home-ui-module">
     <div class="home-box-mb">
@@ -409,7 +412,6 @@
     </div>
   </div>
   
-</div>
 
 <ng-template #Pago let-modal>
   <div class="modal-header">

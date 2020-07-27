@@ -11,7 +11,7 @@ import { UsuarioService } from 'src/app/services/usuario.service';
 import { ToastrService } from 'ngx-toastr';
 import { isNgTemplate } from '@angular/compiler';
 import { Tarjeta} from 'src/app/models/tarjeta';
-import {TarjetaService } from 'src/app/services/tarjeta.service'
+import {TarjetaService } from 'src/app/services/tarjeta.service';
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
@@ -19,8 +19,8 @@ import {TarjetaService } from 'src/app/services/tarjeta.service'
 })
 export class HomeComponent implements OnInit {
   precioFinal: number;
-  busqueda:string;
-  cuo:number=0;
+  busqueda: string;
+  cuo = 0;
   paq: Paquete;
   resv: Reserva;
   listaPaquetes: Array<Paquete>;
@@ -28,18 +28,18 @@ export class HomeComponent implements OnInit {
   listaReserva: Array<Reserva>;
   tarjeta: Tarjeta;
   constructor(private ps: PaqueteService,
-    public modal: NgbModal,
-    private rs: ReservaService,
-    private toastr: ToastrService,
-    private formaPagoService: FormapagoService,
-    private usuarioService: UsuarioService,
-    public tarjetaService : TarjetaService) {
+              public modal: NgbModal,
+              private rs: ReservaService,
+              private toastr: ToastrService,
+              private formaPagoService: FormapagoService,
+              private usuarioService: UsuarioService,
+              public tarjetaService: TarjetaService) {
       this.resv = new Reserva();
       this.paq = new Paquete();
-      this.listadeFormaPago= new Array<Formapago>();
-this.listaPaquetes = new Array<Paquete>();
-this.actualizarTabla();
-this.cargarFormaPago();
+      this.listadeFormaPago = new Array<Formapago>();
+      this.listaPaquetes = new Array<Paquete>();
+      this.actualizarTabla();
+      this.cargarFormaPago();
 }
   ngOnInit(): void {
   }
@@ -51,7 +51,7 @@ this.cargarFormaPago();
     let a = new Paquete();
     this.ps.actualizarT().subscribe(
       (result) => {
-      for (let i of result)
+      for (const i of result)
       {
         Object.assign(a, i);
         this.listaPaquetes.push(a);
@@ -63,7 +63,7 @@ this.cargarFormaPago();
   public elegirPaquete(paquete: Paquete){
     Object.assign( this.paq , paquete);
     this.precioFinal = this.paq.cantPersonas * this.paq.precio;
-    this.resv.pago.total=this.paq.precio;
+    this.resv.pago.total = this.paq.precio;
   }
 
   /*Reserva*/
@@ -76,26 +76,26 @@ this.cargarFormaPago();
         {
           const a = new Formapago();
           Object.assign(a, r);
-          
           this.listadeFormaPago.push(a);
         }
       }
     );
   }
   public agregarReserva(){
+
     const f = new Date();
     this.resv.fecha = f;
     this.resv.paquete = this.paq;
     this.resv.estado = true;
-    this.resv.pago.fecha=f;
+    this.resv.pago.fecha = f;
     this.resv.pago.estado = true;
-    if(this.usuarioService.usuariologIn==true)
+    if (this.usuarioService.usuariologIn === true)
     {
       Object.assign(this.resv.usuario , this.usuarioService.usuarioLogeado);
     }
     else
     {
-      this.resv.usuario= undefined;
+      this.resv.usuario = undefined;
     }
     this.rs.agregarResv(this.resv).subscribe(
       (result) => {
@@ -113,45 +113,42 @@ this.cargarFormaPago();
   {
     this.ps.busqueda(this.busqueda).subscribe(
     (result) => {
-      let a = new Paquete();
+
       if (result.length == 0)
       {
         this.toastr.warning('encontro ningun paquete con ese destino', ' vuelva a intentarlo');
         this.actualizarTabla();
       }
       else{
-        this.listaPaquetes=new Array<Paquete>();
-        Object.assign(this.listaPaquetes,result);
- 
+        this.listaPaquetes = new Array<Paquete>();
+        Object.assign(this.listaPaquetes, result);
       }
     }
     );
   }
-  calcularInteres(num:number, prec:number){
-    
-    
-    if(num<=6)
+  calcularInteres(num: number, prec: number){
+    if (num <= 6)
     {
-      this.resv.pago.interes=0;
-      this.resv.pago.total= prec;
+      this.resv.pago.interes = 0;
+      this.resv.pago.total = prec;
     }
     else{
-      if (num==9) {
-        this.resv.pago.interes=31;
-        this.resv.pago.total= (prec*this.resv.pago.interes)/100 + prec;
+      if (num == 9) {
+        this.resv.pago.interes = 31;
+        this.resv.pago.total = (prec * this.resv.pago.interes) / 100 + prec;
       }
       else{
-        this.resv.pago.interes=41;
-        this.resv.pago.total= (prec*this.resv.pago.interes)/100 + prec;
+        this.resv.pago.interes = 41;
+        this.resv.pago.total = (prec * this.resv.pago.interes) / 100 + prec;
       }
     }
   }
-  public limpiarmodal(a : string)
+  public limpiarmodal(a: string)
   {
-    switch(a)
+    switch (a)
     {
-      case 'tarjeta': this.tarjeta= new Tarjeta(); break;
-      case 'reserva' : this.resv= new Reserva();break;
+      case 'tarjeta': this.tarjeta = new Tarjeta(); break;
+      case 'reserva' : this.resv = new Reserva(); break;
     }
   }
 }

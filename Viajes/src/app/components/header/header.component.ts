@@ -16,15 +16,16 @@ export class HeaderComponent implements OnInit {
 
   log = false;
   usuarioLoageado: Usuario;
-  tipUsu:TipoUsuario;
-  listTipoUsu:Array<TipoUsuario>;
-  usu:Usuario;
+  tipUsu: TipoUsuario;
+  listTipoUsu: Array<TipoUsuario>;
+  usu: Usuario;
 
-  constructor(public modal: NgbModal,private toastr: ToastrService, public usuarioService: UsuarioService,public tus:TipousuarioService, private router: Router) {
+    // tslint:disable-next-line: max-line-length
+    constructor(public modal: NgbModal, private toastr: ToastrService, public usuarioService: UsuarioService, public tus: TipousuarioService, private router: Router) {
     this.usuarioLoageado = new Usuario();
     this.tipUsu = new TipoUsuario();
-    this.usu= new Usuario();
-    this.listTipoUsu=new Array<TipoUsuario>();
+    this.usu = new Usuario();
+    this.listTipoUsu = new Array<TipoUsuario>();
     this.obtenerTipoUsuarios();
    }
 
@@ -41,7 +42,7 @@ export class HeaderComponent implements OnInit {
         const r = new TipoUsuario();
         Object.assign(r, resultado.tipousuario);
         this.usuarioService.usuarioLogeado.tipousuario = r;
-        if(this.usuarioService.usuarioLogeado.tipousuario.descripcion === 'agente'){
+        if (this.usuarioService.usuarioLogeado.tipousuario.descripcion === 'agente'){
         this.router.navigate(['/paquetesAbm']);
         }
         else{
@@ -58,7 +59,7 @@ export class HeaderComponent implements OnInit {
       this.usuarioLoageado = new Usuario();
     }
     public obtenerTipoUsuarios(){
-      this.listTipoUsu= new Array<TipoUsuario>();
+      this.listTipoUsu =  new Array<TipoUsuario>();
       this.tus.listadeTipoUsuario().subscribe(
         (result) => {
           let e = new TipoUsuario();
@@ -88,11 +89,11 @@ export class HeaderComponent implements OnInit {
       );
     }
     tipoCliente(){
-      for(let a of this.listTipoUsu){
+      for (let a of this.listTipoUsu){
         this.tipUsu = new TipoUsuario();
-        if(a.descripcion=='cliente'){
-          Object.assign(this.tipUsu,a);
-          this.usu.tipousuario=this.tipUsu;
+        if (a.descripcion == 'cliente'){
+          Object.assign(this.tipUsu, a);
+          this.usu.tipousuario = this.tipUsu;
         }
       }
     }

@@ -37,37 +37,102 @@
     </button>
   </div>
   <div class="modal-body">
-    <div class="form-group">
-      <label for="inputNom">Nombres</label>
-      <input type="text" class="form-control" id="inputNom" placeholder="Ingrese su nombres" name="nom" [(ngModel)]="usu.nombre">
-    </div>
-    <div class="form-group">
-      <label for="inputApe">Apellido</label>
-      <input type="text" class="form-control" id="inputApe" placeholder="Ingrese su apellido" name="ape" [(ngModel)]="usu.apellido">
-    </div>
-    <div class="form-group">
-      <label for="inputUsu">Nombre Usuario</label>
-      <input type="text" class="form-control" id="inputUsu" placeholder="Ingrese su nombre Usuario" name="usu" [(ngModel)]="usu.nombreusuario">
-    </div>
-    <div class="form-group">
-      <label for="inputCont">Contraseña</label>
-      <input type="password" class="form-control" id="inputCont" placeholder="Ingrese Contraseña" name="cont" [(ngModel)]="usu.password">
-    </div>
-    <div class="form-group">
-      <label for="inputDni">DNI</label>
-      <input type="number" class="form-control" id="inputDni" placeholder="Ingrese DNI" name="dni" [(ngModel)]="usu.dni">
-    </div>
-    <div class="form-group">
-      <label for="inputTel">Telefono</label>
-      <input type="number" class="form-control" id="inputTel" placeholder="ingrese numero de telefono" name="tel" [(ngModel)]="usu.telefono">
-    </div>
-    <div class="form-group">
-      <label for="inputEmail">Email</label>
-      <input type="email" class="form-control" id="inputEmail" placeholder="Ingrese Vencimiento" name="email" [(ngModel)]="usu.email">
-    </div>
+    <form #cliente="ngForm">
+      <div class="form-group">
+        <label for="inputNom">Nombres</label>
+        <input type="text" class="form-control" id="inputNom" placeholder="Ingrese sus nombres" name="nom" [(ngModel)]="usu.nombre"
+          #nom="ngModel" minlength="4" required>
+      </div>
+      <div *ngIf="nom.invalid && (nom.dirty || nom.touched)" class="alert alert-danger">
+        <div *ngIf="nom.errors.required">
+          Nombre es requerido.
+        </div>
+        <div *ngIf="nom.errors.minlength">
+          Debe tener minimo 4 letras.
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="inputApe">Apellido</label>
+        <input type="text" class="form-control" id="inputApe" placeholder="Ingrese su apellido" name="ape" [(ngModel)]="usu.apellido"
+          #ape="ngModel" minlength="4" required>
+      </div>
+      <div *ngIf="ape.invalid && (ape.dirty || ape.touched)" class="alert alert-danger">
+        <div *ngIf="ape.errors.required">
+          Apellido es requerido.
+        </div>
+        <div *ngIf="ape.errors.minlength">
+          Debe tener minimo 4 letras.
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="inputUsu">Nombre Usuario</label>
+        <input type="text" class="form-control" id="inputUsu" placeholder="Ingrese su nombre Usuario" name="usu" [(ngModel)]="usu.nombreusuario"
+          #usua="ngModel" minlength="4" required>
+      </div>
+      <div *ngIf="usua.invalid && (usua.dirty || usua.touched)" class="alert alert-danger">
+        <div *ngIf="usua.errors.required">
+          Nombre de usuario es requerido.
+        </div>
+        <div *ngIf="usua.errors.minlength">
+          Debe tener minimo 4 letras.
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="inputCont">Contraseña</label>
+        <input type="password" class="form-control" id="inputCont" placeholder="Ingrese Contraseña" name="cont" [(ngModel)]="usu.password"
+          #cont="ngModel" minlength="8" required>
+      </div>
+      <div *ngIf="cont.invalid && (cont.dirty || cont.touched)" class="alert alert-danger">
+        <div *ngIf="cont.errors.required">
+          La Contraseña es requerida.
+        </div>
+        <div *ngIf="cont.errors.minlength">
+          Debe tener minimo 8 letras.
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="inputDni">DNI</label>
+        <input type="text" class="form-control" id="inputDni" placeholder="Ingrese DNI" name="dni" [(ngModel)]="usu.dni"
+          #dni="ngModel" minlength="7" maxlength="8" required onkeypress='return event.charCode >= 48 && event.charCode <= 57'>
+      </div>
+      <div *ngIf="dni.invalid && (dni.dirty || dni.touched)" class="alert alert-danger">
+        <div *ngIf="dni.errors.required">
+          El DNI es requerido.
+        </div>
+        <div *ngIf="dni.errors.minlength">
+          Debe tener 8 digitos.
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="inputTel">Telefono</label>
+        <input type="number" class="form-control" id="inputTel" placeholder="ingrese numero de telefono" name="tel" [(ngModel)]="usu.telefono"
+         #tel="ngModel" minlength="9" maxlength="10" required onkeypress='return event.charCode >= 48 && event.charCode <= 57'>
+      </div>
+      <div *ngIf="tel.invalid && (tel.dirty || tel.touched)" class="alert alert-danger">
+        <div *ngIf="tel.errors.required">
+          El Telefono es requerido.
+        </div>
+        <div *ngIf="tel.errors.minlength">
+          Debe tener 10 digitos.
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="inputEmail">Email</label>
+        <input type="email" class="form-control" id="inputEmail" placeholder="Ingrese Email" name="email" [(ngModel)]="usu.email"
+          #email="ngModel" required pattern="[a-zA-Z0-9_]+([.][a-zA-Z0-9_]+)*@[a-zA-Z0-9_]+([.][a-zA-Z0-9_]+)*[.][a-zA-Z]{1,5}">
+      </div>
+      <div *ngIf="email.invalid && (email.dirty || email.touched)" class="alert alert-danger">
+        <div *ngIf="email.errors.required">
+          El email es requerido.
+        </div>
+        <div *ngIf="email.errors.pattern">
+          Ej: Example@gmail.com
+        </div>
+      </div>
+    </form>
   </div>
   <div class="modal-footer">
     <button type="button" class="btn btn-secondary" (click)="modal.close()">Cancelar</button>
-    <button type="button" class="btn btn-primary" (click)="agregarUsuario();modal.close()">Registrar</button>
+    <button type="button" class="btn btn-primary" (click)="agregarUsuario();modal.close()" [disabled]="(!cliente.form.valid)" >Registrar</button>
   </div>
 </ng-template>

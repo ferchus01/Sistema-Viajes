@@ -20,11 +20,11 @@ import { PromocionService } from 'src/app/services/promocion.service';
   styleUrls: ['./paquetes.component.css']
 })
 export class PaquetesComponent implements OnInit {
-  porcentaje:number;
-  precioPersona:number;
-  precioFinal:number;
+  porcentaje: number;
+  precioPersona: number;
+  precioFinal: number;
   prom: Promocion;
-  cuo:number=0;
+  cuo = 0;
   listapromocion: Array<Promocion>;
   paq: Paquete;
   resv: Reserva;
@@ -41,14 +41,14 @@ export class PaquetesComponent implements OnInit {
               private usuarioService: UsuarioService,
               private promocionService: PromocionService) {
     this.prom = new Promocion();
-    this.listapromocion = new Array<Promocion>();     
+    this.listapromocion = new Array<Promocion>();
     this.resv = new Reserva();
     this.paq = new Paquete();
     this.listaPaquetes = new Array<Paquete>();
     this.actualizarTabla();
     this.reservamd = new Reserva();
     this.actualizarReserva();
-    this.obtenerPromociones()
+    this.obtenerPromociones();
    }
 
   ngOnInit(): void {
@@ -77,11 +77,10 @@ export class PaquetesComponent implements OnInit {
       for (let i of result)
       {
         Object.assign(a, i);
-        if(a.alojamiento != null && a.transporte != null)
+        if (a.alojamiento != null && a.transporte != null)
         {
           this.listaPaquetes.push(a);
         }
-       
         a = new Paquete();
       }
       }
@@ -96,7 +95,6 @@ export class PaquetesComponent implements OnInit {
         {
           const a = new Formapago();
           Object.assign(a, r);
-          
           this.listadeFormaPago.push(a);
         }
       }
@@ -133,26 +131,14 @@ export class PaquetesComponent implements OnInit {
   {
     this.ps.busqueda(this.busqueda).subscribe(
     (result) => {
-      let a = new Paquete();
       if (result.length == 0)
       {
         this.toastr.warning('encontro ningun paquete con ese destino', ' vuelva a intentarlo');
         this.actualizarTabla();
       }
       else{
-        this.listaPaquetes=new Array<Paquete>();
-        Object.assign(this.listaPaquetes,result);
-        // for (let i of result)
-        // {
-        //   Object.assign(a, i);
-        //   if (this.ps.paquetesbuscado == null)
-        //   {
-        //     this.ps.paquetesbuscado = new Array<Paquete>();
-        //   }
-        //   this.ps.paquetesbuscado.push(a);
-        //   a = new Paquete();
-        // }
-        // Object.assign(this.listaPaquetes, this.ps.paquetesbuscado);
+        this.listaPaquetes = new Array<Paquete>();
+        Object.assign(this.listaPaquetes, result);
       }
     }
     );
@@ -160,12 +146,12 @@ export class PaquetesComponent implements OnInit {
   public modificarReserva()
   {
     this.rs.modificarReserva(this.reservamd).subscribe(
-    (result)=>{
+    (result) => {
       this.toastr.success('Reserva  modificada Correctamente', 'Confirmado');
       this.reservamd = new Reserva();
       this.actualizarReserva();
     }
-  )
+  );
   }
 
   /*promociones*/
@@ -174,7 +160,7 @@ export class PaquetesComponent implements OnInit {
     this.promocionService.listadePromocion().subscribe(
       (result) => {
         let a = new Promocion();
-        for (let r of result){
+        for (const r of result){
           Object.assign(a, r);
           if (a.paqueteTuristico != null)
           {
