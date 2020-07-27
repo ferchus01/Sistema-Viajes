@@ -21,7 +21,7 @@ export class Reserva {
     promocion: Promocion;
     usuario: Usuario;
     pago: Pago;
-    formadePago: Formapago;
+    formapago: Formapago;
    constructor()
    {
      //    this.promocion = new Promocion();

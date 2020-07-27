@@ -24,6 +24,7 @@ export class PaquetesComponent implements OnInit {
   precioPersona:number;
   precioFinal:number;
   prom: Promocion;
+  cuo:number=0;
   listapromocion: Array<Promocion>;
   paq: Paquete;
   resv: Reserva;
@@ -128,28 +129,30 @@ export class PaquetesComponent implements OnInit {
     Object.assign(this.reservamd, reserva);
     this.reservamd.paquete = this.listaPaquetes.find((item: Paquete) => item._id === reserva.paquete._id);
   }
-   public buscarpaqueteporDestino()
+  public buscarpaqueteporDestino()
   {
     this.ps.busqueda(this.busqueda).subscribe(
     (result) => {
       let a = new Paquete();
       if (result.length == 0)
       {
-        this.toastr.info('encontro ningun paquete con ese destino', ' vuelva a intentarlo');
+        this.toastr.warning('encontro ningun paquete con ese destino', ' vuelva a intentarlo');
         this.actualizarTabla();
       }
       else{
-        for (let i of result)
-        {
-          Object.assign(a, i);
-          if (this.ps.paquetesbuscado == null)
-          {
-            this.ps.paquetesbuscado = new Array<Paquete>();
-          }
-          this.ps.paquetesbuscado.push(a);
-          a = new Paquete();
-        }
-        Object.assign(this.listaPaquetes, this.ps.paquetesbuscado);
+        this.listaPaquetes=new Array<Paquete>();
+        Object.assign(this.listaPaquetes,result);
+        // for (let i of result)
+        // {
+        //   Object.assign(a, i);
+        //   if (this.ps.paquetesbuscado == null)
+        //   {
+        //     this.ps.paquetesbuscado = new Array<Paquete>();
+        //   }
+        //   this.ps.paquetesbuscado.push(a);
+        //   a = new Paquete();
+        // }
+        // Object.assign(this.listaPaquetes, this.ps.paquetesbuscado);
       }
     }
     );

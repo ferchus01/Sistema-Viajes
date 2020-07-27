@@ -23,8 +23,51 @@
 
         <input class="form-control mr-sm-2" type="password" placeholder="Contraseña" aria-label="Contraseña" name="password" [(ngModel)]="usuarioLoageado.password">
         <button class="btn btn-outline-success my-2 my-sm-0" type="button"(click)="login()" >Ingresar</button>
-        <button class="btn btn-outline-primary my-2 my-sm-0" type="button" >Registrarse</button>
+        <button class="btn btn-outline-primary my-2 my-sm-0" type="button" (click)="modal.open(registro,{scrollable:true})">Registrarse</button>
       </form>
       <button class="btn btn-outline-primary my-2 my-sm-0" type="button" *ngIf="usuarioService.usuariologIn" (click)="cerrarSession()">salir</button>
     </div>
   </nav>
+
+<ng-template #registro let-modal>
+  <div class="modal-header">
+    <h4>Registro</h4>
+    <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="modal.close()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <div class="form-group">
+      <label for="inputNom">Nombres</label>
+      <input type="text" class="form-control" id="inputNom" placeholder="Ingrese su nombres" name="nom" [(ngModel)]="usu.nombre">
+    </div>
+    <div class="form-group">
+      <label for="inputApe">Apellido</label>
+      <input type="text" class="form-control" id="inputApe" placeholder="Ingrese su apellido" name="ape" [(ngModel)]="usu.apellido">
+    </div>
+    <div class="form-group">
+      <label for="inputUsu">Nombre Usuario</label>
+      <input type="text" class="form-control" id="inputUsu" placeholder="Ingrese su nombre Usuario" name="usu" [(ngModel)]="usu.nombreusuario">
+    </div>
+    <div class="form-group">
+      <label for="inputCont">Contraseña</label>
+      <input type="password" class="form-control" id="inputCont" placeholder="Ingrese Contraseña" name="cont" [(ngModel)]="usu.password">
+    </div>
+    <div class="form-group">
+      <label for="inputDni">DNI</label>
+      <input type="number" class="form-control" id="inputDni" placeholder="Ingrese DNI" name="dni" [(ngModel)]="usu.dni">
+    </div>
+    <div class="form-group">
+      <label for="inputTel">Telefono</label>
+      <input type="number" class="form-control" id="inputTel" placeholder="ingrese numero de telefono" name="tel" [(ngModel)]="usu.telefono">
+    </div>
+    <div class="form-group">
+      <label for="inputEmail">Email</label>
+      <input type="email" class="form-control" id="inputEmail" placeholder="Ingrese Vencimiento" name="email" [(ngModel)]="usu.email">
+    </div>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-secondary" (click)="modal.close()">Cancelar</button>
+    <button type="button" class="btn btn-primary" (click)="agregarUsuario();modal.close()">Registrar</button>
+  </div>
+</ng-template>

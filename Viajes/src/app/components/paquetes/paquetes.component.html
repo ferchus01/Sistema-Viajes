@@ -27,6 +27,13 @@
   </a>
 </div>
 
+<div>
+  <div class="searchbar">
+    <input class="search_input" type="text" placeholder="Buscar" [(ngModel)]="busqueda">
+    <a (click)="buscarpaqueteporDestino()" class="search_icon" ><i class="fas fa-search"></i></a>
+</div>
+
+
 <!-- Promociones -->
 <div _ngcontent-xfh-c4="" class="offers-row">
   <div _ngcontent-xfh-c4="" class="card-carousel">
@@ -318,7 +325,7 @@
   <div class="modal-dialog modal-dialog-scrollable" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h4>Crear</h4>
+        <h4>Registre sus datos</h4>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -359,9 +366,19 @@
           <input type="number" class="form-control" id="formEstadiaModel1" placeholder="Numero de telefono o celular"
             name="estadiaModel1" [(ngModel)]="resv.telcliente">
         </div>
+        <div class="form-group">
+          <label for="inputPaquetePromocion1" class="col-4">Formas de Pago</label>
+          <select name="pag" [(ngModel)]="resv.formapago" class="col-8" class="form-control">
+            <option *ngFor="let formaP of listadeFormaPago " class="form-control" [ngValue]="formaP">
+              {{formaP.descripcion}} </option>
+          </select>
+        </div>
+        <div class="form-group">
+          <button class="btn btn-outline-success" (click)="modal.open(Pago)" >Tipo de Pago</button>
+          <button class="btn btn-outline-primary" (click)="modal.open(Tarj)">Ingresar Tarjeta</button>
+        </div>
       </div>
       <div class="modal-footer">
-
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
         <button type="button" class="btn btn-primary" (click)="agregarReserva()">reservar</button>
       </div>
@@ -369,6 +386,71 @@
   </div>
 </div>
 
-<div class="modal-dialog modal-dialog-scrollable">
+<ng-template #Pago let-modal>
+  <div class="modal-header">
+    <h4>Pago</h4>
+    <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="modal.close()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <div class="form-group">
+      <label for="inputPaquetePromocion1" class="col-4">Cuotas:</label>
+      <select name="cuo" id=cuota class="col-8" class="form-control" [(ngModel)]="cuo">
+        <option value="0">Seleccione una Opcion</option>
+        <option value="1">1</option>
+        <option value="3">3</option>
+        <option value="6">6</option>
+        <option value="9">9</option>
+        <option value="12">12</option>
+      </select>
+    </div>
 
-</div>
+    <div class="form-group">
+      <label >Interes:</label>
+      <label *ngIf="cuo==0 || cuo==1 || cuo==3 || cuo==6">0,00%</label> 
+      <label *ngIf="cuo==9">31,00%</label>    
+      <label *ngIf="cuo==12">41,00%</label>     
+    </div>
+    <div class="form-group">
+      <label >Total:</label>
+      <label *ngIf="cuo==0 || cuo==1 || cuo==3 || cuo==6">{{paq.precio}}</label>
+      <label *ngIf="cuo==9">{{(paq.precio*31)/100 + paq.precio}}</label>
+      <label *ngIf="cuo==12">{{(paq.precio*41)/100 + paq.precio}}</label>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-secondary" (click)="modal.close()">Cerrar</button>
+    <button type="button" class="btn btn-primary" (click)="modal.close()">Agregar Pago</button>
+  </div>
+</ng-template>
+<ng-template #Tarj let-modal>
+  <div class="modal-header">
+    <h4>Pago</h4>
+    <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="modal.close()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <div class="form-group">
+      <label for="inputDestino1">Nombre Completo del Titular</label>
+      <input type="text" class="form-control" id="inputDestinoModel1" placeholder="Ingrese su nombre completo" name="destinoModel1">
+    </div>
+    <div class="form-group">
+      <label for="inputDestino2">DNI del Titular</label>
+      <input type="number" class="form-control" id="inputDestinoModel2" placeholder="Ingrese DNI" name="destinoModel2">
+    </div>
+    <div class="form-group">
+      <label for="inputDestino2">Num. de Tarjeta</label>
+      <input type="number" class="form-control" id="inputDestinoModel2" placeholder="Ingrese numero de Tarjeta" name="destinoModel2">
+    </div>
+    <div class="form-group">
+      <label for="inputDestino2">Vencimiento</label>
+      <input type="date" class="form-control" id="inputDestinoModel2" placeholder="Ingrese Vencimiento" name="destinoModel2">
+    </div>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-secondary" (click)="modal.close()">Cerrar</button>
+    <button type="button" class="btn btn-primary" (click)="modal.close()">Agregar Tarjeta</button>
+  </div>
+</ng-template>

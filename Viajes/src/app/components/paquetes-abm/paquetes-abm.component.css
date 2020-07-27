@@ -62,3 +62,91 @@ label #cancel{
 #check:checked ~ .sidebar{
     left: 0;
 }
+
+/*Paquete card*/
+.package {
+    background-color: #fff;
+    border-radius: 5px;
+    box-shadow: -1px 1px #dcdcdc;
+    padding-left: 0px;
+    margin-bottom: 8px;
+    color: #333;
+}
+.package .title, .package .title a, .package .title a:hover {
+    color: #333;
+    font-size: 16px;
+    line-height: 17px;
+    font-weight: 500;
+}
+.package .subtitle {
+    color: #666;
+    font-size: 13px;
+    font-weight: 400;
+}
+.package .days {
+    font-weight: 400;
+    padding-bottom: 8px;
+}
+.package .amenities {
+    border-top: 1px solid #ececec;
+    padding-top: 8px;
+}
+.package .amenities .amenity {
+    padding-right: 10px;
+    font-weight: 400;
+    font-size: 12px;
+}
+.package .amenities .amenity i {
+    font-size: 16px;
+}
+.package .price {
+    color: #0075d5;
+    font-size: 16px;
+    font-weight: 700;
+}
+.package .price span {
+    font-size: 24px;
+}
+.package .price-legend {
+    font-size: 11px!important;
+    font-weight: 400;
+    color: #666;
+}
+.package .departure-date {
+    color: #0075d5;
+    font-size: 11px;
+    font-weight: 700;
+}
+.package .clickPackageButton {
+    color: #fff;
+    border-radius: 4px;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    position: relative;
+    margin-left:40px;
+}
+.hbox {
+    flex-direction: row;
+}
+.hbox, .vbox {
+    display: flex;
+}
+.package .clickPackageButton a.button {
+    padding: 5px;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-grow: 1;
+    border-radius:20px 20px;
+    transition: .5s;
+}
+.package .clickPackageButton a {
+    color: #fff;
+    background-color: #428ce1;
+}
+.package .clickPackageButton a {
+    color: #fff;
+    background-color: #428ce1;
+}

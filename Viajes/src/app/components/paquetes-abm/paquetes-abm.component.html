@@ -20,7 +20,7 @@
 
     </div>
   </div>
-  <div class="col-9">
+  <div class="col-9" style="background-color: #e4e5ea;">
     <div class="tab-content" id="v-pills-tabContent">
       <div class="tab-pane fade show active" id="v-pills-paquetes" role="tabpanel"
         aria-labelledby="v-pills-paquetes-tab">
@@ -31,40 +31,66 @@
             (click)="modal.open(crear,{size:'xl',scrollable:true})">Crear Paquete</button>
         </div>
         <br>
-        <div class="row ">
-          <div class="col-12 ">
-            <div class="row">
-              <div class="col-md-12 col-lg-12">
-                <div class="card" *ngFor="let item of listaPaquetes">
-                  <div class="card-header titulocard ">
-                    <h2 class="card-title ">{{item.destino}}</h2>
-                  </div>
-                  <div class="card-body">
-                    <div class="row no-gutters">
-                      <div class="col-md-4">
-                        <img src="{{item.imagen}}" class="card-img" alt="...">
-                      </div>
 
-                      <div class="card-body col-md-8">
-                        <h4>Alojamiento:{{item.alojamiento.nombre}}</h4>
-                        <h4>De:{{item.fechaS|date:'dd/MM/yy'}} Hasta:{{item.fechaV|date:'dd/MM/yy'}}</h4>
-                        <h4>Transporte:{{item.transporte.nombre}},{{item.transporte.tipo}}</h4>
-                        <h4>Descripcion: </h4>
-                        <h5>{{item.descripcion}}</h5>
-                        <h4>Cantidad de Personas: {{item.cantPersonas}}</h4>
-                        <h4>Estadia:{{item.estadia}}</h4>
-                        <h3>Precio:{{item.precio}}</h3>
-
-                      </div>
-                    </div>
-                  </div>
-                  <div class="card-footer">
-                    <button type="button" class="btn btn-outline-primary"
-                      (click)="elegirPaquete(item);modal.open(modiPaquete,{size:'xl',scrollable:true})">Modificar</button>
-                    <button type="button" class="btn btn-outline-danger"
-                      (click)="eliminarPaquete(item)">Eliminar</button>
-                  </div>
+        <div class="package col-11" style="display:flex;flex-direction:column;height:165px;font-family: Roboto, sans-serif;" data-v-fe7c1e14="" *ngFor="let item of listaPaquetes" style="line-height: 20px;
+        color: #6a7884;">
+          <div style="display:flex;flex-direction:row;flex:1" >
+            <div
+              style="display:flex;flex-direction:row;align-self:stretch;overflow:hidden;width:210px;position:relative;text-align:center;border-radius:5px 0 0 5px;height:165px">
+              <div style="cursor:pointer"><img
+                  style="position:absolute;top:-9999px;bottom:-9999px;left:-9999px;right:-9999px;margin:auto;height:165px"
+                  src="{{item.imagen}}" lazy="loaded">
+                <!---->
+                <div
+                  style="position:absolute;width:100%;background:linear-gradient(to bottom,rgba(0,0,0,0),#000);height:40%;opacity:.6;bottom:0">
                 </div>
+              </div>
+            </div>
+            <div
+              style="display:flex;flex-direction:row;justify-content:space-between;width:100%;padding:10px 15px;align-self:stretch;height:165px">
+              <div
+                style="display:flex;flex-direction:column;justify-content:space-between;width:100%;margin-right:15px">
+                <!---->
+                <div class="title" style="cursor:pointer">{{item.destino}}</div> <span class="subtitle"
+                  style="overflow:hidden!important;text-overflow:ellipsis!important;display:inline-block!important">Salidas:
+                  {{item.fechaS|date:'dd/MM/yyyy'}}</span> <span class="days"
+                  style="overflow:hidden!important;text-overflow:ellipsis!important;display:inline-block!important;color: #333;font-size: 13px;">{{item.transporte.tipo}}
+                  {{item.estadia}} Noches de Alojamiento con régimen All Inclusive &amp; Traslados.</span>
+                <!---->
+                <!---->
+                <div class="amenities"
+                  style="display:flex;flex-direction:row;justify-content:flex-start;align-items:center">
+                  <div class="amenity"><i class="icon-airplane"></i>
+                    Transporte
+                  </div>
+                  <div class="amenity"><i class="icon-hotel-reception-bell"></i>
+                    Hotel
+                  </div>
+                  <div class="amenity"><i class="icon-bus"></i>
+                    Traslados
+                  </div>   
+                </div>
+              </div>
+              <div
+                style="display:flex;flex-direction:column;justify-content:space-between;width:220px;position:relative">
+                <!---->
+                <!---->
+                <div
+                  style="display:flex;flex-direction:column;align-items:center;justify-content:center;align-self:stretch;height:109px">
+                  <div class="price">$ <span>{{item.precio}}</span></div> <span class="price-legend">
+                    Precio por persona
+                  </span> <span class="departure-date">
+                    Saliendo en {{item.fechaS |date:'dd/MM/yyyy'}}
+                  </span>
+                </div>
+                <div class="hbox clickPackageButton"> 
+                  <button class="btn btn-outline-primary mr-2" type="button" (click)="eliminarPaquete(item)"><i
+                    class="fas fa-trash"></i></button>
+                  <button class="btn btn-outline-primary mr-2" type="button" (click)="elegirPaquete(item);modal.open(modiPaquete,{size:'xl',scrollable:true})"><i
+                    class="fas fa-edit"></i></button>
+                </div>
+                
+                <!---->
               </div>
             </div>
           </div>
@@ -178,21 +204,16 @@
             (click)="modal.open(crearTransporte,{size:'xl',scrollable:true})">Agregar Transporte</button>
         </div>
         <br>
-        <div class="col-12 ">
           <div class="row">
             <div class="col-md-12 col-lg-12">
-              <div class="card" *ngFor="let tran of listaTransporte">
-                <div class="card-header titulocard ">
-                  <h2 class="card-title ">{{tran.nombre}}</h2>
-                </div>
-                <div class="card-body">
+                <div class="card mb-3" *ngFor="let tran of listaTransporte">
                   <div class="row no-gutters">
                     <div class="col-md-4">
-                      <img src="{{tran.imagen}}" class="card-img" alt="...">
+                      <img src="{{tran.imagen}}" class="card-img" alt="..." >
                     </div>
 
                     <div class="card-body col-md-8">
-
+                      <h2 class="card-title ">{{tran.nombre}}</h2>
                       <h4>Tipo:{{tran.tipo}}</h4>
 
                       <h4>Descripcion: {{tran.descripcion}}</h4>
@@ -200,18 +221,16 @@
 
                     </div>
                   </div>
+                  <div class="card-footer">
+                    <button type="button" class="btn btn-outline-primary"
+                      (click)="seleccionarTransporte(tran);modal.open(modiTransporte,{size:'xl',scrollable:true})">Modificar</button>
+                    <button type="button" class="btn btn-outline-danger"
+                      (click)="eliminarTransporte(tran)">Eliminar</button>
+                  </div>
                 </div>
-                <div class="card-footer">
-                  <button type="button" class="btn btn-outline-primary"
-                    (click)="seleccionarTransporte(tran);modal.open(modiTransporte,{size:'xl',scrollable:true})">Modificar</button>
-                  <button type="button" class="btn btn-outline-danger"
-                    (click)="eliminarTransporte(tran)">Eliminar</button>
-                </div>
-              </div>
 
             </div>
           </div>
-        </div>
       </div>
 
       <!-- Tabla Promociones -->
@@ -221,58 +240,21 @@
             (click)="modal.open(crearPromocion,{scrollable:true})"> Crear Promocion</button>
         </div>
         <br>
-        <div class="col-12 ">
-          <div class="row">
-            <div class="col-md-12 col-lg-12">
-              <div class="card" *ngFor="let item of listapromocion">
-                <div class="card-header titulocard ">
-                  <h2 class="card-title ">{{item.paqueteTuristico.destino}}</h2>
-                </div>
-                <div class="card-body">
-                  <div class="row no-gutters">
-                    <div class="col-md-4">
-                      <img src="{{item.paqueteTuristico.imagen}}" class="card-img" alt="...">
-                    </div>
-
-                    <div class="card-body col-md-8">
-
-                      <h4>Descuento:{{item.descuento}}</h4>
-                      <h4>Dias de Regalo: {{item.diasDeRegalo}}</h4>
-                      <h4>Puntos de Regalo: {{item.puntosDeRegalo}}</h4>
-
-
-                    </div>
-
-                  </div>
-
-                </div>
-                <div class="card-footer">
-                  <button type="button" class="btn btn-outline-primary"
-                    (click)="selecionarPromociones(item);modal.open(modificarPromocion,{scrollable:true})">Modificar</button>
-                  <button type="button" class="btn btn-outline-danger"
-                    (click)="eliminarPromociones(item)">Eliminar</button>
-                </div>
-              </div>
-
-            </div>
-          </div>
-        </div>
-
-        <div class="package" style="display:flex;flex-direction:column;height:165px" data-v-fe7c1e14="">
-          <div style="display:flex;flex-direction:row;flex:1">
+        <div class="package col-11" style="display:flex;flex-direction:column;height:165px;font-family: Roboto, sans-serif;" data-v-fe7c1e14="" *ngFor="let item of listapromocion" style="line-height: 20px;
+        color: #6a7884;">
+          <div style="display:flex;flex-direction:row;flex:1" >
             <div
               style="display:flex;flex-direction:row;align-self:stretch;overflow:hidden;width:210px;position:relative;text-align:center;border-radius:5px 0 0 5px;height:165px">
               <div style="cursor:pointer"><img
                   style="position:absolute;top:-9999px;bottom:-9999px;left:-9999px;right:-9999px;margin:auto;height:165px"
-                  data-src="https://assets.turismocity.com/paquetes/878bbab1757f32f0b9e915a841a26fc6"
-                  src="https://assets.turismocity.com/paquetes/878bbab1757f32f0b9e915a841a26fc6" lazy="loaded">
+                  src="{{item.paqueteTuristico.imagen}}" lazy="loaded">
                 <!---->
                 <div
                   style="position:absolute;width:100%;background:linear-gradient(to bottom,rgba(0,0,0,0),#000);height:40%;opacity:.6;bottom:0">
                 </div>
                 <div
                   style="bottom:0;left:0;position:absolute;width:100%;color:#fff;font-weight:700;text-transform:uppercase;text-align:left;margin:0 0 6px 10px;text-shadow:.5px .5px rgba(0,0,0,.7)">
-                  Caribe
+                  PROMOCION
                 </div>
               </div>
             </div>
@@ -281,30 +263,24 @@
               <div
                 style="display:flex;flex-direction:column;justify-content:space-between;width:100%;margin-right:15px">
                 <!---->
-                <div class="title" style="cursor:pointer">Punta Cana All Inclusive</div> <span class="subtitle"
+                <div class="title" style="cursor:pointer">{{item.paqueteTuristico.destino}}</div> <span class="subtitle"
                   style="overflow:hidden!important;text-overflow:ellipsis!important;display:inline-block!important">Salidas:
-                  Octubre 2020, Noviembre 2020</span> <span class="days"
-                  style="overflow:hidden!important;text-overflow:ellipsis!important;display:inline-block!important">Aéreos,
-                  7 Noches de Alojamiento con régimen All Inclusive &amp; Traslados.</span>
+                  {{item.paqueteTuristico.fechaS|date:'dd/MM/yyyy'}}</span> <span class="days"
+                  style="overflow:hidden!important;text-overflow:ellipsis!important;display:inline-block!important;color: #333;font-size: 13px;">{{item.paqueteTuristico.transporte.tipo}}
+                  {{item.paqueteTuristico.estadia}} Noches de Alojamiento con régimen All Inclusive &amp; Traslados.</span>
                 <!---->
                 <!---->
                 <div class="amenities"
                   style="display:flex;flex-direction:row;justify-content:flex-start;align-items:center">
                   <div class="amenity"><i class="icon-airplane"></i>
-                    Vuelo
+                    Transporte
                   </div>
                   <div class="amenity"><i class="icon-hotel-reception-bell"></i>
                     Hotel
                   </div>
-                  <div class="amenity" style="display:none"><i class="icon-car-front"></i>
-                    Auto
-                  </div>
                   <div class="amenity"><i class="icon-bus"></i>
                     Traslados
-                  </div>
-                  <div class="amenity" style="display:none"><i class="icon-cruise"></i>
-                    Crucero
-                  </div>
+                  </div>   
                 </div>
               </div>
               <div
@@ -313,26 +289,26 @@
                 <!---->
                 <div
                   style="display:flex;flex-direction:column;align-items:center;justify-content:center;align-self:stretch;height:109px">
-                  <span class="provider">
-                    Avantrip
-                  </span>
-                  <div class="price">$ <span>60.180</span></div> <span class="price-legend">
+                  <div class="price">$ <span>{{item.paqueteTuristico.precio}}</span></div> <span class="price-legend">
                     Precio por persona
                   </span> <span class="departure-date">
-                    Saliendo en Octubre 2020
+                    Saliendo en {{item.paqueteTuristico.fechaS |date:'dd/MM/yyyy'}}
                   </span>
                 </div>
-                <div class="hbox clickPackageButton"><a class="arrow"><i class="icon icon-down-dir"></i></a> <a
-                    class="button">
-                    Ver más
-                  </a></div>
+                <div class="hbox clickPackageButton"> 
+                  <button class="btn btn-outline-primary mr-2" type="button" (click)="eliminarPromociones(item)"><i
+                    class="fas fa-trash"></i></button>
+                  <button class="btn btn-outline-primary mr-2" type="button" (click)="selecionarPromociones(item);modal.open(modificarPromocion,{size:'xl',scrollable:true})"><i
+                    class="fas fa-edit"></i></button>
+                </div>
+                
                 <!---->
               </div>
             </div>
           </div>
         </div>
-        <br>
       </div>
+
       <!--Tabla reservas-->
       <!-- <div class="tab-pane fade" id="v-pills-reservas" role="tabpanel" aria-labelledby="v-pills-reservas-tab">
         <div>
@@ -1020,13 +996,8 @@
       </div>
       <div class="form-group">
         <label for="inputNeim1">Nombre de usuario</label>
-<<<<<<< HEAD
         <input type="text" class="form-control" id="formUsuModel1" placeholder="ingrese el nombre de usuario"
           name="usuNeim" [(ngModel)]="usuarionuevo.nombreusuario" #usuNeim="ngModel" required>
-=======
-        <input type="text" class="form-control" id="formUsuNeimModel1" placeholder="ingrese el nombre de usuario" name="usuNeim"
-          [(ngModel)]="usuarionuevo.nombreusuario" #usuNeim="ngModel" required>
->>>>>>> 5dc6e117dab20dc328560031abfd2ac72d78af94
       </div>
       <div *ngIf="usuNeim.invalid && (usuNeim.dirty || usuNeim.touched)" class="alert alert-danger">
         <div *ngIf="usuNeim.errors.required">
@@ -1038,14 +1009,9 @@
       </div>
       <div class="form-group">
         <label for="inputDni1">DNI</label>
-<<<<<<< HEAD
         <input type="text" class="form-control" id="formUsuModel1" placeholder="Ingrese su DNI" name="usuDni"
           [(ngModel)]="usuarionuevo.dni" #usuDni="ngModel" minlength="7" maxlength="8" required
           onkeypress='return event.charCode >= 48 && event.charCode <= 57'>
-=======
-        <input type="text" class="form-control" id="formUsuDniModel1" placeholder="Ingrese su DNI" name="usuDni"
-          [(ngModel)]="usuarionuevo.dni" #usuDni="ngModel" minlength="7" maxlength="8" required onkeypress='return event.charCode >= 48 && event.charCode <= 57'>
->>>>>>> 5dc6e117dab20dc328560031abfd2ac72d78af94
       </div>
       <div *ngIf="usuDni.invalid && (usuDni.dirty || usuDni.touched)" class="alert alert-danger">
         <div *ngIf="usuDni.errors.required">
@@ -1060,14 +1026,9 @@
       </div>
       <div class="form-group">
         <label for="inputEmail1">Email</label>
-<<<<<<< HEAD
         <input type="email" class="form-control" id="formUsuModel1" placeholder="example@gmail.com" name="usuEmail"
           [(ngModel)]="usuarionuevo.email" #usuEmail="ngModel" required
           pattern="[a-zA-Z0-9_]+([.][a-zA-Z0-9_]+)*@[a-zA-Z0-9_]+([.][a-zA-Z0-9_]+)*[.][a-zA-Z]{1,5}">
-=======
-        <input type="email" class="form-control" id="formUsuEmailModel1" placeholder="example@gmail.com" name="usuEmail"
-          [(ngModel)]="usuarionuevo.email" #usuEmail="ngModel" required pattern="[a-zA-Z0-9_]+([.][a-zA-Z0-9_]+)*@[a-zA-Z0-9_]+([.][a-zA-Z0-9_]+)*[.][a-zA-Z]{1,5}">
->>>>>>> 5dc6e117dab20dc328560031abfd2ac72d78af94
       </div>
       <div *ngIf="usuEmail.invalid && (usuEmail.dirty || usuEmail.touched)" class="alert alert-danger">
         <div *ngIf="usuEmail.errors.required">
@@ -1082,14 +1043,9 @@
       </div>
       <div class="form-group">
         <label for="inputTelefono1">Telefono</label>
-<<<<<<< HEAD
         <input type="text" class="form-control" id="formUsuModel1" placeholder="Ingrese numero telefonico"
           name="usuTelefono" [(ngModel)]="usuarionuevo.telefono" #usuTelefono="ngModel" minlength="7" maxlength="8"
           required onkeypress='return event.charCode >= 48 && event.charCode <= 57'>
-=======
-        <input type="text" class="form-control" id="formUsuTelModel1" placeholder="Ingrese numero telefonico" name="usuTelefono"
-          [(ngModel)]="usuarionuevo.telefono" #usuTelefono="ngModel" minlength="7" maxlength="8" required onkeypress='return event.charCode >= 48 && event.charCode <= 57'>
->>>>>>> 5dc6e117dab20dc328560031abfd2ac72d78af94
       </div>
       <div *ngIf="usuTelefono.invalid && (usuTelefono.dirty || usuTelefono.touched)" class="alert alert-danger">
         <div *ngIf="usuTelefono.errors.required">
